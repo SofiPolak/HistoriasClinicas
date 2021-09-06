@@ -7,7 +7,9 @@ namespace tp_nt1.Models
         {
         }
 
-        public Medico(string nombre, string apellido, int dni, int telefono, Direccion dir, DateTime fecha, string email, int matricula, Especialidad esp)
+        public Medico(string nombre, string apellido, int dni, int telefono,
+            Direccion dir, DateTime fecha, string email, int matricula,
+            Especialidad esp)
         {
             Id = Guid.NewGuid();
             Nombre = nombre;

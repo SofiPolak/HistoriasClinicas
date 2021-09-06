@@ -3,6 +3,6 @@ namespace tp_nt1.Models
 {
     public enum ObraSocial
     {
-        OSDE, GALENO
+        OSDE, GALENO, OSECAC, MEDICUS, SWISS_MEDICAL, OMINT, DASUTEN
     }
 }

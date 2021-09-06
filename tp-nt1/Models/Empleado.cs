@@ -7,7 +7,8 @@ namespace tp_nt1.Models
         {
         }
 
-        public Empleado(string nombre, string apellido, int dni, int telefono, Direccion dir, DateTime fecha, string email, string leg)
+        public Empleado(string nombre, string apellido, int dni, int telefono,
+            Direccion dir, DateTime fecha, string email, string leg)
         {
             Id = Guid.NewGuid();
             Nombre = nombre;

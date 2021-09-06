@@ -9,7 +9,8 @@ namespace tp_nt1.Models
         {
         }
 
-        public Episodio(string motivo, string desc, DateTime inicio, DateTime alta, DateTime cierre, bool estado, Epicrisis epi, Empleado emp)
+        public Episodio(string motivo, string desc, DateTime inicio,
+            DateTime alta, DateTime cierre, bool estado, Epicrisis epi, Empleado emp)
         {
             Id = Guid.NewGuid();
             Motivo = motivo;

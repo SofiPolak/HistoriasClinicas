@@ -7,7 +7,8 @@ namespace tp_nt1.Models
         {
         }
 
-        public Epicrisis(Episodio epi, Medico med, DateTime fechayhora, Diagnostico diag)
+        public Epicrisis(Episodio epi, Medico med, DateTime fechayhora,
+            Diagnostico diag)
         {
             Id = Guid.NewGuid();
             Episodio = epi;

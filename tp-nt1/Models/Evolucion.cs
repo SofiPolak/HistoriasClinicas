@@ -9,7 +9,8 @@ namespace tp_nt1.Models
         {
         }
 
-        public Evolucion(Medico medico, DateTime inicio, DateTime alta, DateTime cierre, string desc, bool estado)
+        public Evolucion(Medico medico, DateTime inicio, DateTime alta,
+            DateTime cierre, string desc, bool estado)
         {
             Id = Guid.NewGuid();
             Medico = medico;
