@@ -5,10 +5,6 @@ namespace tp_nt1.Models
 {
     public class HistoriaClinica
     {
-        public HistoriaClinica()
-        {
-        }
-
         public HistoriaClinica(Paciente pac)
         {
             Paciente = pac;
