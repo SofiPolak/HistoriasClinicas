@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace tp_nt1.Models
 {
     public abstract class Usuario
-    {   
+    {
+
+        [Key]
         public Guid Id { get; set; }
         public string NombreUsuario { get; set; }
         public string Nombre { get; set; }
@@ -12,6 +17,7 @@ namespace tp_nt1.Models
         public string Password { get; set; }
         public string DNI { get; set; }
         public string Telefono { get; set; }
+        public Direccion Direccion { get; set; } // es la relacion con direccion 
 
     }
 }
