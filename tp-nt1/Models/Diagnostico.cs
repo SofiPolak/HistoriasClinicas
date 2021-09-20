@@ -8,7 +8,12 @@ namespace tp_nt1.Models
     {
         [Key]
         public Guid Id { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [MaxLength(250, ErrorMessage = "{0} admite un máximo de {1} caracteres")]
         public string Descripcion { get; set; }
+ 
+        [MaxLength(250, ErrorMessage = "{0} admite un máximo de {1} caracteres")]
         public string Recomendacion { get; set; }
 
         [ForeignKey(nameof(Epicrisis))]

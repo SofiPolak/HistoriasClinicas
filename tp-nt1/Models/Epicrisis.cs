@@ -10,8 +10,13 @@ namespace tp_nt1.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public Medico Medico { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        public Profesional Profesional { get; set; }
+            
         public DateTime FechaYHora { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
         public Diagnostico Diagnostico { get; set; }
 
         [ForeignKey(nameof(Episodio))]
