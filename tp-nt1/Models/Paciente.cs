@@ -7,5 +7,4 @@ namespace tp_nt1.Models
         public HistoriaClinica HistoriaClinica { get; set; }
 
     }
-
 }

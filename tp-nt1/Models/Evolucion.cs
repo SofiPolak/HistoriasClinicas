@@ -15,15 +15,17 @@ namespace tp_nt1.Models
         public DateTime FechaYHoraInicio { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
+
         public DateTime FechaYHoraAlta { get; set; }
+
         public DateTime FechaYHoraCierre { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [MaxLength(250, ErrorMessage = "{0} admite un máximo de {1} caracteres")]
-        public string DescripcionAtencion { get; set; }
-        public bool EstadoAbierto { get; set; }
-        public List<Nota> Notas { get; set; }
 
+        public string DescripcionAtencion { get; set; }
+
+        public bool EstadoAbierto { get; set; }
 
         [ForeignKey(nameof(Nota))]
         public Guid NotaoId { get; set; }

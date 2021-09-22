@@ -6,7 +6,6 @@ namespace tp_nt1.Models
 {
     public abstract class Usuario
     {
-
         [Key]
         public Guid Id { get; set; }
 

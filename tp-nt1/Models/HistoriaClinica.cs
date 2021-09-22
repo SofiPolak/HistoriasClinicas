@@ -8,7 +8,7 @@ namespace tp_nt1.Models
     public class HistoriaClinica
     {
         [Key]
-        Guid Id { get; set; }
+        public Guid Id { get; set; }
         public List<Episodio> Episodios { get; set; }
 
         [ForeignKey(nameof(Paciente))]

@@ -22,6 +22,5 @@ namespace tp_nt1.Models
         public string Mensaje { get; set; }
         public DateTime FechaYHora { get; set; }
        
-
     }
 }

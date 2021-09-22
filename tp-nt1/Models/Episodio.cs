@@ -16,6 +16,7 @@ namespace tp_nt1.Models
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [MaxLength(250, ErrorMessage = "{0} admite un máximo de {1} caracteres")]
+
         public string Descripcion { get; set; }
 
         public DateTime FechaYHoraInicio { get; set; }
@@ -25,10 +26,11 @@ namespace tp_nt1.Models
         public DateTime FechaYHoraCierre { get; set; }
       
         public bool EstadoAbierto { get; set; }
+
         public List<Evolucion> RegistroEvoluciones { get; set; }
+
         public Epicrisis Epicrisis { get; set; }
        
-
         [ForeignKey(nameof(Empleado))]
         public Guid EmpleadoId { get; set; }
         public Empleado EmpleadoRegistra { get; set; }
