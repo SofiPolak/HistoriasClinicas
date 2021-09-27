@@ -10,12 +10,10 @@ namespace tp_nt1.Models
         [Key]
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         public Profesional Profesional { get; set; }
         public DateTime FechaYHoraInicio { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
-
         public DateTime FechaYHoraAlta { get; set; }
 
         public DateTime FechaYHoraCierre { get; set; }
