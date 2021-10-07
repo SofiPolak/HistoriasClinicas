@@ -10,8 +10,6 @@ namespace tp_nt1.Models
     {
         [Key]
         public Guid Id { get; set; }
-
-        public Profesional Profesional { get; set; }
             
         public DateTime FechaYHora { get; set; }
 
@@ -20,5 +18,9 @@ namespace tp_nt1.Models
         [ForeignKey(nameof(Episodio))]
         public Guid EpisodioId { get; set; }
         public Usuario Episodio { get; set; }
+
+        [ForeignKey(nameof(Profesional))]
+        public Guid ProfesionalId { get; set; }
+        public Profesional Profesional{ get; set; }
     }
 }

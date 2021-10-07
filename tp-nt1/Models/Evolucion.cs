@@ -10,7 +10,7 @@ namespace tp_nt1.Models
         [Key]
         public Guid Id { get; set; }
 
-        public Profesional Profesional { get; set; }
+       
         public DateTime FechaYHoraInicio { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
@@ -32,6 +32,10 @@ namespace tp_nt1.Models
         [ForeignKey(nameof(Episodio))]
         public Guid EpisodioId { get; set; }
         public Episodio Episodio { get; set; }
+
+        [ForeignKey(nameof(Profesional))]
+        public Guid ProfesionalId { get; set; }
+        public Profesional Profesional { get; set; }
 
     }
 }
