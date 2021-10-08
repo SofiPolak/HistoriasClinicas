@@ -20,7 +20,6 @@ namespace tp_nt1.Models
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [MaxLength(250, ErrorMessage = "{0} admite un máximo de {1} caracteres")]
-
         public string DescripcionAtencion { get; set; }
 
         public bool EstadoAbierto { get; set; }

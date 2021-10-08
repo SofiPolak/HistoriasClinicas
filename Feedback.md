@@ -2,6 +2,7 @@
 
 # Table of Contents
 1. [Entrega 1](#entrega-1)
+2. [Entrega 2](#entrega-2)
 
 ## entrega-1
 
@@ -35,4 +36,13 @@ Los constructores fueron removidos ya que como dijimos en clase no tienen razón
 ### Clase HistoriaClinica
 
 - Se agregó la property `Id` que faltaba.
+
+
+## entrega-2
+
+- Borré la clase `Class` que supongo que quedó por error. Cuidado con clases que no se usen chicos.
+- Todas las propiedades de tipo `string` deberían contar con una validación de tipo `MaxLength`.
+- Las propiedades de tipo "referencia" no deberían tener validaciones en el modelo, por ejemplo en la clase `Profesional`, la propiedad `Especialidad` tenía un `Required` y no debe estar.
+- Una `Nota` puede ser creada por un `Profesional` o un `Empleado`, por eso decimos que la FK a Empleado y a Profesional tiene que ser nuleable `Guid?` en lugar de `Guid`. 
+- Moví los dos enums que tienen a una carpeta Enums dentro de Models para que quede separado de los modelos que crearon.
 

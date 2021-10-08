@@ -7,7 +7,6 @@ namespace tp_nt1.Models
 {
     public class Nota
     {
-
         [Key]
         public Guid Id { get; set; }
     
@@ -16,15 +15,15 @@ namespace tp_nt1.Models
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [MaxLength(250, ErrorMessage = "{0} admite un máximo de {1} caracteres")]
         public string Mensaje { get; set; }
+
         public DateTime FechaYHora { get; set; }
 
         [ForeignKey(nameof(Empleado))]
-        public Guid EmpleadoId { get; set; }
+        public Guid? EmpleadoId { get; set; }
         public Empleado Empleado { get; set; }
 
         [ForeignKey(nameof(Profesional))]
-        public Guid ProfesionalId { get; set; }
+        public Guid? ProfesionalId { get; set; }
         public Profesional Profesional { get; set; }
-
     }
 }

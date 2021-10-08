@@ -1,5 +1,5 @@
 ﻿using System;
-namespace tp_nt1.Models
+namespace tp_nt1.Models.Enums
 {
     public enum Especialidad
     {

@@ -48,6 +48,7 @@ namespace tp_nt1.Models
         public string Telefono { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
+        [MaxLength(100, ErrorMessage = "El campo {0} admite un máximo de {1} caracteres")]
         [RegularExpression(@"[a-zA-Z0-9]*", ErrorMessage = "El campo {0} sólo admite caracteres alfanuméricos")]
         public string Direccion { get; set; } 
 
