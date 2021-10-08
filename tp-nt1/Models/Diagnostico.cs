@@ -19,6 +19,5 @@ namespace tp_nt1.Models
         [ForeignKey(nameof(Epicrisis))]
         public Guid EpicrisisId { get; set; }
         public Epicrisis Epicrisis { get; set; }
-
     }
 }

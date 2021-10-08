@@ -9,11 +9,11 @@ namespace tp_nt1.Models
     {
         [Key]
         public Guid Id { get; set; }
+        
         public List<Episodio> Episodios { get; set; }
 
         [ForeignKey(nameof(Paciente))]
         public Guid PacienteId { get; set; }
         public Paciente Paciente { get; set; }
-
     }
 }
