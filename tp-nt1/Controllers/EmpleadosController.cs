@@ -59,6 +59,7 @@ namespace tp_nt1a_4.Controllers
             if (ModelState.IsValid)
             {
                 empleado.Id = Guid.NewGuid();
+                empleado.FechaAlta = DateTime.Now;
                 _context.Add(empleado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

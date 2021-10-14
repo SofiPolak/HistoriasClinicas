@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using tp_nt1.Models.Enums;
 
 namespace tp_nt1.Models
 {
@@ -13,12 +12,14 @@ namespace tp_nt1.Models
         [RegularExpression(@"[a-zA-Z0-9]*", ErrorMessage = "El campo {0} sólo admite caracteres alfanuméricos")]
         public string Matricula { get; set; }
 
-        public Especialidad Especialidad { get; set; }
-
         public List<Epicrisis> Epicrisis{ get; set; }
 
         public List<Evolucion> Evoluciones { get; set; }
 
-        public List<Nota> Notas { get; set; }        
+        public List<Nota> Notas { get; set; }
+
+        [ForeignKey(nameof(Especialidad))]
+        public Guid EspecialidadId { get; set; }
+        public Especialidad Especialidad { get; set; }
     }
 }

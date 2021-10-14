@@ -59,11 +59,12 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Motivo,Descripcion,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,EstadoAbierto,EmpleadoId,HistoriaId")] Episodio episodio)
+        public async Task<IActionResult> Create(Episodio episodio)
         {
             if (ModelState.IsValid)
             {
                 episodio.Id = Guid.NewGuid();
+                episodio.FechaYHoraInicio = DateTime.Now;
                 _context.Add(episodio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -80,6 +81,7 @@ namespace tp_nt1a_4.Controllers
             {
                 return NotFound();
             }
+
 
             var episodio = await _context.Episodios.FindAsync(id);
             if (episodio == null)
@@ -162,6 +164,21 @@ namespace tp_nt1a_4.Controllers
         private bool EpisodioExists(Guid id)
         {
             return _context.Episodios.Any(e => e.Id == id);
+        }
+
+        [HttpPost]
+        public IActionResult CerrarEpisodio(Guid episodioId)
+        {
+            var episodio = _context.Episodios.Find(episodioId);
+
+            if (episodio.EstadoAbierto)
+            {
+                episodio.EstadoAbierto = false;
+                episodio.FechaYHoraCierre = DateTime.Now;
+            }
+            _context.SaveChanges();
+
+            return View("Details", episodio);
         }
     }
 }

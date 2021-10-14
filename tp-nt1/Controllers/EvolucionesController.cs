@@ -66,6 +66,7 @@ namespace tp_nt1a_4.Controllers
             if (ModelState.IsValid)
             {
                 evolucion.Id = Guid.NewGuid();
+                evolucion.FechaYHoraInicio = DateTime.Now;
                 _context.Add(evolucion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

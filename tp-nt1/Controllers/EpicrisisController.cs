@@ -49,7 +49,7 @@ namespace tp_nt1a_4.Controllers
         // GET: Epicrisis/Create
         public IActionResult Create()
         {
-            ViewData["EpisodioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Apellido");
+            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
             return View();
         }
@@ -68,7 +68,7 @@ namespace tp_nt1a_4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EpisodioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Apellido", epicrisis.EpisodioId);
+            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", epicrisis.EpisodioId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", epicrisis.ProfesionalId);
             return View(epicrisis);
         }
@@ -86,7 +86,7 @@ namespace tp_nt1a_4.Controllers
             {
                 return NotFound();
             }
-            ViewData["EpisodioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Apellido", epicrisis.EpisodioId);
+            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", epicrisis.EpisodioId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", epicrisis.ProfesionalId);
             return View(epicrisis);
         }
@@ -123,7 +123,7 @@ namespace tp_nt1a_4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EpisodioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Apellido", epicrisis.EpisodioId);
+            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", epicrisis.EpisodioId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", epicrisis.ProfesionalId);
             return View(epicrisis);
         }

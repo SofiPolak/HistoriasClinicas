@@ -157,5 +157,7 @@ namespace tp_nt1a_4.Controllers
         {
             return _context.HistoriasClinicas.Any(e => e.Id == id);
         }
+
+      
     }
 }

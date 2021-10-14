@@ -1,17 +1,10 @@
 @model tp_nt1.Models.Profesional
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Create";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
+<h1>Create</h1>
 
 <h4>Profesional</h4>
 <hr />
@@ -25,9 +18,8 @@
                 <span asp-validation-for="Matricula" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Especialidad" class="control-label"></label>
-                <select asp-for="Especialidad" class="form-control"></select>
-                <span asp-validation-for="Especialidad" class="text-danger"></span>
+                <label asp-for="EspecialidadId" class="control-label"></label>
+                <select asp-for="EspecialidadId" class ="form-control" asp-items="ViewBag.EspecialidadId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="NombreUsuario" class="control-label"></label>
@@ -83,5 +75,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-</body>
-</html>

@@ -1,17 +1,10 @@
 @model tp_nt1.Models.Diagnostico
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Create";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
+<h1>Create</h1>
 
 <h4>Diagnostico</h4>
 <hr />
@@ -30,7 +23,7 @@
                 <span asp-validation-for="Recomendacion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EpicrisisId" class="control-label"></label>
+                <label asp-for="Epicrisis" class="control-label"></label>
                 <select asp-for="EpicrisisId" class ="form-control" asp-items="ViewBag.EpicrisisId"></select>
             </div>
             <div class="form-group">
@@ -47,5 +40,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-</body>
-</html>

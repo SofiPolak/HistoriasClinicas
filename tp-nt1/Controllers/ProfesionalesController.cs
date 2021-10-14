@@ -22,7 +22,8 @@ namespace tp_nt1a_4.Controllers
         // GET: Profesionales
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Profesionales.ToListAsync());
+            var historiaClinicaDbContext = _context.Profesionales.Include(p => p.Especialidad);
+            return View(await historiaClinicaDbContext.ToListAsync());
         }
 
         // GET: Profesionales/Details/5
@@ -34,6 +35,7 @@ namespace tp_nt1a_4.Controllers
             }
 
             var profesional = await _context.Profesionales
+                .Include(p => p.Especialidad)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (profesional == null)
             {
@@ -46,6 +48,7 @@ namespace tp_nt1a_4.Controllers
         // GET: Profesionales/Create
         public IActionResult Create()
         {
+            ViewData["EspecialidadId"] = new SelectList(_context.Especialidades, "Id", "Nombre");
             return View();
         }
 
@@ -54,15 +57,17 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Matricula,Especialidad,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Profesional profesional)
+        public async Task<IActionResult> Create([Bind("Matricula,EspecialidadId,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Profesional profesional)
         {
             if (ModelState.IsValid)
             {
                 profesional.Id = Guid.NewGuid();
+                profesional.FechaAlta = DateTime.Now;
                 _context.Add(profesional);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EspecialidadId"] = new SelectList(_context.Especialidades, "Id", "Nombre", profesional.EspecialidadId);
             return View(profesional);
         }
 
@@ -79,6 +84,7 @@ namespace tp_nt1a_4.Controllers
             {
                 return NotFound();
             }
+            ViewData["EspecialidadId"] = new SelectList(_context.Especialidades, "Id", "Nombre", profesional.EspecialidadId);
             return View(profesional);
         }
 
@@ -87,7 +93,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Matricula,Especialidad,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Profesional profesional)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Matricula,EspecialidadId,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Profesional profesional)
         {
             if (id != profesional.Id)
             {
@@ -114,6 +120,7 @@ namespace tp_nt1a_4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EspecialidadId"] = new SelectList(_context.Especialidades, "Id", "Nombre", profesional.EspecialidadId);
             return View(profesional);
         }
 
@@ -126,6 +133,7 @@ namespace tp_nt1a_4.Controllers
             }
 
             var profesional = await _context.Profesionales
+                .Include(p => p.Especialidad)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (profesional == null)
             {

@@ -22,7 +22,8 @@ namespace tp_nt1a_4.Controllers
         // GET: Pacientes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pacientes.ToListAsync());
+            var historiaClinicaDbContext = _context.Pacientes.Include(p => p.ObraSocial);
+            return View(await historiaClinicaDbContext.ToListAsync());
         }
 
         // GET: Pacientes/Details/5
@@ -34,6 +35,7 @@ namespace tp_nt1a_4.Controllers
             }
 
             var paciente = await _context.Pacientes
+                .Include(p => p.ObraSocial)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (paciente == null)
             {
@@ -46,6 +48,7 @@ namespace tp_nt1a_4.Controllers
         // GET: Pacientes/Create
         public IActionResult Create()
         {
+            ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre");
             return View();
         }
 
@@ -54,15 +57,17 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ObraSocial,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Paciente paciente)
+        public async Task<IActionResult> Create([Bind("ObraSocialId,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Paciente paciente)
         {
             if (ModelState.IsValid)
             {
                 paciente.Id = Guid.NewGuid();
+                paciente.FechaAlta = DateTime.Now;
                 _context.Add(paciente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
             return View(paciente);
         }
 
@@ -79,6 +84,7 @@ namespace tp_nt1a_4.Controllers
             {
                 return NotFound();
             }
+            ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
             return View(paciente);
         }
 
@@ -87,7 +93,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ObraSocial,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Paciente paciente)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ObraSocialId,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Paciente paciente)
         {
             if (id != paciente.Id)
             {
@@ -114,6 +120,7 @@ namespace tp_nt1a_4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
             return View(paciente);
         }
 
@@ -126,6 +133,7 @@ namespace tp_nt1a_4.Controllers
             }
 
             var paciente = await _context.Pacientes
+                .Include(p => p.ObraSocial)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (paciente == null)
             {

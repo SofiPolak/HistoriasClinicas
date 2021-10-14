@@ -1,17 +1,11 @@
 @model IEnumerable<tp_nt1.Models.Profesional>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
 }
 
-<!DOCTYPE html>
+<h1>Index</h1>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -58,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.Matricula)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Especialidad)
+                @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NombreUsuario)
@@ -93,5 +87,3 @@
 }
     </tbody>
 </table>
-</body>
-</html>

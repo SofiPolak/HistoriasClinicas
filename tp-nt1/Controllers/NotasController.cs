@@ -64,6 +64,7 @@ namespace tp_nt1a_4.Controllers
             if (ModelState.IsValid)
             {
                 nota.Id = Guid.NewGuid();
+                nota.FechaYHora = DateTime.Now;
                 _context.Add(nota);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
