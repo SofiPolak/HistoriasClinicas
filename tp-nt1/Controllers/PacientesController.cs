@@ -83,6 +83,7 @@ namespace tp_nt1a_4.Controllers
             {
                 paciente.Id = Guid.NewGuid();
                 paciente.FechaAlta = DateTime.Now;
+                paciente.Password = pass.Encriptar();
                 _context.Add(paciente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

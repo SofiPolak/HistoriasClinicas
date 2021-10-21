@@ -36,7 +36,6 @@ namespace tp_nt1.Models
 
         public DateTime FechaAlta { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         [ScaffoldColumn(false)]
         public byte[] Password { get; set; }
 
