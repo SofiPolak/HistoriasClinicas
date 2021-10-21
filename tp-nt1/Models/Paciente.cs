@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using tp_nt1.Models.Enums;
 
 namespace tp_nt1.Models
 {
@@ -11,5 +12,7 @@ namespace tp_nt1.Models
         [ForeignKey(nameof(ObraSocial))]
         public Guid ObraSocialId { get; set; }
         public ObraSocial ObraSocial { get; set; }
+
+        public override Rol Rol => Rol.Paciente;
     }
 }

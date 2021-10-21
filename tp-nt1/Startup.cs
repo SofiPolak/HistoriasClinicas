@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,17 @@ namespace tp_nt1
 
         public IConfiguration Configuration { get; }
 
+        public static void ConfigCookie(CookieAuthenticationOptions options)
+        {
+            options.LoginPath = "/Accesos/Ingresar"; // ruta relativa para login.
+            options.AccessDeniedPath = "/Accesos/NoAutorizado"; // ruta relativa para accesos no autorizados por falta de permisos en el rol.
+            options.LogoutPath = "/Accesos/Salir"; // ruta relativa para logout
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(ConfigCookie);
             services.AddDbContext<HistoriaClinicaDbContext>(options => options.UseSqlite("filename = clinica.db"));
             services.AddControllersWithViews();
         }
@@ -51,6 +60,8 @@ namespace tp_nt1
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseCookiePolicy();
         }
     }
 }

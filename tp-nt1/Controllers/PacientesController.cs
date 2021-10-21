@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using tp_nt1.Database;
+using tp_nt1.Extensions;
 using tp_nt1.Models;
 
 namespace tp_nt1a_4.Controllers
@@ -20,6 +22,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Pacientes
+        [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Index()
         {
             var historiaClinicaDbContext = _context.Pacientes.Include(p => p.ObraSocial);
@@ -27,6 +30,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Pacientes/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -46,6 +50,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Pacientes/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre");
@@ -57,8 +62,23 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ObraSocialId,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Paciente paciente)
+        [AllowAnonymous]
+        public async Task<IActionResult> Create(Paciente paciente, string pass)
         {
+            try
+            {
+                pass.ValidarPassword();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(nameof(Paciente.Password), ex.Message);
+            }
+
+            if (_context.Pacientes.Any(p => p.NombreUsuario == paciente.NombreUsuario))
+            {
+                ModelState.AddModelError(nameof(Paciente.NombreUsuario), "El nombre de usuario ya se encuentra utilizado");
+            }
+
             if (ModelState.IsValid)
             {
                 paciente.Id = Guid.NewGuid();
@@ -67,11 +87,13 @@ namespace tp_nt1a_4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
             return View(paciente);
         }
 
         // GET: Pacientes/Edit/5
+        [Authorize(Roles = "Empleado,Paciente")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -93,8 +115,21 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ObraSocialId,Id,NombreUsuario,Nombre,Apellido,Email,FechaAlta,DNI,Telefono,Direccion")] Paciente paciente)
+        [Authorize(Roles = "Empleado,Paciente")]
+        public async Task<IActionResult> Edit(Guid id, Paciente paciente, string pass)
         {
+            if (!string.IsNullOrWhiteSpace(pass))
+            {
+                try
+                {
+                    pass.ValidarPassword();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(nameof(Paciente.Password), ex.Message);
+                }
+            }
+
             if (id != paciente.Id)
             {
                 return NotFound();
@@ -105,6 +140,10 @@ namespace tp_nt1a_4.Controllers
                 try
                 {
                     _context.Update(paciente);
+                    if (!string.IsNullOrWhiteSpace(pass))
+                    {
+                        paciente.Password = pass.Encriptar();
+                    }
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -125,6 +164,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Pacientes/Delete/5
+        [Authorize(Roles = "Empleado,Paciente")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -146,6 +186,7 @@ namespace tp_nt1a_4.Controllers
         // POST: Pacientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Empleado,Paciente")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var paciente = await _context.Pacientes.FindAsync(id);

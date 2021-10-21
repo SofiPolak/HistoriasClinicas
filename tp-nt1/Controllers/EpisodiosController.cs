@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using tp_nt1.Database;
 using tp_nt1.Models;
+using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
+    [Authorize]
     public class EpisodiosController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;
@@ -47,6 +50,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Episodios/Create
+        [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult Create()
         {
             ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido");
@@ -59,6 +63,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Create(Episodio episodio)
         {
             if (ModelState.IsValid)
@@ -75,6 +80,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Episodios/Edit/5
+        [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -98,6 +104,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,Motivo,Descripcion,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,EstadoAbierto,EmpleadoId,HistoriaId")] Episodio episodio)
         {
             if (id != episodio.Id)
@@ -131,6 +138,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Episodios/Delete/5
+        [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -153,6 +161,7 @@ namespace tp_nt1a_4.Controllers
         // POST: Episodios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var episodio = await _context.Episodios.FindAsync(id);
@@ -167,6 +176,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult CerrarEpisodio(Guid episodioId)
         {
             var episodio = _context.Episodios.Find(episodioId);

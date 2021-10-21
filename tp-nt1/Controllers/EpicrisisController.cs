@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using tp_nt1.Database;
 using tp_nt1.Models;
+using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
+    [Authorize]
     public class EpicrisisController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;
@@ -47,6 +50,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Epicrisis/Create
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public IActionResult Create()
         {
             ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
@@ -59,6 +63,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Create([Bind("Id,FechaYHora,EpisodioId,ProfesionalId")] Epicrisis epicrisis)
         {
             if (ModelState.IsValid)
@@ -74,6 +79,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Epicrisis/Edit/5
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -96,6 +102,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,FechaYHora,EpisodioId,ProfesionalId")] Epicrisis epicrisis)
         {
             if (id != epicrisis.Id)
@@ -129,6 +136,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Epicrisis/Delete/5
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -151,6 +159,7 @@ namespace tp_nt1a_4.Controllers
         // POST: Epicrisis/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var epicrisis = await _context.Epicrisis.FindAsync(id);
