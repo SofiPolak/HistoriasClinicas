@@ -58,7 +58,7 @@ namespace tp_nt1
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Accesos}/{action=Ingresar}/{id?}");
             });
 
             app.UseCookiePolicy();
