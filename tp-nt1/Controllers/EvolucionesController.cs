@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -70,6 +71,8 @@ namespace tp_nt1a_4.Controllers
             {
                 evolucion.Id = Guid.NewGuid();
                 evolucion.FechaYHoraInicio = DateTime.Now;
+               // var profesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                //evolucion.Profesional = profesionalId; como podemos traer el profesional se usa linkQ?
                 _context.Add(evolucion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

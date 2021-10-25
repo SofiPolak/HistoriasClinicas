@@ -29,6 +29,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Profesionales" asp-action="Index">Profesionales</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">Historias Clínicas</a>
+                            </li>
                         }
                         @if (User.IsInRole(nameof(Rol.Paciente)))
                         {

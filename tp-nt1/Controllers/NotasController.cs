@@ -69,6 +69,9 @@ namespace tp_nt1a_4.Controllers
             {
                 nota.Id = Guid.NewGuid();
                 nota.FechaYHora = DateTime.Now;
+                // var usuarioId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                //nota.Profesional = usuarioId; como podemos traer el profesional se usa linkQ?
+                //nota.Empleado = usuarioId; como podemos traer el profesional se usa linkQ? Nota tiene empleado y profesional tenemos que traer a los dos?
                 _context.Add(nota);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
