@@ -85,10 +85,10 @@
         @if (TempData["LoggedIn"] as bool? ?? false)
         {
             <script>
-                alertify.success('Bienvenido @User.Identity.Name !!!');
+                alertify.success('Bienvenido @User.FindFirstValue(ClaimTypes.GivenName)!!!');
             </script>
         }
 
         @RenderSection("Scripts", required: false)
     </body>
-    </html>
+ </html>
