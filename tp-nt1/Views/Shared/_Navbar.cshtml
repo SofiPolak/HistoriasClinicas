@@ -29,6 +29,34 @@
                             <a class="nav-link text-dark" asp-controller="Profesionales" asp-action="Index">Profesionales</a>
                         </li>
                     }
+                    @if (User.IsInRole(nameof(Rol.Paciente)))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">HistoriasClinicas</a>
+                        </li>
+
+                    }
+                    @if (User.IsInRole(nameof(Rol.Profesional)))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">HistoriasClinicas</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Notas" asp-action="Index">Notas</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Epicrisis" asp-action="Index">Epicrisis</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Evoluciones" asp-action="Index">Evoluciones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Episodios" asp-action="Index">Episodios</a>
+                        </li>
+
+                    }
                 </ul>
             </div>
             <ul class="navbar-nav">
@@ -39,6 +67,18 @@
                             @if (User.IsInRole(nameof(Rol.Empleado)))
                             {
                                 <a class="dropdown-item" asp-controller="Empleados" asp-action="EditMe">
+                                    Editar
+                                </a>
+                            }
+                            @if (User.IsInRole(nameof(Rol.Paciente)))
+                            {
+                                <a class="dropdown-item" asp-controller="Paciente" asp-action="EditMe">
+                                    Editar
+                                </a>
+                            }
+                            @if (User.IsInRole(nameof(Rol.Profesional)))
+                            {
+                                <a class="dropdown-item" asp-controller="Profesional" asp-action="EditMe">
                                     Editar
                                 </a>
                             }

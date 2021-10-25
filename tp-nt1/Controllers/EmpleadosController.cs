@@ -13,7 +13,7 @@ using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
-    [Authorize(Roles = nameof(Rol.Empleado))]
+   // [Authorize(Roles = nameof(Rol.Empleado))]
     public class EmpleadosController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;

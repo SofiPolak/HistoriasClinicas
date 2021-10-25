@@ -37,7 +37,7 @@ namespace tp_nt1a_4.Controllers
             }
 
             var historiaClinica = await _context.HistoriasClinicas
-                .Include(h => h.Paciente)
+                .Include(h => h.Paciente)              
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (historiaClinica == null)
             {
