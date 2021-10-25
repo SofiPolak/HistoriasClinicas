@@ -85,6 +85,7 @@ namespace tp_nt1a_4.Controllers
             {
                 profesional.Id = Guid.NewGuid();
                 profesional.FechaAlta = DateTime.Now;
+                profesional.Password = pass.Encriptar();
                 _context.Add(profesional);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

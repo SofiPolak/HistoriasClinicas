@@ -12,6 +12,7 @@ using tp_nt1.Models;
 
 namespace tp_nt1a_4.Controllers
 {
+    [Authorize]
     public class PacientesController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;

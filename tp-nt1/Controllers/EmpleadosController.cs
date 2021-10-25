@@ -13,7 +13,7 @@ using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
-   // [Authorize(Roles = nameof(Rol.Empleado))]
+    [Authorize(Roles = nameof(Rol.Empleado))]
     public class EmpleadosController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;
@@ -78,6 +78,7 @@ namespace tp_nt1a_4.Controllers
             {
                 empleado.Id = Guid.NewGuid();
                 empleado.FechaAlta = DateTime.Now;
+                empleado.Password = pass.Encriptar();
                 _context.Add(empleado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

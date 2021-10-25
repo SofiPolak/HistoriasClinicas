@@ -33,8 +33,8 @@ namespace tp_nt1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(ConfigCookie);
-            services.AddDbContext<HistoriaClinicaDbContext>(options => options.UseSqlite("filename = clinica.db"));
             services.AddControllersWithViews();
+            services.AddDbContext<HistoriaClinicaDbContext>(options => options.UseSqlite("filename = clinica.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,13 +52,15 @@ namespace tp_nt1
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Accesos}/{action=Ingresar}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
             app.UseCookiePolicy();
