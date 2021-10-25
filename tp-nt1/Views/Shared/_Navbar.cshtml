@@ -1,68 +1,84 @@
 ﻿<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Historias Clinicas</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/logo.jpeg" alt="" width="40" height="30">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <ul class="navbar-nav flex-grow-1">
-                    @if (User.IsInRole(nameof(Rol.Empleado)))
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Empleados" asp-action="Index">Empleados</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Especialidades" asp-action="Index">Especialidades</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">HistoriasClinicas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="ObrasSociales" asp-action="Index">ObrasSociales</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="Index">Pacientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Profesionales" asp-action="Index">Profesionales</a>
-                        </li>
+                        @if (User.IsInRole(nameof(Rol.Empleado)))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Empleados" asp-action="Index">Empleados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Especialidades" asp-action="Index">Especialidades</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="ObrasSociales" asp-action="Index">ObrasSociales</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="Index">Pacientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Profesionales" asp-action="Index">Profesionales</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(nameof(Rol.Paciente)))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">HistoriasClinicas</a>
+                            </li>
+
+                        }
+                        @if (User.IsInRole(nameof(Rol.Profesional)))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">HistoriasClinicas</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Notas" asp-action="Index">Notas</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Epicrisis" asp-action="Index">Epicrisis</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Evoluciones" asp-action="Index">Evoluciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Episodios" asp-action="Index">Episodios</a>
+                            </li>
+
+                        }
                     }
-                    @if (User.IsInRole(nameof(Rol.Paciente)))
+                    else
                     {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">HistoriasClinicas</a>
+                        <li>
+                            <a asp-controller="Pacientes" asp-action="Create" class="btn btn-outline-primary">
+                                Registrarse (Solo Pacientes)
+                            </a>
                         </li>
-
-                    }
-                    @if (User.IsInRole(nameof(Rol.Profesional)))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">HistoriasClinicas</a>
+                        <li class="ml-1">
+                            <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-success">
+                                Login
+                            </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Notas" asp-action="Index">Notas</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Epicrisis" asp-action="Index">Epicrisis</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Evoluciones" asp-action="Index">Evoluciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Episodios" asp-action="Index">Episodios</a>
-                        </li>
-
                     }
                 </ul>
             </div>
             <ul class="navbar-nav">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li class="dropdown">
+                <li class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                         <div class="dropdown-menu" aria-labelledby="menuOpciones">
                             @if (User.IsInRole(nameof(Rol.Empleado)))
                             {
@@ -88,7 +104,7 @@
                                 </button>
                             </form>
                         </div>
-                    </li>
+                </li>
 
                 }
                 else

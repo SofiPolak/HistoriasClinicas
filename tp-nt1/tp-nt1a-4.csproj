@@ -28,5 +28,9 @@
     <Folder Include="Views\Accesos\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Extensiones\" />
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Images\" />
   </ItemGroup>
 </Project>

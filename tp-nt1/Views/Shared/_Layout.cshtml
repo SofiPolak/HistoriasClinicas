@@ -9,6 +9,7 @@
 </head>
 <body>
     <header>
+        <!--
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">tp_nt1</a>
@@ -62,30 +63,32 @@
                 </div>
             </div>
         </nav>
+        -->
+        <partial name="~/Views/Shared/_Navbar.cshtml" />
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - tp_nt1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/alertifyjs/alertify.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @if (TempData["LoggedIn"] as bool? ?? false)
-    {
-        <script>
-            alertify.success('Bienvenido @User.Identity.Name !!!');
-        </script>
-    }
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2021 - tp_nt1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/alertifyjs/alertify.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @RenderSection("Scripts", required: false)
-</body>
-</html>
+        @if (TempData["LoggedIn"] as bool? ?? false)
+        {
+            <script>
+                alertify.success('Bienvenido @User.Identity.Name !!!');
+            </script>
+        }
+
+        @RenderSection("Scripts", required: false)
+    </body>
+    </html>
