@@ -173,9 +173,9 @@ namespace tp_nt1a_4.Controllers
             var pacienteId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var historiaClinica = _context.HistoriasClinicas
-                .Include(historiaClinica=> historiaClinica.Episodios)
-                .Where(historiaClinica => historiaClinica.PacienteId == pacienteId)
-                .ToList();
+                .Include(historiaClinica => historiaClinica.Episodios)
+                .FirstOrDefault(historiaClinica => historiaClinica.PacienteId == pacienteId);
+                
 
             return View(historiaClinica);
         }
@@ -197,7 +197,7 @@ namespace tp_nt1a_4.Controllers
             ViewBag.Apellido = apellido;
             ViewBag.DNI = dni;
 
-            return View(paciente);
+            return View();
         }
        
     }

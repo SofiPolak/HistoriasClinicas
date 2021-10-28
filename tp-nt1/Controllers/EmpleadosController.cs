@@ -60,6 +60,7 @@ namespace tp_nt1a_4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Empleado empleado, string pass)
         {
+
             try
             {
                 pass.ValidarPassword();

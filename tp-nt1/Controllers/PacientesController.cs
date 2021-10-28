@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,23 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Pacientes
-        [Authorize(Roles = "Empleado,Profesional")]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Index()
         {
             var historiaClinicaDbContext = _context.Pacientes.Include(p => p.ObraSocial);
             return View(await historiaClinicaDbContext.ToListAsync());
         }
+
+
+        [Authorize(Roles = "Profesional")]
+        public async Task<IActionResult> MisPacientes()
+        {
+            var profesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var historiaClinicaDbContext = _context.Pacientes.Include(p => p.ObraSocial)
+                .Where(p => p.HistoriaClinica.Episodios.Any(e => e.Epicrisis.ProfesionalId == profesionalId));
+            return View("Index",await historiaClinicaDbContext.ToListAsync());
+        }
+
 
         // GET: Pacientes/Details/5
         [Authorize]
@@ -85,9 +97,8 @@ namespace tp_nt1a_4.Controllers
                 paciente.Id = Guid.NewGuid();
                 paciente.FechaAlta = DateTime.Now;
                 paciente.Password = pass.Encriptar();
-                //var historiaClinica = new HistoriaClinica();
+                paciente.HistoriaClinica = new HistoriaClinica() { PacienteId = paciente.Id, Id = Guid.NewGuid() };
                 _context.Add(paciente);
-                //_context.Add(historiaClinica);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

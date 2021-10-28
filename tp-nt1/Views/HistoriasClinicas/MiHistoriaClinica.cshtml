@@ -1,12 +1,34 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model tp_nt1.Models.HistoriaClinica
+@{var episodios = Model.Episodios;
 }
 
-<h1>Mi Historia Clinica</h1>
 
-<h4>HistoriaClinica</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h5>Episodios</h5>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in episodios)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelE => e.Descripcion)
+                </td>
+                <td>
+
+                    <a asp-action="Details" asp-route-id="@e.Id">Ver episodio</a> |
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 
 
 

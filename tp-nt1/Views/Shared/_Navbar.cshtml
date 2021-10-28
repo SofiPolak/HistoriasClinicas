@@ -21,7 +21,7 @@
                                 <a class="nav-link text-dark" asp-controller="Especialidades" asp-action="Index">Especialidades</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="ObrasSociales" asp-action="Index">ObrasSociales</a>
+                                <a class="nav-link text-dark" asp-controller="ObrasSociales" asp-action="Index">Obras Sociales</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="Index">Pacientes</a>
@@ -30,20 +30,20 @@
                                 <a class="nav-link text-dark" asp-controller="Profesionales" asp-action="Index">Profesionales</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">Historias Clínicas</a>
+                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">Historias clínicas</a>
                             </li>
                         }
                         @if (User.IsInRole(nameof(Rol.Paciente)))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">HistoriasClinicas</a>
+                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="MiHistoriaClinica">Mi historia clinica</a>
                             </li>
 
                         }
                         @if (User.IsInRole(nameof(Rol.Profesional)))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">HistoriasClinicas</a>
+                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">Historias clinicas</a>
                             </li>
 
                             <li class="nav-item">
@@ -59,18 +59,21 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Episodios" asp-action="Index">Episodios</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="MisPacientes">Pacientes</a>
+                            </li>
 
                         }
                     }
                     else
                     {
                         <li>
-                            <a asp-controller="Pacientes" asp-action="Create" class="btn btn-outline-primary">
+                            <a asp-controller="Pacientes" asp-action="Create" class="btn btn-outline-info">
                                 Registrarse (Solo Pacientes)
                             </a>
                         </li>
                         <li class="ml-1">
-                            <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-success">
+                            <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-info">
                                 Login
                             </a>
                         </li>
@@ -81,23 +84,23 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                 <li class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opciones</button>
+                    <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mi cuenta</button>
                         <div class="dropdown-menu" aria-labelledby="menuOpciones">
                             @if (User.IsInRole(nameof(Rol.Empleado)))
                             {
-                                <a class="dropdown-item" asp-controller="Empleados" asp-action="EditMe">
+                                <a class="dropdown-item" asp-controller="Empleados" asp-action="Edit" asp-route-id=@User.FindFirstValue(ClaimTypes.NameIdentifier)>
                                     Editar
                                 </a>
                             }
                             @if (User.IsInRole(nameof(Rol.Paciente)))
                             {
-                                <a class="dropdown-item" asp-controller="Paciente" asp-action="EditMe">
+                                <a class="dropdown-item" asp-controller="Pacientes" asp-action="Edit" asp-route-id=@User.FindFirstValue(ClaimTypes.NameIdentifier)>
                                     Editar
                                 </a>
                             }
                             @if (User.IsInRole(nameof(Rol.Profesional)))
                             {
-                                <a class="dropdown-item" asp-controller="Profesional" asp-action="EditMe">
+                                <a class="dropdown-item" asp-controller="Profesionales" asp-action="Edit" asp-route-id=@User.FindFirstValue(ClaimTypes.NameIdentifier)>
                                     Editar
                                 </a>
                             }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -63,19 +64,20 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Empleado,Profesional")]
+        [Authorize(Roles = "Empleado")]
         public async Task<IActionResult> Create(Episodio episodio)
         {
             if (ModelState.IsValid)
             {
                 episodio.Id = Guid.NewGuid();
                 episodio.FechaYHoraInicio = DateTime.Now;
+                episodio.EmpleadoId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 _context.Add(episodio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", episodio.EmpleadoId);
-            ViewData["HistoriaId"] = new SelectList(_context.HistoriasClinicas, "Id", "Id", episodio.HistoriaId);
+            
+            //ViewData["PacienteId"] = new SelectList(_context.HistoriasClinicas, "Id", "Id", episodio.HistoriaId);
             return View(episodio);
         }
 
@@ -115,7 +117,7 @@ namespace tp_nt1a_4.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
+                { 
                     _context.Update(episodio);
                     await _context.SaveChangesAsync();
                 }
