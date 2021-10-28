@@ -75,6 +75,7 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Actualizar</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-controller="HistoriasClinicas" asp-action="Details" asp-route-id="@item.HistoriaClinica">Historia Clinica</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>

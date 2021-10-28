@@ -97,6 +97,7 @@ namespace tp_nt1a_4.Controllers
         // POST: HistoriasClinicas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,PacienteId")] HistoriaClinica historiaClinica)
@@ -160,7 +161,7 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        
+        */
         private bool HistoriaClinicaExists(Guid id)
         {
             return _context.HistoriasClinicas.Any(e => e.Id == id);
