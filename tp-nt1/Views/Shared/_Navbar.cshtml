@@ -29,7 +29,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Profesionales" asp-action="Index">Profesionales</a>
                             </li>
-                          
+
                         }
                         @if (User.IsInRole(nameof(Rol.Paciente)))
                         {
@@ -40,26 +40,20 @@
                         }
                         @if (User.IsInRole(nameof(Rol.Profesional)))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="Index">Historias clinicas</a>
-                            </li>
+                <li class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pacientes</button>
+                    <div class="dropdown-menu" aria-labelledby="menuOpciones">
+                        <a class="dropdown-item" asp-controller="Pacientes" asp-action="MisPacientes">Mis pacientes</a>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Notas" asp-action="Index">Notas</a>
-                            </li>
+                        <a class="dropdown-item" asp-controller="Notas" asp-action="Index">Notas</a>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Epicrisis" asp-action="Index">Epicrisis</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Evoluciones" asp-action="Index">Evoluciones</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Episodios" asp-action="Index">Episodios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="MisPacientes">Pacientes</a>
-                            </li>
+                        <a class="dropdown-item" asp-controller="Epicrisis" asp-action="Index">Epicrisis</a>
+
+                        <a class="dropdown-item" asp-controller="Evoluciones" asp-action="Index">Evoluciones</a>
+
+                        <a class="dropdown-item" asp-controller="Episodios" asp-action="Index">Episodios</a>
+                    </div>
+                    </li>
 
                         }
                     }
@@ -72,7 +66,7 @@
                         </li>
                         <li class="ml-1">
                             <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-info">
-                                Login
+                                Ingresar
                             </a>
                         </li>
                     }
@@ -82,7 +76,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                 <li class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mi cuenta</button>
+                    <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola, @User.FindFirstValue(ClaimTypes.GivenName)</button>
                         <div class="dropdown-menu" aria-labelledby="menuOpciones">
                             @if (User.IsInRole(nameof(Rol.Empleado)))
                             {

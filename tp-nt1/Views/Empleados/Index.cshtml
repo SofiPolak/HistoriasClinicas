@@ -4,15 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">+ Nuevo</a>
+    <a class="btn btn-outline-info" asp-action="Create">+ Nuevo empleado</a>
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Legajo)
             </th>
             <th>
@@ -21,25 +19,25 @@
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Apellido)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.FechaAlta)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.DNI)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Telefono)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Direccion)
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
@@ -73,9 +71,9 @@
                 @Html.DisplayFor(modelItem => item.Direccion)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Actualizar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                <a class="btn btn-outline-info btn-sm btn-block" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+                <a class="btn btn-outline-info btn-sm btn-block" asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
+                <a class="btn btn-outline-dark btn-sm btn-block" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
 }

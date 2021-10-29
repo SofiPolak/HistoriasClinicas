@@ -3,7 +3,7 @@
 }
 
 <div class="text-center">
-    <h1>Bienvenido al portal de Historias Clinicas</h1>
+    <h4>Bienvenido al portal de Historias Clinicas</h4>
 </div>
 
 <hr />
@@ -14,12 +14,17 @@
             <div class="text-danger">
                 @ViewBag.Error
             </div>
-            <div class="form-group">
-                <label laber-for="rol" class="control-label">Rol:</label>
+            <div class="btn-group" role="group" aria-label="Basic example">
+
+             @*<button name="rol" type="button" class="btn btn-info" value="@Rol.Empleado" > @Rol.Empleado.ToString()</button>
+             <button name="rol" type="button" class="btn btn-info" value="@Rol.Paciente" > @Rol.Paciente.ToString()</button>
+             <button name="rol" type="button" class="btn btn-info" value="@Rol.Profesional" > @Rol.Profesional.ToString()</button>*@
+
                 <input name="rol" type="radio" value="@Rol.Empleado" /> @Rol.Empleado.ToString()
                 <input name="rol" type="radio" value="@Rol.Paciente" /> @Rol.Paciente.ToString()
                 <input name="rol" type="radio" value="@Rol.Profesional" /> @Rol.Profesional.ToString()
             </div>
+
             <div class="form-group">
                 <label laber-for="username" class="control-label">Nombre de usuario:</label>
                 <input name="username" class="form-control" type="text" value="@ViewBag.Username" />
@@ -29,7 +34,7 @@
                 <input name="password" class="form-control" type="password" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-success" />
+                <input type="submit" value="Ingresar" class="btn btn-info" />
             </div>
            
                 @*<div class="card-footer">

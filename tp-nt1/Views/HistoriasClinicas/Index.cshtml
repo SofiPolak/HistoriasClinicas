@@ -4,10 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<p>
-    <a asp-action="Create">+ Nuevo</a>
-</p>
-<table class="table">
+
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -23,9 +21,9 @@
                 @Html.DisplayFor(modelItem => item.Paciente.Apellido)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Actualizar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                <a class="btn btn-outline-info btn-sm btn-block" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+                <a class="btn btn-outline-info btn-sm btn-block" asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
+                <a class="btn btn-outline-dark btn-sm btn-block" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
 }
