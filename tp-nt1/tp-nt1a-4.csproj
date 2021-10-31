@@ -19,8 +19,18 @@
 
   <ItemGroup>
     <None Remove="Database\" />
+    <None Remove="Views\Accesos\" />
+    <None Remove="Models\Enums\" />
+    <None Remove="Extensiones\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database\" />
+    <Folder Include="Views\Accesos\" />
+    <Folder Include="Models\Enums\" />
+    <Folder Include="Extensiones\" />
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Images\" />
   </ItemGroup>
 </Project>

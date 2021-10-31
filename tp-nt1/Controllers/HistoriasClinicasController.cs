@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using tp_nt1.Database;
 using tp_nt1.Models;
+using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
+    [Authorize]
     public class HistoriasClinicasController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;
@@ -20,6 +24,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: HistoriasClinicas
+        [Authorize(Roles = nameof(Rol.Empleado))]
         public async Task<IActionResult> Index()
         {
             var historiaClinicaDbContext = _context.HistoriasClinicas.Include(h => h.Paciente);
@@ -27,6 +32,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: HistoriasClinicas/Details/5
+        [Authorize(Roles = nameof(Rol.Empleado))]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -35,7 +41,7 @@ namespace tp_nt1a_4.Controllers
             }
 
             var historiaClinica = await _context.HistoriasClinicas
-                .Include(h => h.Paciente)
+                .Include(h => h.Paciente)              
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (historiaClinica == null)
             {
@@ -71,6 +77,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: HistoriasClinicas/Edit/5
+        
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -90,6 +97,7 @@ namespace tp_nt1a_4.Controllers
         // POST: HistoriasClinicas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,PacienteId")] HistoriaClinica historiaClinica)
@@ -124,6 +132,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: HistoriasClinicas/Delete/5
+        
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -152,10 +161,45 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        */
         private bool HistoriaClinicaExists(Guid id)
         {
             return _context.HistoriasClinicas.Any(e => e.Id == id);
         }
+
+        // metodo que consigue la historia clinica del paciente loggeado
+        [Authorize(Roles = nameof(Rol.Paciente))]
+        public IActionResult MiHistoriaClinica()
+        {
+            var pacienteId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var historiaClinica = _context.HistoriasClinicas
+                .Include(historiaClinica => historiaClinica.Episodios)
+                .FirstOrDefault(historiaClinica => historiaClinica.PacienteId == pacienteId);
+                
+
+            return View(historiaClinica);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = nameof(Rol.Profesional))]
+        public IActionResult Buscar(string nombre, Guid? pacienteId, string apellido, string dni)
+        {
+            var paciente = _context
+                .Pacientes
+                .Include(x => x.Nombre)
+                .Include(x => x.Apellido)
+                .Include(x => x.DNI)
+                .Include(x => x.HistoriaClinica)
+                .Where(x => string.IsNullOrWhiteSpace(dni) || EF.Functions.Like(x.DNI, $"%{dni}%"));
+
+            ViewBag.HistoriaClinica = new SelectList(_context.HistoriasClinicas, nameof(HistoriaClinica.Id), nameof(HistoriaClinica.Episodios));
+            ViewBag.Nombre = nombre;
+            ViewBag.Apellido = apellido;
+            ViewBag.DNI = dni;
+
+            return View();
+        }
+       
     }
 }

@@ -1,28 +1,17 @@
 @model tp_nt1.Models.Paciente
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Create";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-
-<h4>Paciente</h4>
+<h4>Nuevo paciente</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ObraSocial" class="control-label"></label>
-                <select asp-for="ObraSocial" class="form-control"></select>
-                <span asp-validation-for="ObraSocial" class="text-danger"></span>
+                <label asp-for="ObraSocialId" class="control-label"></label>
+                <select asp-for="ObraSocialId" class="form-control" asp-items="ViewBag.ObraSocialId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="NombreUsuario" class="control-label"></label>
@@ -44,11 +33,13 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaAlta" class="control-label"></label>
-                <input asp-for="FechaAlta" class="form-control" />
-                <span asp-validation-for="FechaAlta" class="text-danger"></span>
+            <!--
+             <div class="form-group">
+             <label asp-for="FechaAlta" class="control-label"></label>
+            <input asp-for="FechaAlta" class="form-control" />
+            </s>pan asp-validation-for="FechaAlta" class="text-danger"></span>
             </div>
+             !-->
             <div class="form-group">
                 <label asp-for="DNI" class="control-label"></label>
                 <input asp-for="DNI" class="form-control" />
@@ -65,18 +56,21 @@
                 <span asp-validation-for="Direccion" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label for="password" class="control-label">Password</label>
+                <input name="pass" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index">Volver</a>
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-</body>
-</html>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

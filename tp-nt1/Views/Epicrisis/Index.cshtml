@@ -1,19 +1,12 @@
 @model IEnumerable<tp_nt1.Models.Epicrisis>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">+ Nuevo</a>
 </p>
 <table class="table">
     <thead>
@@ -37,19 +30,17 @@
                 @Html.DisplayFor(modelItem => item.FechaYHora)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Episodio.Apellido)
+                @Html.DisplayFor(modelItem => item.Episodio.Descripcion)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Profesional.Apellido)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Actualizar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-</body>
-</html>

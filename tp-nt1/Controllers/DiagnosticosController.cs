@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using tp_nt1.Database;
 using tp_nt1.Models;
+using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
+    [Authorize]
     public class DiagnosticosController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;
@@ -46,6 +49,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Diagnosticos/Create
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public IActionResult Create()
         {
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id");
@@ -57,6 +61,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Create([Bind("Id,Descripcion,Recomendacion,EpicrisisId")] Diagnostico diagnostico)
         {
             if (ModelState.IsValid)
@@ -71,6 +76,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Diagnosticos/Edit/5
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -92,6 +98,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,Descripcion,Recomendacion,EpicrisisId")] Diagnostico diagnostico)
         {
             if (id != diagnostico.Id)
@@ -124,6 +131,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Diagnosticos/Delete/5
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -145,6 +153,7 @@ namespace tp_nt1a_4.Controllers
         // POST: Diagnosticos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var diagnostico = await _context.Diagnosticos.FindAsync(id);

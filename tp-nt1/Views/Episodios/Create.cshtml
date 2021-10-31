@@ -1,19 +1,9 @@
 @model tp_nt1.Models.Episodio
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Create";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-
-<h4>Episodio</h4>
+<h4>Nuevo episodio</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -29,32 +19,20 @@
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaYHoraInicio" class="control-label"></label>
-                <input asp-for="FechaYHoraInicio" class="form-control" />
-                <span asp-validation-for="FechaYHoraInicio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaYHoraAlta" class="control-label"></label>
-                <input asp-for="FechaYHoraAlta" class="form-control" />
-                <span asp-validation-for="FechaYHoraAlta" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaYHoraCierre" class="control-label"></label>
-                <input asp-for="FechaYHoraCierre" class="form-control" />
-                <span asp-validation-for="FechaYHoraCierre" class="text-danger"></span>
-            </div>
+           
+       
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EstadoAbierto" /> @Html.DisplayNameFor(model => model.EstadoAbierto)
+                     
+                    <input class="form-check-input" asp-for="EstadoAbierto" value="Abierto"/>
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="EmpleadoId" class="control-label"></label>
+                <label asp-for="EmpleadoId" class="control-label">Empleado</label>
                 <select asp-for="EmpleadoId" class ="form-control" asp-items="ViewBag.EmpleadoId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="HistoriaId" class="control-label"></label>
+                <label asp-for="HistoriaId" class="control-label">Historia clinica</label>
                 <select asp-for="HistoriaId" class ="form-control" asp-items="ViewBag.HistoriaId"></select>
             </div>
             <div class="form-group">
@@ -65,11 +43,9 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-</body>
-</html>

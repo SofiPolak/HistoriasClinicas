@@ -21,9 +21,10 @@ namespace tp_nt1.Models
         public DateTime FechaYHoraInicio { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
-        public DateTime FechaYHoraAlta { get; set; } 
+        public DateTime? FechaYHoraAlta { get; set; } 
 
-        public DateTime FechaYHoraCierre { get; set; }
+     
+        public DateTime? FechaYHoraCierre { get; set; }
       
         public bool EstadoAbierto { get; set; }
 

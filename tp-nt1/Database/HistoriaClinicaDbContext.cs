@@ -20,5 +20,8 @@ namespace tp_nt1.Database
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<Profesional> Profesionales { get; set; }
 
+        public DbSet<ObraSocial> ObrasSociales { get; set; }
+        public DbSet<Especialidad> Especialidades { get; set; }
+
     }
 }

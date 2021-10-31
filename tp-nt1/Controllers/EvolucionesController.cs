@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using tp_nt1.Database;
 using tp_nt1.Models;
+using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
+    [Authorize(Roles = nameof(Rol.Profesional))]
     public class EvolucionesController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;
@@ -66,6 +70,9 @@ namespace tp_nt1a_4.Controllers
             if (ModelState.IsValid)
             {
                 evolucion.Id = Guid.NewGuid();
+                evolucion.FechaYHoraInicio = DateTime.Now;
+               // var profesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                //evolucion.Profesional = profesionalId; como podemos traer el profesional se usa linkQ?
                 _context.Add(evolucion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
