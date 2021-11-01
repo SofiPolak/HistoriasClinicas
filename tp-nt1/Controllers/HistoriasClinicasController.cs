@@ -32,7 +32,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: HistoriasClinicas/Details/5
-        [Authorize(Roles = nameof(Rol.Empleado))]
+        [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -180,6 +180,20 @@ namespace tp_nt1a_4.Controllers
 
             return View(historiaClinica);
         }
+
+        // metodo que consigue la historia clinica de un paciente
+        [Authorize(Roles = "Empleado, Profesional")]
+        public IActionResult UnaHistoriaClinica(Guid pacienteId)
+        {
+
+            var historiaClinica = _context.HistoriasClinicas
+                .Include(historiaClinica => historiaClinica.Episodios)
+                .FirstOrDefault(historiaClinica => historiaClinica.PacienteId == pacienteId);
+
+
+            return View("MiHistoriaClinica", historiaClinica);
+        }
+
 
         [HttpGet]
         [Authorize(Roles = nameof(Rol.Profesional))]

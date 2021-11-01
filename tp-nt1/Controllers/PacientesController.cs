@@ -33,13 +33,16 @@ namespace tp_nt1a_4.Controllers
 
 
         [Authorize(Roles = "Profesional")]
+
         public async Task<IActionResult> MisPacientes()
         {
             var profesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var historiaClinicaDbContext = _context.Pacientes.Include(p => p.ObraSocial)
                 .Where(p => p.HistoriaClinica.Episodios.Any(e => e.Epicrisis.ProfesionalId == profesionalId));
-            return View("Index",await historiaClinicaDbContext.ToListAsync());
+            var historias = await historiaClinicaDbContext.ToListAsync();
+            return View(historias);
         }
+
 
 
         // GET: Pacientes/Details/5

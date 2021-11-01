@@ -40,20 +40,9 @@
                         }
                         @if (User.IsInRole(nameof(Rol.Profesional)))
                         {
-                <li class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pacientes</button>
-                    <div class="dropdown-menu" aria-labelledby="menuOpciones">
-                        <a class="dropdown-item" asp-controller="Pacientes" asp-action="MisPacientes">Mis pacientes</a>
-
-                        <a class="dropdown-item" asp-controller="Notas" asp-action="Index">Notas</a>
-
-                        <a class="dropdown-item" asp-controller="Epicrisis" asp-action="Index">Epicrisis</a>
-
-                        <a class="dropdown-item" asp-controller="Evoluciones" asp-action="Index">Evoluciones</a>
-
-                        <a class="dropdown-item" asp-controller="Episodios" asp-action="Index">Episodios</a>
-                    </div>
-                    </li>
+                            <li class="nav-item">
+                              <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="MisPacientes">Pacientes</a>
+                            </li>
 
                         }
                     }
