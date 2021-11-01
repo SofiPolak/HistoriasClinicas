@@ -78,7 +78,7 @@
             </td>
             <td>
                 <a class="btn btn-outline-info btn-sm btn-block" asp-action="Details" asp-route-id="@item.Id">Ver info</a>
-                <a class="btn btn-outline-info btn-sm btn-block" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-id="@item.Id">Historia clinica</a>
+                <a class="btn btn-outline-info btn-sm btn-block" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@item.Id">Historia clinica</a>
                 @if (User.IsInRole(nameof(Rol.Empleado)))
                 {
                 <a class="btn btn-outline-info btn-sm btn-block" asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
