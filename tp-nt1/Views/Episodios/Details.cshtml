@@ -60,6 +60,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a> |
+    <!--<a asp-controller="Evolucion" asp-action="Details" asp-route-id="@Model.Id">Agregar Epicrisis</a>-->
+    <!--agregar un condicional para poner en gris el boton de evoluciones -->
+    <a asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.Id">Ver Evoluciones</a> 
     <a asp-action="Index">Volver</a>
 </div>

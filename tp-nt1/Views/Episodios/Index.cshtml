@@ -32,9 +32,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.EmpleadoRegistra)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HistoriaClinica)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -62,12 +59,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EmpleadoRegistra.Apellido)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HistoriaClinica.Id)
-            </td>
+  
             <td>
                 <a class="btn btn-outline-info btn-sm btn-block" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+              
                 <a class="btn btn-outline-info btn-sm btn-block" asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
+                <!--BORRAR BTN ELIMINAR y de ACTUALIZAR ANTES DE ENTREGAR-->
                 <a class="btn btn-outline-dark btn-sm btn-block" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>

@@ -8,6 +8,7 @@
         <tr>
             <th>
                 <h5>Episodios</h5>
+                <a class="btn btn-outline-info btn-sm btn-block" asp-controller="Episodios" asp-action="Create" asp-route-hClinicaId="@Model.Id">Agregar Episodio</a>
             </th>
             <th></th>
         </tr>
@@ -21,9 +22,10 @@
                 </td>
                 <td>
 
-                    <a asp-action="Details" asp-route-id="@e.Id">Ver episodio</a> |
+                    <a asp-controller="Episodios" asp-action="Details" asp-route-id="@e.Id">Ver episodio</a> |
 
                 </td>
+
             </tr>
         }
     </tbody>
