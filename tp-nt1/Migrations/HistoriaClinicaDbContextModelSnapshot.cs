@@ -141,10 +141,10 @@ namespace tp_nt1.Migrations
                     b.Property<bool>("EstadoAbierto")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("FechaYHoraAlta")
+                    b.Property<DateTime?>("FechaYHoraAlta")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("FechaYHoraCierre")
+                    b.Property<DateTime?>("FechaYHoraCierre")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("FechaYHoraInicio")
@@ -203,16 +203,16 @@ namespace tp_nt1.Migrations
                     b.Property<bool>("EstadoAbierto")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("FechaYHoraAlta")
+                    b.Property<DateTime?>("FechaYHoraAlta")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("FechaYHoraCierre")
+                    b.Property<DateTime?>("FechaYHoraCierre")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("FechaYHoraInicio")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("NotaoId")
+                    b.Property<Guid>("NotaId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("ProfesionalId")
@@ -222,7 +222,7 @@ namespace tp_nt1.Migrations
 
                     b.HasIndex("EpisodioId");
 
-                    b.HasIndex("NotaoId")
+                    b.HasIndex("NotaId")
                         .IsUnique();
 
                     b.HasIndex("ProfesionalId");
@@ -463,7 +463,7 @@ namespace tp_nt1.Migrations
 
                     b.HasOne("tp_nt1.Models.Nota", "Nota")
                         .WithOne("Evolucion")
-                        .HasForeignKey("tp_nt1.Models.Evolucion", "NotaoId")
+                        .HasForeignKey("tp_nt1.Models.Evolucion", "NotaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

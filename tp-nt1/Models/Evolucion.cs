@@ -25,7 +25,7 @@ namespace tp_nt1.Models
         public bool EstadoAbierto { get; set; }
 
         [ForeignKey(nameof(Nota))]
-        public Guid NotaoId { get; set; }
+        public Guid NotaId { get; set; }
         public Nota Nota{ get; set; }
 
         [ForeignKey(nameof(Episodio))]

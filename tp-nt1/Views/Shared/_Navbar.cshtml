@@ -64,8 +64,8 @@
             <ul class="navbar-nav">
                 @if (User.Identity.IsAuthenticated)
                 {
-                <li class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola, @User.FindFirstValue(ClaimTypes.GivenName)</button>
+                    <li class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola, @User.FindFirstValue(ClaimTypes.GivenName)</button>
                         <div class="dropdown-menu" aria-labelledby="menuOpciones">
                             @if (User.IsInRole(nameof(Rol.Empleado)))
                             {
@@ -91,17 +91,17 @@
                                 </button>
                             </form>
                         </div>
-                </li>
+                    </li>
 
                 }
                 <!--else
-                {
-                    <li class="ml-1">
-                        <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-success">
-                            Ingresar
-                        </a>
-                    </li>
-                }-->
+    {
+        <li class="ml-1">
+            <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-success">
+                Ingresar
+            </a>
+        </li>
+    }-->
             </ul>
         </div>
     </nav>

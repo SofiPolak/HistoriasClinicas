@@ -62,6 +62,9 @@
 <div>
     <!--<a asp-controller="Evolucion" asp-action="Details" asp-route-id="@Model.Id">Agregar Epicrisis</a>-->
     <!--agregar un condicional para poner en gris el boton de evoluciones -->
-    <a asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.Id">Ver Evoluciones</a> 
+    <a asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.Id">Ver Evoluciones</a>
+    @if (User.IsInRole(nameof(Rol.Empleado)))
+    {
+<a asp-controller="Episodios" asp-action="Edit" asp-route-id="@Model.Id">Cerrar episodio</a>}
     <a asp-action="Index">Volver</a>
 </div>

@@ -55,7 +55,7 @@ namespace tp_nt1a_4.Controllers
         public IActionResult Create()
         {
             ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
-            ViewData["NotaoId"] = new SelectList(_context.Notas, "Id", "Mensaje");
+            ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje");
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
             return View();
         }
@@ -65,7 +65,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,DescripcionAtencion,EstadoAbierto,NotaoId,EpisodioId,ProfesionalId")] Evolucion evolucion)
+        public async Task<IActionResult> Create([Bind("Id,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,DescripcionAtencion,EstadoAbierto,NotaId,EpisodioId,ProfesionalId")] Evolucion evolucion)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace tp_nt1a_4.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["NotaoId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaoId);
+            ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
@@ -97,7 +97,7 @@ namespace tp_nt1a_4.Controllers
                 return NotFound();
             }
             ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["NotaoId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaoId);
+            ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
@@ -135,7 +135,7 @@ namespace tp_nt1a_4.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["NotaoId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaoId);
+            ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }

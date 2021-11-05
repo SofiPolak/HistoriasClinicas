@@ -109,7 +109,7 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Motivo,Descripcion,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,EstadoAbierto,EmpleadoId,HistoriaId")] Episodio episodio)
+        public async Task<IActionResult> Edit(Guid id, Episodio episodio)
         {
             if (id != episodio.Id)
             {

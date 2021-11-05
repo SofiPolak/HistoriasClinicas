@@ -162,8 +162,8 @@ namespace tp_nt1.Migrations
                     Motivo = table.Column<string>(maxLength: 100, nullable: false),
                     Descripcion = table.Column<string>(maxLength: 250, nullable: false),
                     FechaYHoraInicio = table.Column<DateTime>(nullable: false),
-                    FechaYHoraAlta = table.Column<DateTime>(nullable: false),
-                    FechaYHoraCierre = table.Column<DateTime>(nullable: false),
+                    FechaYHoraAlta = table.Column<DateTime>(nullable: true),
+                    FechaYHoraCierre = table.Column<DateTime>(nullable: true),
                     EstadoAbierto = table.Column<bool>(nullable: false),
                     EmpleadoId = table.Column<Guid>(nullable: false),
                     HistoriaId = table.Column<Guid>(nullable: false)
@@ -217,11 +217,11 @@ namespace tp_nt1.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     FechaYHoraInicio = table.Column<DateTime>(nullable: false),
-                    FechaYHoraAlta = table.Column<DateTime>(nullable: false),
-                    FechaYHoraCierre = table.Column<DateTime>(nullable: false),
+                    FechaYHoraAlta = table.Column<DateTime>(nullable: true),
+                    FechaYHoraCierre = table.Column<DateTime>(nullable: true),
                     DescripcionAtencion = table.Column<string>(maxLength: 250, nullable: false),
                     EstadoAbierto = table.Column<bool>(nullable: false),
-                    NotaoId = table.Column<Guid>(nullable: false),
+                    NotaId = table.Column<Guid>(nullable: false),
                     EpisodioId = table.Column<Guid>(nullable: false),
                     ProfesionalId = table.Column<Guid>(nullable: false)
                 },
@@ -235,8 +235,8 @@ namespace tp_nt1.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Evoluciones_Notas_NotaoId",
-                        column: x => x.NotaoId,
+                        name: "FK_Evoluciones_Notas_NotaId",
+                        column: x => x.NotaId,
                         principalTable: "Notas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -301,9 +301,9 @@ namespace tp_nt1.Migrations
                 column: "EpisodioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Evoluciones_NotaoId",
+                name: "IX_Evoluciones_NotaId",
                 table: "Evoluciones",
-                column: "NotaoId",
+                column: "NotaId",
                 unique: true);
 
             migrationBuilder.CreateIndex(

@@ -10,7 +10,10 @@
         <tr>
             <th>
                 <h5>Evoluciones</h5>
-                <a class="btn btn-outline-info btn-sm btn-block" asp-controller="Evoluciones" asp-action="Create" asp-route-id="@Model.Id">Crear Evolucion</a>
+                @if (User.IsInRole(nameof(Rol.Profesional)))
+                {
+                    <a class="btn btn-outline-info btn-sm btn-block" asp-controller="Evoluciones" asp-action="Create" asp-route-id="@Model.Id">Crear Evolucion</a>
+                }
             </th>
             <th></th>
         </tr>
