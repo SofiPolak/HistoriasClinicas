@@ -8,7 +8,10 @@
         <tr>
             <th>
                 <h5>Episodios</h5>
-                <a class="btn btn-outline-info btn-sm btn-block" asp-controller="Episodios" asp-action="Create" asp-route-hClinicaId="@Model.Id">Agregar Episodio</a>
+                @if (User.IsInRole(nameof(Rol.Empleado)))
+                {
+                    <a class="btn btn-outline-info btn-sm btn-block" asp-controller="Episodios" asp-action="Create" asp-route-hClinicaId="@Model.Id">Agregar Episodio</a>
+                }
             </th>
             <th></th>
         </tr>
