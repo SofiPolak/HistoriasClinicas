@@ -45,6 +45,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.EstadoAbierto)
         </dd>
+        <!--
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EmpleadoRegistra)
         </dt>
@@ -57,6 +58,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.HistoriaClinica.Id)
         </dd>
+            -->
     </dl>
 </div>
 <div>
@@ -66,5 +68,10 @@
     @if (User.IsInRole(nameof(Rol.Empleado)))
     {
 <a asp-controller="Episodios" asp-action="Edit" asp-route-id="@Model.Id">Cerrar episodio</a>}
+
     <a asp-action="Index">Volver</a>
+
+    <!--
+        <a asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@Model.Id">Volver</a>
+           -->
 </div>

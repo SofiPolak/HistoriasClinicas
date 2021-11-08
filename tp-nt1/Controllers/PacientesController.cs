@@ -180,7 +180,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
             return View(paciente);
         }
-
+        /*
         // GET: Pacientes/Delete/5
         [Authorize(Roles = "Empleado,Paciente")]
         public async Task<IActionResult> Delete(Guid? id)
@@ -212,7 +212,7 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        */
         private bool PacienteExists(Guid id)
         {
             return _context.Pacientes.Any(e => e.Id == id);

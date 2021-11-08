@@ -1,12 +1,10 @@
 @model tp_nt1.Models.Nota
 
-@{
-    ViewData["Title"] = "Delete";
-}
+@{ ViewData["Title"] = "Delete"; }
 
+<!--
 
-
-<h3>¿Seguro desea borrar esta nota?</h3>
+<h3>?Seguro desea borrar esta nota?</h3>
 <div>
     <hr />
     <dl class="row">
@@ -35,10 +33,11 @@
             @Html.DisplayFor(model => model.Profesional.Apellido)
         </dd class>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Eliminar" class="btn btn-danger" /> |
         <a asp-action="Index">Volver</a>
     </form>
 </div>
+    -->

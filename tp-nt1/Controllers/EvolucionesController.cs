@@ -13,7 +13,7 @@ using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
-    [Authorize(Roles = nameof(Rol.Profesional))]
+    [Authorize]
     public class EvolucionesController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;
@@ -52,6 +52,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Evoluciones/Create
+        [Authorize(Roles = nameof(Rol.Profesional))]
         public IActionResult Create(Guid episodioId)
         {
             //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
@@ -64,6 +65,7 @@ namespace tp_nt1a_4.Controllers
         // POST: Evoluciones/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = nameof(Rol.Profesional))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Evolucion evolucion,Guid episodioId)
@@ -140,7 +142,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
-
+        /*
         // GET: Evoluciones/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
@@ -172,6 +174,7 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        */
 
         private bool EvolucionExists(Guid id)
         {

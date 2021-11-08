@@ -64,7 +64,13 @@
 </div>
 
 <div>
+    <!--
+    @if (User.IsInRole(nameof(Rol.Profesional)))
+    {<a asp-controller="Home" asp-action="Index">Volver</a>
+    }
+    -->
     <a asp-action="Index">Volver</a>
+
 </div>
 
 @section Scripts {

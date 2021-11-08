@@ -64,6 +64,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a> |
-    <a asp-action="Index">Volver</a>
+    @if (User.IsInRole(nameof(Rol.Empleado)))
+    {
+<a asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
+}
+<a asp-action="Index">Volver</a>
 </div>

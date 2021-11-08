@@ -1,10 +1,8 @@
 @model tp_nt1.Models.HistoriaClinica
 
-@{
-    ViewData["Title"] = "Delete";
-}
-
-<h3>¿Seguro desea borrar la historia clínica?</h3>
+@{ ViewData["Title"] = "Delete"; }
+<!--
+<h3>?Seguro desea borrar la historia cl?nica?</h3>
 <div>
     <hr />
     <dl class="row">
@@ -15,10 +13,11 @@
             @Html.DisplayFor(model => model.Paciente.Apellido)
         </dd class>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Volver</a>
     </form>
 </div>
+-->

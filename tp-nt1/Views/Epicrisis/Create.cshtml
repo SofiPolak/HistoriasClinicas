@@ -4,8 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
+<!-- LA EPICRISIS SE DEBE CREAR SOLA CUANDO SE CIERRA UN EPISODIO, NO DEBERIA VERSE NADA-->
+<!--
 <h4>Epicrisis</h4>
 <hr />
 <div class="row">
@@ -26,16 +26,17 @@
                 <select asp-for="ProfesionalId" class ="form-control" asp-items="ViewBag.ProfesionalId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+    -->

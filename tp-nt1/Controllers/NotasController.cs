@@ -137,7 +137,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", nota.ProfesionalId);
             return View(nota);
         }
-
+        /*
         // GET: Notas/Delete/5
         [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Delete(Guid? id)
@@ -170,7 +170,7 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        */
         private bool NotaExists(Guid id)
         {
             return _context.Notas.Any(e => e.Id == id);

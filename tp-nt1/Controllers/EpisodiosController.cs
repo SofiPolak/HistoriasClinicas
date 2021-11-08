@@ -140,7 +140,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["HistoriaId"] = new SelectList(_context.HistoriasClinicas, "Id", "Id", episodio.HistoriaId);
             return View(episodio);
         }
-
+        /*
         // GET: Episodios/Delete/5
         [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Delete(Guid? id)
@@ -173,12 +173,13 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        */
 
         private bool EpisodioExists(Guid id)
         {
             return _context.Episodios.Any(e => e.Id == id);
         }
-
+        
         [HttpPost]
         [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult CerrarEpisodio(Guid episodioId)

@@ -130,6 +130,7 @@ namespace tp_nt1a_4.Controllers
             return View(diagnostico);
         }
 
+        /*
         // GET: Diagnosticos/Delete/5
         [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Delete(Guid? id)
@@ -161,6 +162,7 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        */
 
         private bool DiagnosticoExists(Guid id)
         {

@@ -12,7 +12,7 @@
         <partial name="~/Views/Shared/_Navbar.cshtml" />
     </header>
 
-    
+
     <div class="bg-image">
         <div class="container">
 
@@ -26,21 +26,21 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - tp_nt1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+            &copy; 2021 - Historias Clinicas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/alertifyjs/alertify.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <!--
     @if (TempData["LoggedIn"] as bool? ?? false)
     {
         <script>
                 alertify.success('Bienvenido @User.FindFirstValue(ClaimTypes.GivenName)!');
         </script>
     }
-
+        -->
     @RenderSection("Scripts", required: false)
 </body>
  </html>
