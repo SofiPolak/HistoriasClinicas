@@ -41,6 +41,111 @@
                         @if (User.IsInRole(nameof(Rol.Profesional)))
                         {
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="MisPacientes">Pacientes</a>
+                            </li>
+
+                        }
+                    }
+                    else
+                    {
+
+                        <li class="ml-1">
+                            <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-info">
+                                Ingresar
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <ul class="navbar-nav">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola, @User.FindFirstValue(ClaimTypes.GivenName)</button>
+                        <div class="dropdown-menu" aria-labelledby="menuOpciones">
+                            @if (User.IsInRole(nameof(Rol.Empleado)))
+                            {
+                                <a class="dropdown-item" asp-controller="Empleados" asp-action="Edit" asp-route-id=@User.FindFirstValue(ClaimTypes.NameIdentifier)>
+                                    Editar
+                                </a>
+                            }
+                            @if (User.IsInRole(nameof(Rol.Paciente)))
+                            {
+                                <a class="dropdown-item" asp-controller="Pacientes" asp-action="Edit" asp-route-id=@User.FindFirstValue(ClaimTypes.NameIdentifier)>
+                                    Editar
+                                </a>
+                            }
+                            @if (User.IsInRole(nameof(Rol.Profesional)))
+                            {
+                                <a class="dropdown-item" asp-controller="Profesionales" asp-action="Edit" asp-route-id=@User.FindFirstValue(ClaimTypes.NameIdentifier)>
+                                    Editar
+                                </a>
+                            }
+                            <form id="logoutForm" method="post" asp-controller="Accesos" asp-action="Salir">
+                                <button type="submit" class="dropdown-item">
+                                    Salir
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+
+                }
+                <!--        else
+                {
+                    <li class="ml-1">
+                        <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-success">
+                            Ingresar
+                        </a>
+                    </li>
+                }-->
+            </ul>
+        </div>
+    </nav>
+</header>
+<!--
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/logo.jpeg" alt="" width="40" height="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole(nameof(Rol.Empleado)))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Empleados" asp-action="Index">Empleados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Especialidades" asp-action="Index">Especialidades</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="ObrasSociales" asp-action="Index">Obras Sociales</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="Index">Pacientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Profesionales" asp-action="Index">Profesionales</a>
+                            </li>
+
+                        }
+                        @if (User.IsInRole(nameof(Rol.Paciente)))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="HistoriasClinicas" asp-action="MiHistoriaClinica">Mi historia clinica</a>
+                            </li>
+
+                        }
+                        @if (User.IsInRole(nameof(Rol.Profesional)))
+                        {
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="MisPacientes">Mis Pacientes</a>
                             </li>
                             <li class="nav-item">
@@ -97,16 +202,17 @@
                         </div>
                     </li>
 
-                }
-                <!--else
-    {
-        <li class="ml-1">
-            <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-success">
-                Ingresar
-            </a>
-        </li>
-    }-->
-            </ul>
+                }-->
+<!--else
+{
+    <li class="ml-1">
+        <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-success">
+            Ingresar
+        </a>
+    </li>
+}-->
+<!--   </ul>
         </div>
     </nav>
 </header>
+             -->

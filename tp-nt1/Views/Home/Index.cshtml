@@ -1,17 +1,6 @@
 ﻿@{
     ViewData["Title"] = "HC - Historias Clinicas";
 }
-<!--
-<div class="bg-image">
-
-    <div class="text-center">
-        @*<img src="~/img/fondo.jpg" class="img-fluid" alt="Historias Clinicas" style="width:100%" , position="relative" >*@
-
-                <h4 class="display-4"><b>Bienvenido</b></h4>
-                <p>Comience a gestionar sus historias clinicas.</p>
-            </div>
-    </div>
- -->
 <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -42,15 +31,14 @@
                 </div>
             </div>
         </div>
-        <!--
-    <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Siguiente</span>
-    </button>
-        -->
     </div>
 </div>
+<br />
+<div class="card w-50">
+    <div class="card-body">
+        <h5 class="card-title">Registrate y gestioná tus historias clínicas</h5>
+        <p class="card-text">En esta página podés acceder a todas tus historias clínicas desde cualquier dispositivo.</p>
+        <a asp-controller="Pacientes" asp-action="Create" class="btn btn-info">Registrarse (Solo Pacientes)</a>
+    </div>
+</div>
+
