@@ -24,7 +24,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Pacientes
-        [Authorize(Roles = "Empleado")]
+        [Authorize(Roles = "Profesional,Empleado")]
         public async Task<IActionResult> Index()
         {
             var historiaClinicaDbContext = _context.Pacientes.Include(p => p.ObraSocial);

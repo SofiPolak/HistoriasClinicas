@@ -52,11 +52,12 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Evoluciones/Create
-        public IActionResult Create()
+        public IActionResult Create(Guid episodioId)
         {
-            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
-            ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje");
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
+            //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
+            //ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje");
+            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
+            ViewBag.episodioId = episodioId;
             return View();
         }
 
@@ -65,21 +66,21 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,DescripcionAtencion,EstadoAbierto,NotaId,EpisodioId,ProfesionalId")] Evolucion evolucion)
+        public async Task<IActionResult> Create(Evolucion evolucion,Guid episodioId)
         {
             if (ModelState.IsValid)
             {
                 evolucion.Id = Guid.NewGuid();
                 evolucion.FechaYHoraInicio = DateTime.Now;
-               // var profesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                //evolucion.Profesional = profesionalId; como podemos traer el profesional se usa linkQ?
+                evolucion.ProfesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                evolucion.EpisodioId = episodioId;
                 _context.Add(evolucion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
+            //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
+            //ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
+            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
 

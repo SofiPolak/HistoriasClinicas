@@ -41,7 +41,10 @@
                         @if (User.IsInRole(nameof(Rol.Profesional)))
                         {
                             <li class="nav-item">
-                              <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="MisPacientes">Pacientes</a>
+                                <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="MisPacientes">Mis Pacientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Pacientes" asp-action="Index">Pacientes</a>
                             </li>
 
                         }
@@ -84,6 +87,7 @@
                                 <a class="dropdown-item" asp-controller="Profesionales" asp-action="Edit" asp-route-id=@User.FindFirstValue(ClaimTypes.NameIdentifier)>
                                     Editar
                                 </a>
+
                             }
                             <form id="logoutForm" method="post" asp-controller="Accesos" asp-action="Salir">
                                 <button type="submit" class="dropdown-item">
