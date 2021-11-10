@@ -26,7 +26,7 @@ namespace tp_nt1a_4.Controllers
         // GET: Evoluciones
         public async Task<IActionResult> Index()
         {
-            var historiaClinicaDbContext = _context.Evoluciones.Include(e => e.Episodio).Include(e => e.Nota).Include(e => e.Profesional);
+            var historiaClinicaDbContext = _context.Evoluciones.Include(e => e.Episodio).Include(e => e.Notas).Include(e => e.Profesional);
             return View(await historiaClinicaDbContext.ToListAsync());
         }
 
@@ -40,7 +40,7 @@ namespace tp_nt1a_4.Controllers
 
             var evolucion = await _context.Evoluciones
                 .Include(e => e.Episodio)
-                .Include(e => e.Nota)
+                .Include(e => e.Notas)
                 .Include(e => e.Profesional)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (evolucion == null)
@@ -100,7 +100,6 @@ namespace tp_nt1a_4.Controllers
                 return NotFound();
             }
             ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
@@ -138,7 +137,6 @@ namespace tp_nt1a_4.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }

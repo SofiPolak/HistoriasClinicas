@@ -9,7 +9,7 @@ using tp_nt1.Database;
 namespace tp_nt1.Migrations
 {
     [DbContext(typeof(HistoriaClinicaDbContext))]
-    [Migration("20211105225511_primeraVersion")]
+    [Migration("20211110222819_primeraVersion")]
     partial class primeraVersion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,18 +214,12 @@ namespace tp_nt1.Migrations
                     b.Property<DateTime>("FechaYHoraInicio")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("NotaId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("ProfesionalId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EpisodioId");
-
-                    b.HasIndex("NotaId")
-                        .IsUnique();
 
                     b.HasIndex("ProfesionalId");
 
@@ -258,6 +252,9 @@ namespace tp_nt1.Migrations
                     b.Property<Guid?>("EmpleadoId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("EvolucionId")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("FechaYHora")
                         .HasColumnType("TEXT");
 
@@ -272,6 +269,8 @@ namespace tp_nt1.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EmpleadoId");
+
+                    b.HasIndex("EvolucionId");
 
                     b.HasIndex("ProfesionalId");
 
@@ -463,12 +462,6 @@ namespace tp_nt1.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("tp_nt1.Models.Nota", "Nota")
-                        .WithOne("Evolucion")
-                        .HasForeignKey("tp_nt1.Models.Evolucion", "NotaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("tp_nt1.Models.Profesional", "Profesional")
                         .WithMany("Evoluciones")
                         .HasForeignKey("ProfesionalId")
@@ -490,6 +483,12 @@ namespace tp_nt1.Migrations
                     b.HasOne("tp_nt1.Models.Empleado", "Empleado")
                         .WithMany("Notas")
                         .HasForeignKey("EmpleadoId");
+
+                    b.HasOne("tp_nt1.Models.Evolucion", "Evolucion")
+                        .WithMany("Notas")
+                        .HasForeignKey("EvolucionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("tp_nt1.Models.Profesional", "Profesional")
                         .WithMany("Notas")
