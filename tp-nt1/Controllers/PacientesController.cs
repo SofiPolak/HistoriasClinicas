@@ -24,7 +24,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Pacientes
-        [Authorize(Roles = "Empleado")]
+        [Authorize(Roles = "Profesional,Empleado")]
         public async Task<IActionResult> Index()
         {
             var historiaClinicaDbContext = _context.Pacientes.Include(p => p.ObraSocial);
@@ -33,13 +33,16 @@ namespace tp_nt1a_4.Controllers
 
 
         [Authorize(Roles = "Profesional")]
+
         public async Task<IActionResult> MisPacientes()
         {
             var profesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var historiaClinicaDbContext = _context.Pacientes.Include(p => p.ObraSocial)
                 .Where(p => p.HistoriaClinica.Episodios.Any(e => e.Epicrisis.ProfesionalId == profesionalId));
-            return View("Index",await historiaClinicaDbContext.ToListAsync());
+            var historias = await historiaClinicaDbContext.ToListAsync();
+            return View(historias);
         }
+
 
 
         // GET: Pacientes/Details/5
@@ -177,7 +180,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
             return View(paciente);
         }
-
+        /*
         // GET: Pacientes/Delete/5
         [Authorize(Roles = "Empleado,Paciente")]
         public async Task<IActionResult> Delete(Guid? id)
@@ -209,7 +212,7 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        */
         private bool PacienteExists(Guid id)
         {
             return _context.Pacientes.Any(e => e.Id == id);

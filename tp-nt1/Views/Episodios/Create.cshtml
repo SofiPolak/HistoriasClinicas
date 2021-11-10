@@ -3,40 +3,25 @@
 @{
     ViewData["Title"] = "Create";
 }
-<h4>Nuevo episodio</h4>
+<h4>+ Nuevo episodio</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            <input type ="hidden" name="hClinicaId" value="@ViewBag.hClinicaId"/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Motivo" class="control-label"></label>
-                <input asp-for="Motivo" class="form-control" />
+                <textarea asp-for="Motivo" class="form-control">Motivo</textarea>
                 <span asp-validation-for="Motivo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
+                <textarea asp-for="Descripcion" class="form-control">Descripci?n</textarea>
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
-           
-       
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                     
-                    <input class="form-check-input" asp-for="EstadoAbierto" value="Abierto"/>
-                </label>
-            </div>
             <div class="form-group">
-                <label asp-for="EmpleadoId" class="control-label">Empleado</label>
-                <select asp-for="EmpleadoId" class ="form-control" asp-items="ViewBag.EmpleadoId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="HistoriaId" class="control-label">Historia clinica</label>
-                <select asp-for="HistoriaId" class ="form-control" asp-items="ViewBag.HistoriaId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-outline-info btn-sm btn-block" />
             </div>
         </form>
     </div>

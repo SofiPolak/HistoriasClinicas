@@ -164,7 +164,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["EspecialidadId"] = new SelectList(_context.Especialidades, "Id", "Nombre", profesional.EspecialidadId);
             return View(profesional);
         }
-
+        /*
         // GET: Profesionales/Delete/5
         [Authorize(Roles = nameof(Rol.Empleado))]
         public async Task<IActionResult> Delete(Guid? id)
@@ -196,7 +196,7 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        */
         private bool ProfesionalExists(Guid id)
         {
             return _context.Profesionales.Any(e => e.Id == id);

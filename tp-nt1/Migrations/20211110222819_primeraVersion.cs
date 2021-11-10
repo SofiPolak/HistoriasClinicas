@@ -110,33 +110,6 @@ namespace tp_nt1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notas",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Mensaje = table.Column<string>(maxLength: 250, nullable: false),
-                    FechaYHora = table.Column<DateTime>(nullable: false),
-                    EmpleadoId = table.Column<Guid>(nullable: true),
-                    ProfesionalId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Notas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Notas_Empleados_EmpleadoId",
-                        column: x => x.EmpleadoId,
-                        principalTable: "Empleados",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Notas_Profesionales_ProfesionalId",
-                        column: x => x.ProfesionalId,
-                        principalTable: "Profesionales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "HistoriasClinicas",
                 columns: table => new
                 {
@@ -162,8 +135,8 @@ namespace tp_nt1.Migrations
                     Motivo = table.Column<string>(maxLength: 100, nullable: false),
                     Descripcion = table.Column<string>(maxLength: 250, nullable: false),
                     FechaYHoraInicio = table.Column<DateTime>(nullable: false),
-                    FechaYHoraAlta = table.Column<DateTime>(nullable: false),
-                    FechaYHoraCierre = table.Column<DateTime>(nullable: false),
+                    FechaYHoraAlta = table.Column<DateTime>(nullable: true),
+                    FechaYHoraCierre = table.Column<DateTime>(nullable: true),
                     EstadoAbierto = table.Column<bool>(nullable: false),
                     EmpleadoId = table.Column<Guid>(nullable: false),
                     HistoriaId = table.Column<Guid>(nullable: false)
@@ -217,11 +190,10 @@ namespace tp_nt1.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     FechaYHoraInicio = table.Column<DateTime>(nullable: false),
-                    FechaYHoraAlta = table.Column<DateTime>(nullable: false),
-                    FechaYHoraCierre = table.Column<DateTime>(nullable: false),
+                    FechaYHoraAlta = table.Column<DateTime>(nullable: true),
+                    FechaYHoraCierre = table.Column<DateTime>(nullable: true),
                     DescripcionAtencion = table.Column<string>(maxLength: 250, nullable: false),
                     EstadoAbierto = table.Column<bool>(nullable: false),
-                    NotaoId = table.Column<Guid>(nullable: false),
                     EpisodioId = table.Column<Guid>(nullable: false),
                     ProfesionalId = table.Column<Guid>(nullable: false)
                 },
@@ -232,12 +204,6 @@ namespace tp_nt1.Migrations
                         name: "FK_Evoluciones_Episodios_EpisodioId",
                         column: x => x.EpisodioId,
                         principalTable: "Episodios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Evoluciones_Notas_NotaoId",
-                        column: x => x.NotaoId,
-                        principalTable: "Notas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -266,6 +232,40 @@ namespace tp_nt1.Migrations
                         principalTable: "Epicrisis",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Mensaje = table.Column<string>(maxLength: 250, nullable: false),
+                    FechaYHora = table.Column<DateTime>(nullable: false),
+                    EmpleadoId = table.Column<Guid>(nullable: true),
+                    ProfesionalId = table.Column<Guid>(nullable: true),
+                    EvolucionId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notas_Empleados_EmpleadoId",
+                        column: x => x.EmpleadoId,
+                        principalTable: "Empleados",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Notas_Evoluciones_EvolucionId",
+                        column: x => x.EvolucionId,
+                        principalTable: "Evoluciones",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Notas_Profesionales_ProfesionalId",
+                        column: x => x.ProfesionalId,
+                        principalTable: "Profesionales",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -301,12 +301,6 @@ namespace tp_nt1.Migrations
                 column: "EpisodioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Evoluciones_NotaoId",
-                table: "Evoluciones",
-                column: "NotaoId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Evoluciones_ProfesionalId",
                 table: "Evoluciones",
                 column: "ProfesionalId");
@@ -321,6 +315,11 @@ namespace tp_nt1.Migrations
                 name: "IX_Notas_EmpleadoId",
                 table: "Notas",
                 column: "EmpleadoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notas_EvolucionId",
+                table: "Notas",
+                column: "EvolucionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notas_ProfesionalId",
@@ -344,13 +343,13 @@ namespace tp_nt1.Migrations
                 name: "Diagnosticos");
 
             migrationBuilder.DropTable(
-                name: "Evoluciones");
+                name: "Notas");
 
             migrationBuilder.DropTable(
                 name: "Epicrisis");
 
             migrationBuilder.DropTable(
-                name: "Notas");
+                name: "Evoluciones");
 
             migrationBuilder.DropTable(
                 name: "Episodios");

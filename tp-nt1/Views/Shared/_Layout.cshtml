@@ -3,92 +3,44 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HistoriaClinica</title>
+    <title>@ViewData["Title"]Historias Clinicas</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <!--
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">tp_nt1</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="menuOpciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @User.FindFirstValue(ClaimTypes.GivenName) <span class="caret ml-1"></span>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="menuOpciones">
-                                    @if (User.IsInRole(nameof(Rol.Paciente)))
-                                    {
-                                        <a class="dropdown-item" asp-controller="Historias Clinicas" asp-action="Index">Historia Clinica</a>
-                                        <a class="dropdown-item" asp-controller="Pacientes" asp-action="Edit">Editar</a>
-                                    }
-                                    @if (User.IsInRole(nameof(Rol.Empleado)))
-                                    {
-                                        <a class="dropdown-item" asp-controller="Empleados" asp-action="Index">Empleados</a>
-                                        <a class="dropdown-item" asp-controller="Profesionales" asp-action="Index">Profesionales</a>
-                                        <a class="dropdown-item" asp-controller="Pacientes" asp-action="Index">Pacientes</a>
-                                    }
-                                    <hr />
-                                    <form method="post" asp-controller="Accesos" asp-action="Salir">
-                                        <button type="submit" class="dropdown-item">
-                                            Salir
-                                        </button>
-                                    </form>
-                                </div>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a asp-controller="Pacientes" asp-action="Create" class="btn btn-outline-primary">
-                                    Registrarse (Solo Pacientes)
-                                </a>
-                            </li>
-                            <li class="ml-1">
-                                <a asp-controller="Accesos" asp-action="Ingresar" class="btn btn-success">
-                                    Login
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        -->
         <partial name="~/Views/Shared/_Navbar.cshtml" />
     </header>
+
+
+    <div class="bg-image">
         <div class="container">
+
             <main role="main" class="pb-3">
-                @RenderBody()
+                <div class="bg-image">
+                    @RenderBody()
+                </div>
             </main>
         </div>
+    </div>
 
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2021 - tp_nt1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/lib/alertifyjs/alertify.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-
-        @if (TempData["LoggedIn"] as bool? ?? false)
-        {
-            <script>
-                alertify.success('Bienvenido @User.FindFirstValue(ClaimTypes.GivenName)!!!');
-            </script>
-        }
-
-        @RenderSection("Scripts", required: false)
-    </body>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            Todos Los Derechos Reservados &copy; 2021 Historias Clinicas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/alertifyjs/alertify.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!--
+    @if (TempData["LoggedIn"] as bool? ?? false)
+    {
+        <script>
+                alertify.success('Bienvenido @User.FindFirstValue(ClaimTypes.GivenName)!');
+        </script>
+    }
+        -->
+    @RenderSection("Scripts", required: false)
+</body>
  </html>

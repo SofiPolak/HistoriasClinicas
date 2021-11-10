@@ -1,0 +1,38 @@
+@model tp_nt1.Models.Episodio
+
+@{
+    var evoluciones = Model.RegistroEvoluciones;
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h5>Evoluciones</h5>
+                @if (User.IsInRole(nameof(Rol.Profesional)))
+                {
+                    <a class="btn btn-outline-info btn-sm btn-block" asp-controller="Evoluciones" asp-action="Create" asp-route-episodioId="@Model.Id">Crear Evolucion</a>
+                }
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in evoluciones)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelE => e.DescripcionAtencion)
+                </td>
+                <td>
+                    <!--
+            <a asp-action="Details" asp-route-id="@e.Id">Ver Evolucion</a>
+    -->
+                    <a asp-controller="Evoluciones" asp-action="Details" asp-route-id="@e.Id">Ver evolucion</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

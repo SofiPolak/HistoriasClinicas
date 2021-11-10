@@ -10,8 +10,6 @@ namespace tp_nt1.Models
         [Key]
         public Guid Id { get; set; }
     
-        public Evolucion Evolucion { get; set; } // Nota no tiene una evolucion, pero esto indica la relacion, lo dejamos asi??????
-
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [MaxLength(250, ErrorMessage = "{0} admite un máximo de {1} caracteres")]
         public string Mensaje { get; set; }
@@ -25,5 +23,9 @@ namespace tp_nt1.Models
         [ForeignKey(nameof(Profesional))]
         public Guid? ProfesionalId { get; set; }
         public Profesional Profesional { get; set; }
+
+        [ForeignKey(nameof(Evolucion))]
+        public Guid EvolucionId { get; set; }
+        public Evolucion Evolucion { get; set; }
     }
 }

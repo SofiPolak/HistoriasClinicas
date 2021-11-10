@@ -156,6 +156,7 @@ namespace tp_nt1a_4.Controllers
             return View(empleado);
         }
 
+        /*
         // GET: Empleados/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
@@ -184,6 +185,7 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        */
 
         private bool EmpleadoExists(Guid id)
         {

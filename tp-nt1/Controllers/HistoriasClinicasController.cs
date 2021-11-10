@@ -22,7 +22,7 @@ namespace tp_nt1a_4.Controllers
         {
             _context = context;
         }
-
+        /*
         // GET: HistoriasClinicas
         [Authorize(Roles = nameof(Rol.Empleado))]
         public async Task<IActionResult> Index()
@@ -30,9 +30,9 @@ namespace tp_nt1a_4.Controllers
             var historiaClinicaDbContext = _context.HistoriasClinicas.Include(h => h.Paciente);
             return View(await historiaClinicaDbContext.ToListAsync());
         }
-
+        */
         // GET: HistoriasClinicas/Details/5
-        [Authorize(Roles = nameof(Rol.Empleado))]
+        [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -75,9 +75,8 @@ namespace tp_nt1a_4.Controllers
             ViewData["PacienteId"] = new SelectList(_context.Pacientes, "Id", "Apellido", historiaClinica.PacienteId);
             return View(historiaClinica);
         }
-
+        /*
         // GET: HistoriasClinicas/Edit/5
-        
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -181,6 +180,20 @@ namespace tp_nt1a_4.Controllers
             return View(historiaClinica);
         }
 
+        // metodo que consigue la historia clinica de un paciente
+        [Authorize(Roles = "Empleado, Profesional")]
+        public IActionResult UnaHistoriaClinica(Guid pacienteId)
+        {
+
+            var historiaClinica = _context.HistoriasClinicas
+                .Include(historiaClinica => historiaClinica.Episodios)
+                .FirstOrDefault(historiaClinica => historiaClinica.PacienteId == pacienteId);
+
+
+            return View("MiHistoriaClinica", historiaClinica);
+        }
+
+        /*
         [HttpGet]
         [Authorize(Roles = nameof(Rol.Profesional))]
         public IActionResult Buscar(string nombre, Guid? pacienteId, string apellido, string dni)
@@ -200,6 +213,6 @@ namespace tp_nt1a_4.Controllers
 
             return View();
         }
-       
+       */
     }
 }

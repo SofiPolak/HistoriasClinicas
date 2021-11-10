@@ -1,14 +1,13 @@
 @model IEnumerable<tp_nt1.Models.Evolucion>
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index"; }
 
-
+<!-- SE DEBE CREAR SOLO DESDE UN EPISODIO
 <p>
-    <a asp-action="Create">+ Nuevo</a>
+    <a class="btn btn-outline-info" asp-action="Create">+ Nueva evolucion</a>
 </p>
-<table class="table">
+    -->
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -26,9 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.EstadoAbierto)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Nota)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Episodio)
             </th>
@@ -39,38 +38,40 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaYHoraInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaYHoraAlta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaYHoraCierre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescripcionAtencion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoAbierto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nota.Mensaje)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Episodio.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Profesional.Apellido)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Actualizar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaYHoraInicio)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaYHoraAlta)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaYHoraCierre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DescripcionAtencion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EstadoAbierto)
+    </td>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.Nota.Mensaje)
+    </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.Episodio.Descripcion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Profesional.Apellido)
+    </td>
+    <td>
+        <a class="btn btn-outline-info btn-sm btn-block" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+        <a class="btn btn-outline-info btn-sm btn-block" asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
+        <!--
+    <a class="btn btn-outline-dark btn-sm btn-block" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+        -->
+    </td>
+</tr>}
     </tbody>
 </table>

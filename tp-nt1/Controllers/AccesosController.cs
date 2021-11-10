@@ -85,7 +85,22 @@ namespace tp_nt1.Controllers
                         if (!string.IsNullOrWhiteSpace(returnUrl))
                             return Redirect(returnUrl);
 
-                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                        if (rol == Rol.Empleado)
+                        {
+                            return RedirectToAction(nameof(HomeController.Index), "Empleados");
+                        }
+                        else if (rol == Rol.Profesional)
+                        {
+                            return RedirectToAction(nameof(HomeController.Index), "Pacientes");
+                        }
+                        else if (rol == Rol.Paciente)
+                        {
+                            return RedirectToAction("MiHistoriaClinica", "HistoriasClinicas");
+                        }
+                        else
+                        {
+                            return RedirectToAction(nameof(HomeController.Index), "Home");
+                        }
                     }
                 }
             }

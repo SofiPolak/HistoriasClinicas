@@ -141,10 +141,10 @@ namespace tp_nt1.Migrations
                     b.Property<bool>("EstadoAbierto")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("FechaYHoraAlta")
+                    b.Property<DateTime?>("FechaYHoraAlta")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("FechaYHoraCierre")
+                    b.Property<DateTime?>("FechaYHoraCierre")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("FechaYHoraInicio")
@@ -203,16 +203,13 @@ namespace tp_nt1.Migrations
                     b.Property<bool>("EstadoAbierto")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("FechaYHoraAlta")
+                    b.Property<DateTime?>("FechaYHoraAlta")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("FechaYHoraCierre")
+                    b.Property<DateTime?>("FechaYHoraCierre")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("FechaYHoraInicio")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("NotaoId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("ProfesionalId")
@@ -221,9 +218,6 @@ namespace tp_nt1.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EpisodioId");
-
-                    b.HasIndex("NotaoId")
-                        .IsUnique();
 
                     b.HasIndex("ProfesionalId");
 
@@ -256,6 +250,9 @@ namespace tp_nt1.Migrations
                     b.Property<Guid?>("EmpleadoId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("EvolucionId")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("FechaYHora")
                         .HasColumnType("TEXT");
 
@@ -270,6 +267,8 @@ namespace tp_nt1.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EmpleadoId");
+
+                    b.HasIndex("EvolucionId");
 
                     b.HasIndex("ProfesionalId");
 
@@ -461,12 +460,6 @@ namespace tp_nt1.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("tp_nt1.Models.Nota", "Nota")
-                        .WithOne("Evolucion")
-                        .HasForeignKey("tp_nt1.Models.Evolucion", "NotaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("tp_nt1.Models.Profesional", "Profesional")
                         .WithMany("Evoluciones")
                         .HasForeignKey("ProfesionalId")
@@ -488,6 +481,12 @@ namespace tp_nt1.Migrations
                     b.HasOne("tp_nt1.Models.Empleado", "Empleado")
                         .WithMany("Notas")
                         .HasForeignKey("EmpleadoId");
+
+                    b.HasOne("tp_nt1.Models.Evolucion", "Evolucion")
+                        .WithMany("Notas")
+                        .HasForeignKey("EvolucionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("tp_nt1.Models.Profesional", "Profesional")
                         .WithMany("Notas")

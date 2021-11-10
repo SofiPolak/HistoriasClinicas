@@ -1,14 +1,13 @@
 @model IEnumerable<tp_nt1.Models.Epicrisis>
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index"; }
 
-
+<!-- LA EPICRISIS SE CREA SOLA, NO A MANO
 <p>
-    <a asp-action="Create">+ Nuevo</a>
+    <a class="btn btn-outline-info" asp-action="Create">+ Nueva epicrisis</a>
 </p>
-<table class="table">
+    -->
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -24,23 +23,25 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaYHora)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Episodio.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Profesional.Apellido)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Actualizar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaYHora)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Episodio.Descripcion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Profesional.Apellido)
+    </td>
+    <td>
+        <a class="btn btn-outline-info btn-sm btn-block" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+        <!--
+    <a class="btn btn-outline-info btn-sm btn-block" asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
+    <a class="btn btn-outline-dark btn-sm btn-block" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+        -->
+    </td>
+</tr>}
     </tbody>
 </table>

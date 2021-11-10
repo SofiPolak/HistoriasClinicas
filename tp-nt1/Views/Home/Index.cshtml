@@ -1,8 +1,44 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "HC - Historias Clinicas";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Bienvenido</h1>
-    <p>Software diseñado para el manejo de Historias Clinicas.</p>
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+    </ol>
+    <div class="300-px-wide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="../img/img.png" class="d-block w-100" alt="Historias Clinicas">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 style="color:black;">Salud Digital</h5>
+                    <p class="text-white bg-dark">La historia clinica en tu dispositivo estes donde estes y cuando lo necesites.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="../img/imgAlt.jpeg" class="d-block w-100" alt="Profesionales">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 style="color:black;">Profesionales de primer nivel</h5>
+                    <p class="text-white bg-dark">La atencion de excelencia que buscas.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="../img/img3.jpeg" class="d-block w-100" alt="Servicio informatizado">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 style="color:black;">Rapidez y accesibilidad</h5>
+                    <p class="text-white bg-dark">Todos los beneficios de un servicio informatizado.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<br />
+<div class="card w-50">
+    <div class="card-body">
+        <h5 class="card-title">Registrate y gestioná tus historias clínicas</h5>
+        <p class="card-text">En esta página podés acceder a todas tus historias clínicas desde cualquier dispositivo.</p>
+        <a asp-controller="Pacientes" asp-action="Create" class="btn btn-info">Registrarse (Solo Pacientes)</a>
+    </div>
+</div>
+

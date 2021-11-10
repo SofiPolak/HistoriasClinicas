@@ -77,7 +77,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", epicrisis.ProfesionalId);
             return View(epicrisis);
         }
-
+        /*
         // GET: Epicrisis/Edit/5
         [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Edit(Guid? id)
@@ -134,7 +134,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", epicrisis.ProfesionalId);
             return View(epicrisis);
         }
-
+       
         // GET: Epicrisis/Delete/5
         [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Delete(Guid? id)
@@ -167,6 +167,7 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        */
 
         private bool EpicrisisExists(Guid id)
         {

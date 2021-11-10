@@ -2,43 +2,42 @@
     Layout = "_LayoutLogin";
 }
 
-<div class="text-center">
-    <h1>Bienvenido al portal de Historias Clinicas</h1>
-</div>
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+                        <form method="post" asp-action="Ingresar">
+                            
+                            <img src="~/img/logo.jpeg" alt="" width="100" height="70">
 
-<hr />
+                            <div class="form-outline mb-4">
+                                <input name="rol" type="radio" value="@Rol.Empleado" /> @Rol.Empleado.ToString()
+                                <input name="rol" type="radio" value="@Rol.Paciente" /> @Rol.Paciente.ToString()
+                                <input name="rol" type="radio" value="@Rol.Profesional" /> @Rol.Profesional.ToString()
+                            </div>
 
-<div class="row">
-    <div class="col-lg-offset-4 col-md-4">
-        <form method="post" asp-action="Ingresar">
-            <div class="text-danger">
-                @ViewBag.Error
+                            <div class="form-outline mb-4">
+                                <input name="username" id="typeEmailX-2" class="form-control form-control-lg" type="text" value="@ViewBag.Username" />
+                                <label laber-for="username" class="form-label" for="typeEmailX-2">Nombre de usuario</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input name="password" id="typePasswordX-2" class="form-control form-control-lg" type="password" />
+                                <label label-for="Password" class="form-label">Contraseña</label>
+                            </div>
+
+                            <div class="text-danger">
+                                @ViewBag.Error
+                            </div>
+
+                            <button class="btn btn-info btn-lg btn-block" type="submit" value="Ingresar">Ingresar</button>
+
+                        </form>
+                     </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label laber-for="rol" class="control-label">Rol:</label>
-                <input name="rol" type="radio" value="@Rol.Empleado" /> @Rol.Empleado.ToString()
-                <input name="rol" type="radio" value="@Rol.Paciente" /> @Rol.Paciente.ToString()
-                <input name="rol" type="radio" value="@Rol.Profesional" /> @Rol.Profesional.ToString()
-            </div>
-            <div class="form-group">
-                <label laber-for="username" class="control-label">Nombre de usuario:</label>
-                <input name="username" class="form-control" type="text" value="@ViewBag.Username" />
-            </div>
-            <div class="form-group">
-                <label label-for="Password" class="control-label">Contraseña:</label>
-                <input name="password" class="form-control" type="password" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-success" />
-            </div>
-           
-                @*<div class="card-footer">
-                    <div class="d-flex justify-content-center links">
-                        ¿No tenes una cuenta?  <a href="@Url.Action("Create", "Pacientes")" class="elements">Creala</a>
-                    </div>
-                </div>*@
-           
-        </form>
+        </div>
     </div>
-</div>
-
+</section>

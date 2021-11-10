@@ -52,10 +52,10 @@ namespace tp_nt1a_4.Controllers
 
         // GET: Episodios/Create
         [Authorize(Roles = "Empleado,Profesional")]
-        public IActionResult Create()
+        public IActionResult Create(Guid hClinicaId)
         {
-            ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido");
-            ViewData["HistoriaId"] = new SelectList(_context.HistoriasClinicas, "Id", "Id");
+           
+            ViewBag.hClinicaId = hClinicaId;
             return View();
         }
 
@@ -65,19 +65,21 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Empleado")]
-        public async Task<IActionResult> Create(Episodio episodio)
+        public async Task<IActionResult> Create(Episodio episodio,Guid hClinicaId)
         {
             if (ModelState.IsValid)
             {
+                episodio.EstadoAbierto = true;
                 episodio.Id = Guid.NewGuid();
                 episodio.FechaYHoraInicio = DateTime.Now;
+                episodio.HistoriaId = hClinicaId;
                 episodio.EmpleadoId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            
                 _context.Add(episodio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
-            //ViewData["PacienteId"] = new SelectList(_context.HistoriasClinicas, "Id", "Id", episodio.HistoriaId);
+             
             return View(episodio);
         }
 
@@ -107,7 +109,7 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Motivo,Descripcion,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,EstadoAbierto,EmpleadoId,HistoriaId")] Episodio episodio)
+        public async Task<IActionResult> Edit(Guid id, Episodio episodio)
         {
             if (id != episodio.Id)
             {
@@ -138,7 +140,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["HistoriaId"] = new SelectList(_context.HistoriasClinicas, "Id", "Id", episodio.HistoriaId);
             return View(episodio);
         }
-
+        /*
         // GET: Episodios/Delete/5
         [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Delete(Guid? id)
@@ -171,12 +173,13 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        */
 
         private bool EpisodioExists(Guid id)
         {
             return _context.Episodios.Any(e => e.Id == id);
         }
-
+        
         [HttpPost]
         [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult CerrarEpisodio(Guid episodioId)
@@ -191,6 +194,16 @@ namespace tp_nt1a_4.Controllers
             _context.SaveChanges();
 
             return View("Details", episodio);
+        }
+        public async Task<IActionResult> MiEpisodio(Guid id)
+        {
+            var episodio = await _context.Episodios
+                  .Include(e => e.EmpleadoRegistra)
+                  .Include(e => e.HistoriaClinica)
+                  .Include(e => e.RegistroEvoluciones)
+                  .FirstOrDefaultAsync(m => m.Id == id);
+            
+            return View(episodio);
         }
     }
 }

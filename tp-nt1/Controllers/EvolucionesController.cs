@@ -13,7 +13,7 @@ using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
-    [Authorize(Roles = nameof(Rol.Profesional))]
+    [Authorize]
     public class EvolucionesController : Controller
     {
         private readonly HistoriaClinicaDbContext _context;
@@ -26,7 +26,7 @@ namespace tp_nt1a_4.Controllers
         // GET: Evoluciones
         public async Task<IActionResult> Index()
         {
-            var historiaClinicaDbContext = _context.Evoluciones.Include(e => e.Episodio).Include(e => e.Nota).Include(e => e.Profesional);
+            var historiaClinicaDbContext = _context.Evoluciones.Include(e => e.Episodio).Include(e => e.Notas).Include(e => e.Profesional);
             return View(await historiaClinicaDbContext.ToListAsync());
         }
 
@@ -40,7 +40,7 @@ namespace tp_nt1a_4.Controllers
 
             var evolucion = await _context.Evoluciones
                 .Include(e => e.Episodio)
-                .Include(e => e.Nota)
+                .Include(e => e.Notas)
                 .Include(e => e.Profesional)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (evolucion == null)
@@ -52,34 +52,37 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Evoluciones/Create
-        public IActionResult Create()
+        [Authorize(Roles = nameof(Rol.Profesional))]
+        public IActionResult Create(Guid episodioId)
         {
-            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
-            ViewData["NotaoId"] = new SelectList(_context.Notas, "Id", "Mensaje");
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
+            //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
+            //ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje");
+            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
+            ViewBag.episodioId = episodioId;
             return View();
         }
 
         // POST: Evoluciones/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = nameof(Rol.Profesional))]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,DescripcionAtencion,EstadoAbierto,NotaoId,EpisodioId,ProfesionalId")] Evolucion evolucion)
+        public async Task<IActionResult> Create(Evolucion evolucion,Guid episodioId)
         {
             if (ModelState.IsValid)
             {
                 evolucion.Id = Guid.NewGuid();
                 evolucion.FechaYHoraInicio = DateTime.Now;
-               // var profesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                //evolucion.Profesional = profesionalId; como podemos traer el profesional se usa linkQ?
+                evolucion.ProfesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                evolucion.EpisodioId = episodioId;
                 _context.Add(evolucion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["NotaoId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaoId);
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
+            //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
+            //ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
+            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
 
@@ -97,7 +100,6 @@ namespace tp_nt1a_4.Controllers
                 return NotFound();
             }
             ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["NotaoId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaoId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
@@ -135,11 +137,10 @@ namespace tp_nt1a_4.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["NotaoId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaoId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
-
+        /*
         // GET: Evoluciones/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
@@ -171,10 +172,12 @@ namespace tp_nt1a_4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        */
 
         private bool EvolucionExists(Guid id)
         {
             return _context.Evoluciones.Any(e => e.Id == id);
         }
+
     }
 }
