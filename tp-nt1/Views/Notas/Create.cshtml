@@ -10,6 +10,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            <input type="hidden" name="evolucionId" value="@ViewBag.evolucionId"/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Mensaje" class="control-label"></label>
@@ -17,20 +18,20 @@
                 <span asp-validation-for="Mensaje" class="text-danger"></span>
             </div>
             <!--
-            <div class="form-group">
-                <label asp-for="FechaYHora" class="control-label"></label>
-                <input asp-for="FechaYHora" class="form-control" />
-                <span asp-validation-for="FechaYHora" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmpleadoId" class="control-label"></label>
-                <select asp-for="EmpleadoId" class ="form-control" asp-items="ViewBag.EmpleadoId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProfesionalId" class="control-label"></label>
-                <select asp-for="ProfesionalId" class ="form-control" asp-items="ViewBag.ProfesionalId"></select>
-            </div>
-                -->
+    <div class="form-group">
+        <label asp-for="FechaYHora" class="control-label"></label>
+        <input asp-for="FechaYHora" class="form-control" />
+        <span asp-validation-for="FechaYHora" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EmpleadoId" class="control-label"></label>
+        <select asp-for="EmpleadoId" class ="form-control" asp-items="ViewBag.EmpleadoId"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProfesionalId" class="control-label"></label>
+        <select asp-for="ProfesionalId" class ="form-control" asp-items="ViewBag.ProfesionalId"></select>
+    </div>
+        -->
             <div class="form-group">
                 <input type="submit" value="Crear" class="btn btn-primary" />
             </div>

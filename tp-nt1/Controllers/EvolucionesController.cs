@@ -179,5 +179,55 @@ namespace tp_nt1a_4.Controllers
             return _context.Evoluciones.Any(e => e.Id == id);
         }
 
+        public async Task<IActionResult> MiEvolucion(Guid evolucionId)
+        {
+            var evolucion = await _context.Evoluciones
+                  .Include(e => e.Notas)
+                  .FirstOrDefaultAsync(m => m.Id == evolucionId);
+
+            return View(evolucion);
+        }
+
+        // GET: Evoluciones/Edit/5
+        public async Task<IActionResult> CerrarEvolucion(Guid evolucionId)
+        {
+            var evolucion = await _context.Evoluciones.FindAsync(evolucionId);
+            if (evolucion == null)
+            {
+                return NotFound();
+            }
+     
+            return View(evolucion);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CerrarEvolucion(Evolucion evolucion)
+        {
+            var evolucionDb = _context.Evoluciones.Find(evolucion.Id);
+            try
+                {
+                
+                    if (evolucionDb.EstadoAbierto)
+                    {
+                        evolucionDb.FechaYHoraAlta = evolucion.FechaYHoraAlta;
+                        evolucionDb.EstadoAbierto = false;
+                        evolucionDb.FechaYHoraCierre = DateTime.Now;
+                    }
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EvolucionExists(evolucion.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("MiEpisodio","Episodios", new {id = evolucionDb.EpisodioId});
+        }
     }
 }

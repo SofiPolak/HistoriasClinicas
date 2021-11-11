@@ -60,5 +60,7 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a> |
+    <a asp-controller="Evoluciones" asp-action="MiEvolucion" asp-route-evolucionId="@Model.Id">Ver notas</a> |
+    <a asp-controller="Evoluciones" asp-action="CerrarEvolucion" asp-route-evolucionId="@Model.Id">Cerrar evolucion</a> |
     <a asp-action="Index">Volver</a>
 </div>

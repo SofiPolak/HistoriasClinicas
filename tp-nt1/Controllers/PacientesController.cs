@@ -38,7 +38,7 @@ namespace tp_nt1a_4.Controllers
         {
             var profesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var historiaClinicaDbContext = _context.Pacientes.Include(p => p.ObraSocial)
-                .Where(p => p.HistoriaClinica.Episodios.Any(e => e.Epicrisis.ProfesionalId == profesionalId));
+                .Where(p => p.HistoriaClinica.Episodios.Any(e => e.RegistroEvoluciones.Any(y => y.ProfesionalId == profesionalId)));
             var historias = await historiaClinicaDbContext.ToListAsync();
             return View(historias);
         }
