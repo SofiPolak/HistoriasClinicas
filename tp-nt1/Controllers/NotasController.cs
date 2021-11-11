@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using tp_nt1.Database;
 using tp_nt1.Models;
+using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
@@ -50,10 +52,11 @@ namespace tp_nt1a_4.Controllers
 
         // GET: Notas/Create
         [Authorize(Roles = "Empleado,Profesional")]
-        public IActionResult Create()
+        public IActionResult Create(Guid evolucionId)
         {
-            ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido");
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
+            //ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido");
+            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
+            ViewBag.evolucionId = evolucionId;
             return View();
         }
 
@@ -63,21 +66,28 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> Create([Bind("Id,Mensaje,FechaYHora,EmpleadoId,ProfesionalId")] Nota nota)
+        public async Task<IActionResult> Create(Guid evolucionId, Nota nota)
         {
             if (ModelState.IsValid)
             {
                 nota.Id = Guid.NewGuid();
                 nota.FechaYHora = DateTime.Now;
-                // var usuarioId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                //nota.Profesional = usuarioId; como podemos traer el profesional se usa linkQ?
-                //nota.Empleado = usuarioId; como podemos traer el profesional se usa linkQ? Nota tiene empleado y profesional tenemos que traer a los dos?
+                nota.EvolucionId = evolucionId;
+                var usuarioId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                if(User.IsInRole(nameof(Rol.Empleado)))
+                {
+                    nota.EmpleadoId = usuarioId;
+                }
+                else
+                {
+                    nota.ProfesionalId = usuarioId;
+                }
                 _context.Add(nota);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", nota.EmpleadoId);
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", nota.ProfesionalId);
+            //ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", nota.EmpleadoId);
+            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", nota.ProfesionalId);
             return View(nota);
         }
 

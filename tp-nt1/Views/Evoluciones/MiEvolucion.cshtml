@@ -1,0 +1,36 @@
+﻿@model tp_nt1.Models.Evolucion
+
+@{
+    var notas = Model.Notas;
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h5>Notas</h5>
+                @if (User.IsInRole(nameof(Rol.Profesional)) || User.IsInRole(nameof(Rol.Empleado)))
+                {
+                    <a class="btn btn-outline-info btn-sm btn-block" asp-controller="Notas" asp-action="Create" asp-route-evolucionId="@Model.Id">+ Agregar nota</a>
+}
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var n in notas)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelE => n.Mensaje)
+                </td>
+                <td>
+                    <a asp-controller="Notas" asp-action="Details" asp-route-id="@n.Id">Ver nota</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
