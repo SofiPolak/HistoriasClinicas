@@ -106,7 +106,14 @@ namespace tp_nt1.Controllers
             }
 
             // Completo estos dos campos para poder retornar a la vista en caso de errores.
-            ViewBag.Error = "Usuario o contraseña incorrectos";
+            if (rol != Rol.Empleado && rol != Rol.Paciente && rol != Rol.Profesional)
+            {
+                ViewBag.Error = "El Rol no fue seleccionado";
+            }
+            else
+            {
+                ViewBag.Error = "Usuario o contraseña incorrectos";
+            }
             ViewBag.UserName = username;
             TempData[_Return_Url] = returnUrl;
 
