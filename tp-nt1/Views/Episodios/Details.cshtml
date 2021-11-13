@@ -1,7 +1,7 @@
 @model tp_nt1.Models.Episodio
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle";
 }
 
 
@@ -65,9 +65,15 @@
     <!--<a asp-controller="Evolucion" asp-action="Details" asp-route-id="@Model.Id">Agregar Epicrisis</a>-->
     <!--agregar un condicional para poner en gris el boton de evoluciones -->
     <a asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.Id">Ver Evoluciones</a>
-    @if (User.IsInRole(nameof(Rol.Empleado)))
+    <a asp-action="PreCerrarEpisodio" asp-route-id="@Model.Id">Cerrar episodio</a>
+
+    @*@if (User.IsInRole(nameof(Rol.Empleado)) || User.IsInRole(nameof(Rol.Profesional)))
     {
-<a asp-controller="Episodios" asp-action="Edit" asp-route-id="@Model.Id">Cerrar episodio</a>}
+        <div class="text-danger">
+            @ViewBag.Error
+        </div>
+        <a asp-action="PreCerrarEpisodio" asp-route="@Model">Cerrar episodio</a>
+    }*@
 
     <a asp-action="Index">Volver</a>
 

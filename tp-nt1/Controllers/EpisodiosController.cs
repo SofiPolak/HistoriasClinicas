@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using tp_nt1.Database;
 using tp_nt1.Models;
-using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
@@ -191,7 +189,8 @@ namespace tp_nt1a_4.Controllers
             
             return View(episodio);
         }
-
+        /*
+        [HttpGet]
         public async Task<IActionResult> CerrarEpisodio(Guid episodioId)
         {
             var episodio = await _context.Episodios.FindAsync(episodioId);
@@ -211,14 +210,10 @@ namespace tp_nt1a_4.Controllers
             var episodioDb = _context.Episodios.Find(episodio.Id);
             try
             {
+                episodioDb.FechaYHoraAlta = episodio.FechaYHoraAlta;
+                episodioDb.EstadoAbierto = false;
+                episodioDb.FechaYHoraCierre = DateTime.Now;
 
-                if (episodioDb.EstadoAbierto)
-                {
-
-                    episodioDb.FechaYHoraAlta = episodio.FechaYHoraAlta;
-                    episodioDb.EstadoAbierto = false;
-                    episodioDb.FechaYHoraCierre = DateTime.Now;
-                }
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -233,6 +228,36 @@ namespace tp_nt1a_4.Controllers
                 }
             }
             return RedirectToAction("MiHistoriaClinica", "HistoriasClinicas", new { id = episodioDb.HistoriaId });
+        }
+        */
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Empleado,Profesional")]
+        public IActionResult PreCerrarEpisodio(Guid id)
+        {
+            var episodioDb = _context.Episodios.Find(id);
+
+                if (episodioDb.EstadoAbierto)
+                {
+                    var evoluciones = episodioDb.RegistroEvoluciones;
+
+                    int i = 0;
+                    while (evoluciones[i].EstadoAbierto == false)
+                    {
+                        i++;
+                    }
+                    if (i == evoluciones.Count)
+                    {
+                        ViewBag.EpisodioId = id;
+                        return RedirectToAction("Create", "Diagnosticos");
+                    }
+                    ViewBag.Error = "Hay evoluciones abiertas en este episodio";
+                return RedirectToAction("MiEpisodio", id);  
+                }
+            return View();
+            
         }
     }
 }
