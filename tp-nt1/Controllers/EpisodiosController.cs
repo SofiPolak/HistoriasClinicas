@@ -180,21 +180,7 @@ namespace tp_nt1a_4.Controllers
             return _context.Episodios.Any(e => e.Id == id);
         }
         
-        [HttpPost]
-        [Authorize(Roles = "Empleado,Profesional")]
-        public IActionResult CerrarEpisodio(Guid episodioId)
-        {
-            var episodio = _context.Episodios.Find(episodioId);
-
-            if (episodio.EstadoAbierto)
-            {
-                episodio.EstadoAbierto = false;
-                episodio.FechaYHoraCierre = DateTime.Now;
-            }
-            _context.SaveChanges();
-
-            return View("Details", episodio);
-        }
+       
         public async Task<IActionResult> MiEpisodio(Guid id)
         {
             var episodio = await _context.Episodios
@@ -205,5 +191,49 @@ namespace tp_nt1a_4.Controllers
             
             return View(episodio);
         }
+
+        public async Task<IActionResult> CerrarEpisodio(Guid episodioId)
+        {
+            var episodio = await _context.Episodios.FindAsync(episodioId);
+            if (episodio == null)
+            {
+                return NotFound();
+            }
+
+            return View(episodio);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Empleado,Profesional")]
+        public async Task<IActionResult> CerrarEpisodio(Episodio episodio)
+        {
+            var episodioDb = _context.Episodios.Find(episodio.Id);
+            try
+            {
+
+                if (episodioDb.EstadoAbierto)
+                {
+
+                    episodioDb.FechaYHoraAlta = episodio.FechaYHoraAlta;
+                    episodioDb.EstadoAbierto = false;
+                    episodioDb.FechaYHoraCierre = DateTime.Now;
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EpisodioExists(episodio.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("MiHistoriaClinica", "HistoriasClinicas", new { id = episodioDb.HistoriaId });
+        }
     }
 }
+
