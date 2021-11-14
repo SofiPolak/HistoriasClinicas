@@ -54,6 +54,8 @@ namespace tp_nt1a_4.Controllers
         public IActionResult Create()
         {
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id");
+            ViewData["episodioId"] = TempData["episodioId"];
+                
             return View();
         }
 
@@ -63,23 +65,23 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = nameof(Rol.Profesional))]
-        public async Task<IActionResult> Create(Diagnostico diagnostico)
+        public async Task<IActionResult> Create(Diagnostico diagnostico, Guid episodioId)
         {
             if (ModelState.IsValid)
             {
                 diagnostico.Id = Guid.NewGuid();
-                _context.Add(diagnostico);
-                /*
+
                 var epicrisis = new Epicrisis();
                 epicrisis.Id = Guid.NewGuid();
                 epicrisis.FechaYHora = DateTime.Now;
                 epicrisis.Diagnostico = diagnostico;
                 epicrisis.ProfesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                epicrisis.EpisodioId = 
-                */
+                epicrisis.EpisodioId = episodioId;
+                diagnostico.Epicrisis = epicrisis;
+                _context.Add(diagnostico);
                 await _context.SaveChangesAsync();
                 
-                return RedirectToAction("Create", "Epicrisis");
+                return RedirectToAction("Details", "Epicrisis", new { id = epicrisis.Id });
             }
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
             return View(diagnostico);

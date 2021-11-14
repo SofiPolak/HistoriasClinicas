@@ -72,7 +72,6 @@ namespace tp_nt1a_4.Controllers
                 epicrisis.Id = Guid.NewGuid();
                 epicrisis.FechaYHora = DateTime.Now;
                 epicrisis.ProfesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                epicrisis.EpisodioId =
                 _context.Add(epicrisis);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

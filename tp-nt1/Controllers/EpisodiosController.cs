@@ -233,7 +233,6 @@ namespace tp_nt1a_4.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult PreCerrarEpisodio(Guid id)
         {
@@ -248,10 +247,10 @@ namespace tp_nt1a_4.Controllers
                     ViewBag.Error = "Hay evoluciones abiertas en este episodio";
                     return RedirectToAction("Details", id);
                 }
-                ViewBag.EpisodioId = id;
+                TempData["episodioId"] = id;
                 return RedirectToAction("Create", "Diagnosticos");
             }
-            return View();
+            return RedirectToAction("Details", new { id });
 
         }
     }

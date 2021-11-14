@@ -69,12 +69,16 @@
 
 
     @if (User.IsInRole(nameof(Rol.Empleado)) || User.IsInRole(nameof(Rol.Profesional)))
-        {
+     {
+        <form asp-action="PreCerrarEpisodio">
+            <input type="hidden" name="id" value="@Model.Id"/>
             <div class="text-danger">
                 @ViewBag.Error
             </div>
-            <a class="btn btn-outline-info btn-sm" asp-action="PreCerrarEpisodio" asp-route-id="@Model.Id">Cerrar episodio</a>
-        }
+
+            <button type="submit" class="btn btn-outline-info btn-sm">Cerrar episodio</button>
+        </form>
+      }
 
     <a class="btn btn-outline-info btn-sm" asp-action="Index">Volver</a>
 
@@ -82,3 +86,4 @@
         <a asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@Model.Id">Volver</a>
            -->
 </div>
+
