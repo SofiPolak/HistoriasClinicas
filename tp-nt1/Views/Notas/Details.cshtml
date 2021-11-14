@@ -35,6 +35,11 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-outline-info btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
+
+    @if ((User.IsInRole(nameof(Rol.Empleado)) || User.IsInRole(nameof(Rol.Profesional))) && ViewBag.Estado)
+    {
+        <a class="btn btn-outline-info btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
+    }
+
     <a class="btn btn-outline-info btn-sm" asp-controller="Evoluciones" asp-action="MiEvolucion" asp-route-evolucionId="@Model.EvolucionId">Volver</a>
 </div>

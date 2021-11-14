@@ -103,7 +103,7 @@ namespace tp_nt1a_4.Controllers
                 paciente.HistoriaClinica = new HistoriaClinica() { PacienteId = paciente.Id, Id = Guid.NewGuid() };
                 _context.Add(paciente);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
 
             ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);

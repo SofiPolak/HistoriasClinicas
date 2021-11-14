@@ -1,5 +1,4 @@
 using System;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -185,7 +184,6 @@ namespace tp_nt1a_4.Controllers
             var evolucion = await _context.Evoluciones
                   .Include(e => e.Notas)
                   .FirstOrDefaultAsync(m => m.Id == evolucionId);
-
             return View(evolucion);
         }
 
@@ -214,8 +212,9 @@ namespace tp_nt1a_4.Controllers
                         evolucionDb.FechaYHoraAlta = evolucion.FechaYHoraAlta;
                         evolucionDb.EstadoAbierto = false;
                         evolucionDb.FechaYHoraCierre = DateTime.Now;
+                        await _context.SaveChangesAsync();
                     }
-                    await _context.SaveChangesAsync();
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {

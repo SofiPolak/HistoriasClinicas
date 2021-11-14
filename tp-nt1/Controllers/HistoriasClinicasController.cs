@@ -189,7 +189,7 @@ namespace tp_nt1a_4.Controllers
                 .Include(historiaClinica => historiaClinica.Episodios)
                 .FirstOrDefault(historiaClinica => historiaClinica.PacienteId == pacienteId);
 
-
+            TempData["pacienteId"] = pacienteId;
             return View("MiHistoriaClinica", historiaClinica);
         }
 

@@ -29,7 +29,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Episodios/Details/5
-        public async Task<IActionResult> Details(Guid? id, string url)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -44,7 +44,7 @@ namespace tp_nt1a_4.Controllers
             {
                 return NotFound();
             }
-
+            TempData["pacienteId"] = _context.HistoriasClinicas.Find(episodio.HistoriaId).PacienteId;
             return View(episodio);
         }
 

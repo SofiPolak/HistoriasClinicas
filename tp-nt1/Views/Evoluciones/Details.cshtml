@@ -66,5 +66,5 @@
         <a class="btn btn-outline-info btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
         <a class="btn btn-outline-info btn-sm" asp-controller="Evoluciones" asp-action="CerrarEvolucion" asp-route-evolucionId="@Model.Id">Cerrar evolucion</a>
     }
-    <a class="btn btn-outline-info btn-sm" asp-action="Index">Volver</a>
+    <a class="btn btn-outline-info btn-sm" asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.EpisodioId">Volver</a>
 </div>

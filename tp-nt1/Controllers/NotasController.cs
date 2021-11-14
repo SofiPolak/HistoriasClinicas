@@ -46,6 +46,8 @@ namespace tp_nt1a_4.Controllers
             {
                 return NotFound();
             }
+            var evolucion = _context.Evoluciones.Find(nota.EvolucionId);
+            ViewBag.Estado = evolucion.EstadoAbierto;
             return View(nota);
         }
 
