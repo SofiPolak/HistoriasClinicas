@@ -68,13 +68,13 @@
 
 
 
-    @*@if (User.IsInRole(nameof(Rol.Empleado)) || User.IsInRole(nameof(Rol.Profesional)))
+    @if (User.IsInRole(nameof(Rol.Empleado)) || User.IsInRole(nameof(Rol.Profesional)))
         {
             <div class="text-danger">
                 @ViewBag.Error
             </div>
             <a class="btn btn-outline-info btn-sm" asp-action="PreCerrarEpisodio" asp-route-id="@Model.Id">Cerrar episodio</a>
-        }*@
+        }
 
     <a class="btn btn-outline-info btn-sm" asp-action="Index">Volver</a>
 

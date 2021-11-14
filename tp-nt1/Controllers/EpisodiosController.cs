@@ -246,7 +246,7 @@ namespace tp_nt1a_4.Controllers
                 if (episodioDb.RegistroEvoluciones.Any(evolucion => evolucion.EstadoAbierto))
                 {
                     ViewBag.Error = "Hay evoluciones abiertas en este episodio";
-                    return RedirectToAction("MiEpisodio", id);
+                    return RedirectToAction("Details", id);
                 }
                 ViewBag.EpisodioId = id;
                 return RedirectToAction("Create", "Diagnosticos");
