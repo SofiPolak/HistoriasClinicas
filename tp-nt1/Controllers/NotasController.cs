@@ -46,7 +46,6 @@ namespace tp_nt1a_4.Controllers
             {
                 return NotFound();
             }
-
             return View(nota);
         }
 
