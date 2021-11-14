@@ -1,7 +1,7 @@
 @model tp_nt1.Models.Epicrisis
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle";
 }
 
 <div>
@@ -9,7 +9,7 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaYHora)
+            Fecha y hora
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaYHora)
@@ -32,5 +32,5 @@
     <!--
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
         -->
-    <a asp-action="Index">Volver</a>
+    <a class="btn btn-outline-info btn-sm" asp-action="Index">Volver</a>
 </div>

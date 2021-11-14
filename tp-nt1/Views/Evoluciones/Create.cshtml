@@ -1,7 +1,7 @@
 @model tp_nt1.Models.Evolucion
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear";
 }
 
 <h4>Evolucion</h4>
@@ -35,6 +35,7 @@
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="EstadoAbierto" /> @Html.DisplayNameFor(model => model.EstadoAbierto)
+                    Estado abierto
                 </label>
             </div>
             <!--<div class="form-group">
@@ -51,14 +52,14 @@
     </div>
         -->
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-outline-info btn-sm" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Volver</a>
+    <a class="btn btn-outline-info btn-sm" asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {
