@@ -28,6 +28,7 @@ namespace tp_nt1a_4.Controllers
         {
             var historiaClinicaDbContext = _context.Evoluciones.Include(e => e.Episodio).Include(e => e.Notas).Include(e => e.Profesional);
             return View(await historiaClinicaDbContext.ToListAsync());
+
         }
 
         // GET: Evoluciones/Details/5
@@ -184,6 +185,7 @@ namespace tp_nt1a_4.Controllers
             var evolucion = await _context.Evoluciones
                   .Include(e => e.Notas)
                   .FirstOrDefaultAsync(m => m.Id == evolucionId);
+            ViewBag.Estado = evolucion.EstadoAbierto;
             return View(evolucion);
         }
 

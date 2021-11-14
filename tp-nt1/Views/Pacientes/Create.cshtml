@@ -66,9 +66,16 @@
         </div>
     </div>
 
-    <div>
+<div>
+    @if (User.IsInRole(nameof(Rol.Empleado)))
+    {
+        <a class="btn btn-outline-info btn-sm" asp-controller="Pacientes" asp-action="Index">Volver</a>
+    }
+    else
+    {
         <a class="btn btn-outline-info btn-sm" asp-controller="Home" asp-action="Index">Volver</a>
-    </div>
+    }
+</div>
 
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

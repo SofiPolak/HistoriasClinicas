@@ -57,6 +57,7 @@ namespace tp_nt1a_4.Controllers
         {
             //ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido");
             //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
+
             ViewBag.evolucionId = evolucionId;
             return View();
         }

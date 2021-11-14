@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <input type ="hidden" name="hClinicaId" value="@ViewBag.hClinicaId"/>
+            <input type="hidden" name="hClinicaId" value="@ViewBag.hClinicaId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Motivo" class="control-label"></label>
@@ -28,9 +28,8 @@
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-outline-info btn-sm">Volver</a>
+    <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@ViewBag.pacienteId">Volver</a>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

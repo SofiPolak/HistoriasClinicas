@@ -79,8 +79,9 @@ namespace tp_nt1a_4.Controllers
                 epicrisis.EpisodioId = episodioId;
                 diagnostico.Epicrisis = epicrisis;
                 _context.Add(diagnostico);
-                await _context.SaveChangesAsync();
-                
+                var episodio = _context.Episodios.Find(episodioId);
+                episodio.EstadoAbierto = false;
+                await _context.SaveChangesAsync(); 
                 return RedirectToAction("Details", "Epicrisis", new { id = epicrisis.Id });
             }
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);

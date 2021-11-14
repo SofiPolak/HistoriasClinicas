@@ -52,7 +52,7 @@ namespace tp_nt1a_4.Controllers
         [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult Create(Guid hClinicaId)
         {
-
+            ViewBag.pacienteId = _context.HistoriasClinicas.Find(hClinicaId).PacienteId;
             ViewBag.hClinicaId = hClinicaId;
             return View();
         }
