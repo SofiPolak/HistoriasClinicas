@@ -79,7 +79,7 @@ namespace tp_nt1a_4.Controllers
                 evolucion.EpisodioId = episodioId;
                 _context.Add(evolucion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details");
             }
             //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
             //ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);

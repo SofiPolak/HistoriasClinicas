@@ -29,7 +29,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Episodios/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(Guid? id, string url)
         {
             if (id == null)
             {
@@ -75,7 +75,7 @@ namespace tp_nt1a_4.Controllers
 
                 _context.Add(episodio);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Pacientes");
             }
 
             return View(episodio);

@@ -84,7 +84,8 @@ namespace tp_nt1a_4.Controllers
                 }
                 _context.Add(nota);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.EvolucionId = evolucionId;
+                return RedirectToAction("Details", new { id = nota.Id });
             }
             //ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", nota.EmpleadoId);
             //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", nota.ProfesionalId);
