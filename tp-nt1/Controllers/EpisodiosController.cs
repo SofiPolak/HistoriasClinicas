@@ -186,7 +186,6 @@ namespace tp_nt1a_4.Controllers
                   .Include(e => e.HistoriaClinica)
                   .Include(e => e.RegistroEvoluciones)
                   .FirstOrDefaultAsync(m => m.Id == id);
-
             return View(episodio);
         }
         /*

@@ -119,7 +119,7 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Mensaje,FechaYHora,EmpleadoId,ProfesionalId")] Nota nota)
+        public async Task<IActionResult> Edit(Guid id, Nota nota)
         {
             if (id != nota.Id)
             {

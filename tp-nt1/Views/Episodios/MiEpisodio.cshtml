@@ -10,7 +10,7 @@
         <tr>
             <th>
                 <h5>Evoluciones</h5>
-                @if (User.IsInRole(nameof(Rol.Profesional)))
+                @if (User.IsInRole(nameof(Rol.Profesional))&& Model.EstadoAbierto)
                 {
                     <a class="btn btn-outline-info" asp-controller="Evoluciones" asp-action="Create" asp-route-episodioId="@Model.Id">+ Crear Evolucion</a>
                 }

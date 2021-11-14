@@ -184,8 +184,7 @@ namespace tp_nt1a_4.Controllers
         {
             var evolucion = await _context.Evoluciones
                   .Include(e => e.Notas)
-                  .FirstOrDefaultAsync(m => m.Id == evolucionId);
-            ViewBag.Estado = evolucion.EstadoAbierto;
+                  .FirstOrDefaultAsync(m => m.Id == evolucionId);  
             return View(evolucion);
         }
 
