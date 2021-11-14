@@ -52,7 +52,7 @@ namespace tp_nt1a_4.Controllers
         [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult Create(Guid hClinicaId)
         {
-           
+
             ViewBag.hClinicaId = hClinicaId;
             return View();
         }
@@ -63,7 +63,7 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Empleado")]
-        public async Task<IActionResult> Create(Episodio episodio,Guid hClinicaId)
+        public async Task<IActionResult> Create(Episodio episodio, Guid hClinicaId)
         {
             if (ModelState.IsValid)
             {
@@ -72,12 +72,12 @@ namespace tp_nt1a_4.Controllers
                 episodio.FechaYHoraInicio = DateTime.Now;
                 episodio.HistoriaId = hClinicaId;
                 episodio.EmpleadoId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            
+
                 _context.Add(episodio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-             
+
             return View(episodio);
         }
 
@@ -117,7 +117,7 @@ namespace tp_nt1a_4.Controllers
             if (ModelState.IsValid)
             {
                 try
-                { 
+                {
                     _context.Update(episodio);
                     await _context.SaveChangesAsync();
                 }
@@ -177,8 +177,8 @@ namespace tp_nt1a_4.Controllers
         {
             return _context.Episodios.Any(e => e.Id == id);
         }
-        
-       
+
+
         public async Task<IActionResult> MiEpisodio(Guid id)
         {
             var episodio = await _context.Episodios
@@ -186,7 +186,7 @@ namespace tp_nt1a_4.Controllers
                   .Include(e => e.HistoriaClinica)
                   .Include(e => e.RegistroEvoluciones)
                   .FirstOrDefaultAsync(m => m.Id == id);
-            
+
             return View(episodio);
         }
         /*
@@ -237,27 +237,22 @@ namespace tp_nt1a_4.Controllers
         [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult PreCerrarEpisodio(Guid id)
         {
-            var episodioDb = _context.Episodios.Find(id);
+            var episodioDb = _context.Episodios
+                .Include(episodio => episodio.RegistroEvoluciones)
+                .FirstOrDefault(episodio => episodio.Id == id);
 
-                if (episodioDb.EstadoAbierto)
+            if (episodioDb.EstadoAbierto)
+            {
+                if (episodioDb.RegistroEvoluciones.Any(evolucion => evolucion.EstadoAbierto))
                 {
-                    var evoluciones = episodioDb.RegistroEvoluciones;
-
-                    int i = 0;
-                    while (evoluciones[i].EstadoAbierto == false)
-                    {
-                        i++;
-                    }
-                    if (i == evoluciones.Count)
-                    {
-                        ViewBag.EpisodioId = id;
-                        return RedirectToAction("Create", "Diagnosticos");
-                    }
                     ViewBag.Error = "Hay evoluciones abiertas en este episodio";
-                return RedirectToAction("MiEpisodio", id);  
+                    return RedirectToAction("MiEpisodio", id);
                 }
+                ViewBag.EpisodioId = id;
+                return RedirectToAction("Create", "Diagnosticos");
+            }
             return View();
-            
+
         }
     }
 }
