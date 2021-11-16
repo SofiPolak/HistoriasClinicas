@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -64,11 +65,13 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = nameof(Rol.Profesional))]
-        public async Task<IActionResult> Create([Bind("Id,FechaYHora,EpisodioId,ProfesionalId")] Epicrisis epicrisis)
+        public async Task<IActionResult> Create(Epicrisis epicrisis)
         {
             if (ModelState.IsValid)
             {
                 epicrisis.Id = Guid.NewGuid();
+                epicrisis.FechaYHora = DateTime.Now;
+                epicrisis.ProfesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 _context.Add(epicrisis);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

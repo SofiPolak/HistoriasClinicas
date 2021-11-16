@@ -1,20 +1,20 @@
 @model tp_nt1.Models.Paciente
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle";
 }
 
 <div>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ObraSocial)
+            Obra Social
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ObraSocial.Nombre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreUsuario)
+            Usuario
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NombreUsuario)
@@ -38,7 +38,7 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaAlta)
+            Fecha de Alta
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaAlta)
@@ -66,7 +66,16 @@
 <div>
     @if (User.IsInRole(nameof(Rol.Empleado)))
     {
-<a asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
-}
-<a asp-action="Index">Volver</a>
+        <a class="btn btn-outline-info btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
+        <a class="btn btn-outline-info btn-sm" asp-action="Index">Volver</a>
+    }
+    else if (User.IsInRole(nameof(Rol.Profesional)))
+    {
+        <a class="btn btn-outline-info btn-sm" asp-action="Index">Volver</a>
+    }
+    else
+    {
+        <a class="btn btn-outline-info btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
+        <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="MiHistoriaClinica">Volver</a>
+    }
 </div>

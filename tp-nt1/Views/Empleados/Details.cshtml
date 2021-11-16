@@ -1,7 +1,7 @@
 @model tp_nt1.Models.Empleado
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle";
 }
 
 <div>
@@ -14,7 +14,7 @@
             @Html.DisplayFor(model => model.Legajo)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreUsuario)
+            Usuario
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NombreUsuario)
@@ -38,7 +38,7 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaAlta)
+            Fecha de Alta
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FechaAlta)
@@ -64,6 +64,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Actualizar datos</a> |
-    <a asp-action="Index">Volver</a>
+    <a class="btn btn-outline-info btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
+    <a class="btn btn-outline-info btn-sm" asp-action="Index">Volver</a>
 </div>

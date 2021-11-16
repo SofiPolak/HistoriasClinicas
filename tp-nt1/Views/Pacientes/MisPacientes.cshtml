@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<tp_nt1.Models.Paciente>;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Mis pacientes";
 }
 
 <!--
@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.Apellido)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ObraSocial)
+                Obra Social
             </th>
             <!--
             <th>
@@ -83,7 +83,7 @@
                 <td>
                     @*<a asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
                         <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>*@
-                    <a asp-controller="HistoriasClinicas" asp-action="Details" asp-route-id="@item.HistoriaClinica">Ver Historia Clinica</a> |
+                    <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@item.Id">Ver Historia Clinica</a>                   
                     @*<a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>*@
                 </td>
             </tr>

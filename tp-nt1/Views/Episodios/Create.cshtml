@@ -1,14 +1,14 @@
 @model tp_nt1.Models.Episodio
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear";
 }
-<h4>+ Nuevo episodio</h4>
+<h4>Episodio</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <input type ="hidden" name="hClinicaId" value="@ViewBag.hClinicaId"/>
+            <input type="hidden" name="hClinicaId" value="@ViewBag.hClinicaId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Motivo" class="control-label"></label>
@@ -21,16 +21,15 @@
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-outline-info btn-sm btn-block" />
+                <input type="submit" value="Crear" class="btn btn-outline-info btn-sm" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Volver</a>
+    <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@ViewBag.pacienteId">Volver</a>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -46,7 +46,8 @@ namespace tp_nt1a_4.Controllers
             {
                 return NotFound();
             }
-
+            var evolucion = _context.Evoluciones.Find(nota.EvolucionId);
+            ViewBag.Estado = evolucion.EstadoAbierto;
             return View(nota);
         }
 
@@ -56,6 +57,7 @@ namespace tp_nt1a_4.Controllers
         {
             //ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido");
             //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
+
             ViewBag.evolucionId = evolucionId;
             return View();
         }
@@ -84,7 +86,8 @@ namespace tp_nt1a_4.Controllers
                 }
                 _context.Add(nota);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.EvolucionId = evolucionId;
+                return RedirectToAction("Details", new { id = nota.Id });
             }
             //ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", nota.EmpleadoId);
             //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", nota.ProfesionalId);
@@ -116,7 +119,7 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Mensaje,FechaYHora,EmpleadoId,ProfesionalId")] Nota nota)
+        public async Task<IActionResult> Edit(Guid id, Nota nota)
         {
             if (id != nota.Id)
             {

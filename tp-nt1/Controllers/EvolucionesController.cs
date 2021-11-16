@@ -28,6 +28,7 @@ namespace tp_nt1a_4.Controllers
         {
             var historiaClinicaDbContext = _context.Evoluciones.Include(e => e.Episodio).Include(e => e.Notas).Include(e => e.Profesional);
             return View(await historiaClinicaDbContext.ToListAsync());
+
         }
 
         // GET: Evoluciones/Details/5
@@ -78,7 +79,7 @@ namespace tp_nt1a_4.Controllers
                 evolucion.EpisodioId = episodioId;
                 _context.Add(evolucion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details");
             }
             //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
             //ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
@@ -183,8 +184,7 @@ namespace tp_nt1a_4.Controllers
         {
             var evolucion = await _context.Evoluciones
                   .Include(e => e.Notas)
-                  .FirstOrDefaultAsync(m => m.Id == evolucionId);
-
+                  .FirstOrDefaultAsync(m => m.Id == evolucionId);  
             return View(evolucion);
         }
 
@@ -213,8 +213,9 @@ namespace tp_nt1a_4.Controllers
                         evolucionDb.FechaYHoraAlta = evolucion.FechaYHoraAlta;
                         evolucionDb.EstadoAbierto = false;
                         evolucionDb.FechaYHoraCierre = DateTime.Now;
+                        await _context.SaveChangesAsync();
                     }
-                    await _context.SaveChangesAsync();
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using tp_nt1.Database;
 using tp_nt1.Models;
-using tp_nt1.Models.Enums;
 
 namespace tp_nt1a_4.Controllers
 {
@@ -46,7 +44,7 @@ namespace tp_nt1a_4.Controllers
             {
                 return NotFound();
             }
-
+            TempData["pacienteId"] = _context.HistoriasClinicas.Find(episodio.HistoriaId).PacienteId;
             return View(episodio);
         }
 
@@ -54,7 +52,7 @@ namespace tp_nt1a_4.Controllers
         [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult Create(Guid hClinicaId)
         {
-           
+            ViewBag.pacienteId = _context.HistoriasClinicas.Find(hClinicaId).PacienteId;
             ViewBag.hClinicaId = hClinicaId;
             return View();
         }
@@ -65,7 +63,7 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Empleado")]
-        public async Task<IActionResult> Create(Episodio episodio,Guid hClinicaId)
+        public async Task<IActionResult> Create(Episodio episodio, Guid hClinicaId)
         {
             if (ModelState.IsValid)
             {
@@ -74,12 +72,12 @@ namespace tp_nt1a_4.Controllers
                 episodio.FechaYHoraInicio = DateTime.Now;
                 episodio.HistoriaId = hClinicaId;
                 episodio.EmpleadoId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            
+
                 _context.Add(episodio);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Pacientes");
             }
-             
+
             return View(episodio);
         }
 
@@ -119,7 +117,7 @@ namespace tp_nt1a_4.Controllers
             if (ModelState.IsValid)
             {
                 try
-                { 
+                {
                     _context.Update(episodio);
                     await _context.SaveChangesAsync();
                 }
@@ -179,22 +177,8 @@ namespace tp_nt1a_4.Controllers
         {
             return _context.Episodios.Any(e => e.Id == id);
         }
-        
-        [HttpPost]
-        [Authorize(Roles = "Empleado,Profesional")]
-        public IActionResult CerrarEpisodio(Guid episodioId)
-        {
-            var episodio = _context.Episodios.Find(episodioId);
 
-            if (episodio.EstadoAbierto)
-            {
-                episodio.EstadoAbierto = false;
-                episodio.FechaYHoraCierre = DateTime.Now;
-            }
-            _context.SaveChanges();
 
-            return View("Details", episodio);
-        }
         public async Task<IActionResult> MiEpisodio(Guid id)
         {
             var episodio = await _context.Episodios
@@ -202,8 +186,72 @@ namespace tp_nt1a_4.Controllers
                   .Include(e => e.HistoriaClinica)
                   .Include(e => e.RegistroEvoluciones)
                   .FirstOrDefaultAsync(m => m.Id == id);
-            
             return View(episodio);
+        }
+        /*
+        [HttpGet]
+        public async Task<IActionResult> CerrarEpisodio(Guid episodioId)
+        {
+            var episodio = await _context.Episodios.FindAsync(episodioId);
+            if (episodio == null)
+            {
+                return NotFound();
+            }
+
+            return View(episodio);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Empleado,Profesional")]
+        public async Task<IActionResult> CerrarEpisodio(Episodio episodio)
+        {
+            var episodioDb = _context.Episodios.Find(episodio.Id);
+            try
+            {
+                episodioDb.FechaYHoraAlta = episodio.FechaYHoraAlta;
+                episodioDb.EstadoAbierto = false;
+                episodioDb.FechaYHoraCierre = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EpisodioExists(episodio.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("MiHistoriaClinica", "HistoriasClinicas", new { id = episodioDb.HistoriaId });
+        }
+        */
+
+
+        [HttpPost]
+        [Authorize(Roles = "Empleado,Profesional")]
+        public IActionResult PreCerrarEpisodio(Guid id)
+        {
+            var episodioDb = _context.Episodios
+                .Include(episodio => episodio.RegistroEvoluciones)
+                .FirstOrDefault(episodio => episodio.Id == id);
+
+            if (episodioDb.EstadoAbierto)
+            {
+                if (episodioDb.RegistroEvoluciones.Any(evolucion => evolucion.EstadoAbierto))
+                {
+                    ViewBag.Error = "Hay evoluciones abiertas en este episodio";
+                    return RedirectToAction("Details", id);
+                }
+                TempData["episodioId"] = id;
+                return RedirectToAction("Create", "Diagnosticos");
+            }
+            return RedirectToAction("Details", new { id });
+
         }
     }
 }
+

@@ -1,7 +1,7 @@
 @model tp_nt1.Models.Episodio
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle";
 }
 
 
@@ -22,25 +22,25 @@
             @Html.DisplayFor(model => model.Descripcion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaYHoraInicio)
+            Fecha y hora de inicio
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaYHoraInicio)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaYHoraAlta)
+            Fecha y hora del alta
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaYHoraAlta)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaYHoraCierre)
+            Fecha y hora de cierre
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaYHoraCierre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EstadoAbierto)
+            Estado abierto
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.EstadoAbierto)
@@ -64,14 +64,24 @@
 <div>
     <!--<a asp-controller="Evolucion" asp-action="Details" asp-route-id="@Model.Id">Agregar Epicrisis</a>-->
     <!--agregar un condicional para poner en gris el boton de evoluciones -->
-    <a asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.Id">Ver Evoluciones</a>
-    @if (User.IsInRole(nameof(Rol.Empleado)))
+    <a class="btn btn-outline-info btn-sm" asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.Id">Ver Evoluciones</a>
+
+
+
+    @if (User.IsInRole(nameof(Rol.Empleado)) || User.IsInRole(nameof(Rol.Profesional)))
     {
-<a asp-controller="Episodios" asp-action="Edit" asp-route-id="@Model.Id">Cerrar episodio</a>}
+        <form asp-action="PreCerrarEpisodio">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <div class="text-danger">
+                @ViewBag.Error
+            </div>
 
-    <a asp-action="Index">Volver</a>
+            <button type="submit" class="btn btn-outline-info btn-sm">Cerrar episodio</button>
+        </form>
+    }
 
-    <!--
-        <a asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@Model.Id">Volver</a>
-           -->
+    <a class="btn btn-outline-info btn-sm" asp-controller="Epicrisis" asp-action="Details" asp-route-epicrisisId="@Model.Id">Ver epicrisis</a>
+
+    <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@TempData["pacienteId"]">Volver</a>
 </div>
+

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,8 @@ namespace tp_nt1a_4.Controllers
         public IActionResult Create()
         {
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id");
+            ViewData["episodioId"] = TempData["episodioId"];
+                
             return View();
         }
 
@@ -62,14 +65,24 @@ namespace tp_nt1a_4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = nameof(Rol.Profesional))]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion,Recomendacion,EpicrisisId")] Diagnostico diagnostico)
+        public async Task<IActionResult> Create(Diagnostico diagnostico, Guid episodioId)
         {
             if (ModelState.IsValid)
             {
                 diagnostico.Id = Guid.NewGuid();
+
+                var epicrisis = new Epicrisis();
+                epicrisis.Id = Guid.NewGuid();
+                epicrisis.FechaYHora = DateTime.Now;
+                epicrisis.Diagnostico = diagnostico;
+                epicrisis.ProfesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                epicrisis.EpisodioId = episodioId;
+                diagnostico.Epicrisis = epicrisis;
                 _context.Add(diagnostico);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var episodio = _context.Episodios.Find(episodioId);
+                episodio.EstadoAbierto = false;
+                await _context.SaveChangesAsync(); 
+                return RedirectToAction("Details", "Epicrisis", new { id = epicrisis.Id });
             }
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
             return View(diagnostico);

@@ -10,9 +10,9 @@
         <tr>
             <th>
                 <h5>Evoluciones</h5>
-                @if (User.IsInRole(nameof(Rol.Profesional)))
+                @if (User.IsInRole(nameof(Rol.Profesional))&& Model.EstadoAbierto)
                 {
-                    <a class="btn btn-outline-info btn-sm btn-block" asp-controller="Evoluciones" asp-action="Create" asp-route-episodioId="@Model.Id">Crear Evolucion</a>
+                    <a class="btn btn-outline-info" asp-controller="Evoluciones" asp-action="Create" asp-route-episodioId="@Model.Id">+ Crear Evolucion</a>
                 }
             </th>
             <th></th>
@@ -29,10 +29,13 @@
                     <!--
             <a asp-action="Details" asp-route-id="@e.Id">Ver Evolucion</a>
     -->
-                    <a asp-controller="Evoluciones" asp-action="Details" asp-route-id="@e.Id">Ver evolucion</a>
+                    <a class="btn btn-outline-info btn-sm" asp-controller="Evoluciones" asp-action="Details" asp-route-id="@e.Id">Ver evolucion</a>
+                    
                 </td>
             </tr>
+
         }
     </tbody>
 </table>
+<a class="btn btn-outline-info btn-sm" asp-action="Details" asp-route-id="@Model.Id">Volver</a>
 
