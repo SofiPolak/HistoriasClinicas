@@ -10,7 +10,8 @@ namespace tp_nt1.Models
         [Key]
         public Guid Id { get; set; }
 
-       
+        [Display(Name = "Fecha de inicio")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
         public DateTime FechaYHoraInicio { get; set; }
 
         [Display(Name = "Fecha de alta")]

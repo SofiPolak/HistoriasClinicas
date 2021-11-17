@@ -39,6 +39,7 @@ namespace tp_nt1.Models
        
         [ForeignKey(nameof(Empleado))]
         public Guid EmpleadoId { get; set; }
+
         public Empleado EmpleadoRegistra { get; set; }
 
         [ForeignKey(nameof(HistoriaClinica))]
