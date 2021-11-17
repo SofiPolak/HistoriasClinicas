@@ -5,7 +5,7 @@
 }
 
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -15,20 +15,31 @@
                     <a class="btn btn-outline-info" asp-controller="Notas" asp-action="Create" asp-route-evolucionId="@Model.Id">+ Agregar nota</a>
                 }
             </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(modelE => notas[0].Mensaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelE => notas[0].FechaYHora)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var n in notas)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelE => n.Mensaje)
-                </td>
-                <td>
-                    <a class="btn btn-outline-info btn-sm" asp-controller="Notas" asp-action="Details" asp-route-id="@n.Id">Ver nota</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelE => n.Mensaje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelE => n.FechaYHora)
+            </td>
+            <td>
+                <a class="btn btn-outline-info btn-sm" asp-controller="Notas" asp-action="Details" asp-route-id="@n.Id">Ver nota</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

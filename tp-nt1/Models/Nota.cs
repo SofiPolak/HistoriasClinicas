@@ -14,6 +14,8 @@ namespace tp_nt1.Models
         [MaxLength(250, ErrorMessage = "{0} admite un máximo de {1} caracteres")]
         public string Mensaje { get; set; }
 
+        [Display(Name = "Fecha y hora")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
         public DateTime FechaYHora { get; set; }
 
         [ForeignKey(nameof(Empleado))]

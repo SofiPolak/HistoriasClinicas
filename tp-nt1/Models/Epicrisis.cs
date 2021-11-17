@@ -9,7 +9,9 @@ namespace tp_nt1.Models
     {
         [Key]
         public Guid Id { get; set; }
-            
+
+        [Display(Name = "Fecha y hora")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
         public DateTime FechaYHora { get; set; }
 
         public Diagnostico Diagnostico { get; set; }
