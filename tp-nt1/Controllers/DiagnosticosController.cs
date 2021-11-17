@@ -22,14 +22,6 @@ namespace tp_nt1a_4.Controllers
         {
             _context = context;
         }
-
-        // GET: Diagnosticos
-        public async Task<IActionResult> Index()
-        {
-            var historiaClinicaDbContext = _context.Diagnosticos.Include(d => d.Epicrisis);
-            return View(await historiaClinicaDbContext.ToListAsync());
-        }
-
         // GET: Diagnosticos/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
@@ -54,8 +46,8 @@ namespace tp_nt1a_4.Controllers
         public IActionResult Create()
         {
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id");
-            ViewData["episodioId"] = TempData["episodioId"];
-                
+            TempData["episodioId"] = TempData["episodioId"];
+           
             return View();
         }
 
@@ -81,7 +73,9 @@ namespace tp_nt1a_4.Controllers
                 _context.Add(diagnostico);
                 var episodio = _context.Episodios.Find(episodioId);
                 episodio.EstadoAbierto = false;
-                await _context.SaveChangesAsync(); 
+                episodio.FechaYHoraCierre = DateTime.Now;
+                episodio.FechaYHoraAlta = DateTime.Now;
+                await _context.SaveChangesAsync();         
                 return RedirectToAction("Details", "Epicrisis", new { id = epicrisis.Id });
             }
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
@@ -142,41 +136,6 @@ namespace tp_nt1a_4.Controllers
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
             return View(diagnostico);
         }
-
-        /*
-        // GET: Diagnosticos/Delete/5
-        [Authorize(Roles = nameof(Rol.Profesional))]
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var diagnostico = await _context.Diagnosticos
-                .Include(d => d.Epicrisis)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (diagnostico == null)
-            {
-                return NotFound();
-            }
-
-            return View(diagnostico);
-        }
-
-        // POST: Diagnosticos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = nameof(Rol.Profesional))]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var diagnostico = await _context.Diagnosticos.FindAsync(id);
-            _context.Diagnosticos.Remove(diagnostico);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        */
-
         private bool DiagnosticoExists(Guid id)
         {
             return _context.Diagnosticos.Any(e => e.Id == id);

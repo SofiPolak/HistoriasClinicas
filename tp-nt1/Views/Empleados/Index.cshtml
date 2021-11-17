@@ -22,23 +22,6 @@
             <th scope="col">
                 @Html.DisplayNameFor(model => model.Legajo)
             </th>
-            <!--
-                <th>
-                    @Html.DisplayNameFor(model => model.NombreUsuario)
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.FechaAlta)
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Telefono)
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Direccion)
-                </th>
-    -->
         </tr>
     </thead>
     <tbody>
@@ -56,32 +39,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Legajo)
-            </td>
-            <!--
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreUsuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaAlta)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-    -->
+            </td>          
         <td>
             <a class="btn btn-outline-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver info</a>
-            <!--
-            <a class="btn btn-outline-info btn-sm btn-block" asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
-
-                <a class="btn btn-outline-dark btn-sm btn-block" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-    -->
         </td>
         </tr>
 }

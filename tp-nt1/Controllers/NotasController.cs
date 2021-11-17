@@ -23,13 +23,6 @@ namespace tp_nt1a_4.Controllers
             _context = context;
         }
 
-        // GET: Notas
-        public async Task<IActionResult> Index()
-        {
-            var historiaClinicaDbContext = _context.Notas.Include(n => n.Empleado).Include(n => n.Profesional);
-            return View(await historiaClinicaDbContext.ToListAsync());
-        }
-
         // GET: Notas/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
@@ -55,8 +48,6 @@ namespace tp_nt1a_4.Controllers
         [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult Create(Guid evolucionId)
         {
-            //ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido");
-            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
 
             ViewBag.evolucionId = evolucionId;
             return View();
@@ -89,8 +80,7 @@ namespace tp_nt1a_4.Controllers
                 ViewBag.EvolucionId = evolucionId;
                 return RedirectToAction("Details", new { id = nota.Id });
             }
-            //ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", nota.EmpleadoId);
-            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", nota.ProfesionalId);
+
             return View(nota);
         }
 
@@ -149,41 +139,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", nota.EmpleadoId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", nota.ProfesionalId);
             return View(nota);
-        }
-        /*
-        // GET: Notas/Delete/5
-        [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var nota = await _context.Notas
-                .Include(n => n.Empleado)
-                .Include(n => n.Profesional)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (nota == null)
-            {
-                return NotFound();
-            }
-
-            return View(nota);
-        }
-
-        // POST: Notas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var nota = await _context.Notas.FindAsync(id);
-            _context.Notas.Remove(nota);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        */
+        }     
         private bool NotaExists(Guid id)
         {
             return _context.Notas.Any(e => e.Id == id);

@@ -118,37 +118,7 @@ namespace tp_nt1a_4.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(obraSocial);
-        }
-        /*
-        // GET: ObrasSociales/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var obraSocial = await _context.ObrasSociales
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (obraSocial == null)
-            {
-                return NotFound();
-            }
-
-            return View(obraSocial);
-        }
-
-        // POST: ObrasSociales/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var obraSocial = await _context.ObrasSociales.FindAsync(id);
-            _context.ObrasSociales.Remove(obraSocial);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        */
+        }      
         private bool ObraSocialExists(Guid id)
         {
             return _context.ObrasSociales.Any(e => e.Id == id);

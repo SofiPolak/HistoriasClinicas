@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <input type="hidden" name="episodioId" value="@ViewData["episodioId"]"/>
+            <input type="hidden" name="episodioId" value="@TempData["episodioId"]"/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
@@ -20,11 +20,7 @@
                 <label asp-for="Recomendacion" class="control-label"></label>
                 <textarea asp-for="Recomendacion" class="form-control" ></textarea>
                 <span asp-validation-for="Recomendacion" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="Epicrisis" class="control-label"></label>
-                <select asp-for="EpicrisisId" class ="form-control" asp-items="ViewBag.EpicrisisId"></select>
-            </div>*@
+            </div>          
             <div class="form-group">
                 <input type="submit" value="Crear" class="btn btn-outline-info btn-sm" />
             </div>
@@ -33,7 +29,7 @@
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-outline-info btn-sm">Volver</a>
+    <a class="btn btn-outline-info btn-sm" asp-controller="Episodios" asp-action="Details" asp-route-id="@TempData["episodioId"]">Volver</a>
 </div>
 
 @section Scripts {

@@ -156,37 +156,6 @@ namespace tp_nt1a_4.Controllers
             return View(empleado);
         }
 
-        /*
-        // GET: Empleados/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var empleado = await _context.Empleados
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (empleado == null)
-            {
-                return NotFound();
-            }
-
-            return View(empleado);
-        }
-
-        // POST: Empleados/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var empleado = await _context.Empleados.FindAsync(id);
-            _context.Empleados.Remove(empleado);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        */
-
         private bool EmpleadoExists(Guid id)
         {
             return _context.Empleados.Any(e => e.Id == id);

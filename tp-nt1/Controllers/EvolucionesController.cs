@@ -23,14 +23,6 @@ namespace tp_nt1a_4.Controllers
             _context = context;
         }
 
-        // GET: Evoluciones
-        public async Task<IActionResult> Index()
-        {
-            var historiaClinicaDbContext = _context.Evoluciones.Include(e => e.Episodio).Include(e => e.Notas).Include(e => e.Profesional);
-            return View(await historiaClinicaDbContext.ToListAsync());
-
-        }
-
         // GET: Evoluciones/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
@@ -56,9 +48,6 @@ namespace tp_nt1a_4.Controllers
         [Authorize(Roles = nameof(Rol.Profesional))]
         public IActionResult Create(Guid episodioId)
         {
-            //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
-            //ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje");
-            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
             ViewBag.episodioId = episodioId;
             return View();
         }
@@ -77,13 +66,14 @@ namespace tp_nt1a_4.Controllers
                 evolucion.FechaYHoraInicio = DateTime.Now;
                 evolucion.ProfesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 evolucion.EpisodioId = episodioId;
+                evolucion.EstadoAbierto = true;
                 _context.Add(evolucion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details");
+                ViewBag.episodioId = episodioId;
+
+                return RedirectToAction("Details",new { id = evolucion.Id });
             }
-            //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            //ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
-            //ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
+          
             return View(evolucion);
         }
 
@@ -110,7 +100,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,DescripcionAtencion,EstadoAbierto,NotaoId,EpisodioId,ProfesionalId")] Evolucion evolucion)
+        public async Task<IActionResult> Edit(Guid id, Evolucion evolucion)
         {
             if (id != evolucion.Id)
             {
@@ -141,40 +131,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
-        /*
-        // GET: Evoluciones/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var evolucion = await _context.Evoluciones
-                .Include(e => e.Episodio)
-                .Include(e => e.Nota)
-                .Include(e => e.Profesional)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (evolucion == null)
-            {
-                return NotFound();
-            }
-
-            return View(evolucion);
-        }
-
-        // POST: Evoluciones/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var evolucion = await _context.Evoluciones.FindAsync(id);
-            _context.Evoluciones.Remove(evolucion);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        */
-
+    
         private bool EvolucionExists(Guid id)
         {
             return _context.Evoluciones.Any(e => e.Id == id);

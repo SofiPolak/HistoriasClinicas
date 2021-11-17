@@ -163,40 +163,7 @@ namespace tp_nt1a_4.Controllers
             }
             ViewData["EspecialidadId"] = new SelectList(_context.Especialidades, "Id", "Nombre", profesional.EspecialidadId);
             return View(profesional);
-        }
-        /*
-        // GET: Profesionales/Delete/5
-        [Authorize(Roles = nameof(Rol.Empleado))]
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var profesional = await _context.Profesionales
-                .Include(p => p.Especialidad)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (profesional == null)
-            {
-                return NotFound();
-            }
-
-            return View(profesional);
-        }
-
-        // POST: Profesionales/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = nameof(Rol.Empleado))]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var profesional = await _context.Profesionales.FindAsync(id);
-            _context.Profesionales.Remove(profesional);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        */
+        }   
         private bool ProfesionalExists(Guid id)
         {
             return _context.Profesionales.Any(e => e.Id == id);
