@@ -77,9 +77,12 @@ namespace tp_nt1a_4.Controllers
                 evolucion.FechaYHoraInicio = DateTime.Now;
                 evolucion.ProfesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 evolucion.EpisodioId = episodioId;
+                evolucion.EstadoAbierto = true;
                 _context.Add(evolucion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details");
+                ViewBag.episodioId = episodioId;
+
+                return RedirectToAction("Details",new { id = evolucion.Id });
             }
             //ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
             //ViewData["NotaId"] = new SelectList(_context.Notas, "Id", "Mensaje", evolucion.NotaId);
@@ -110,7 +113,7 @@ namespace tp_nt1a_4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,FechaYHoraInicio,FechaYHoraAlta,FechaYHoraCierre,DescripcionAtencion,EstadoAbierto,NotaoId,EpisodioId,ProfesionalId")] Evolucion evolucion)
+        public async Task<IActionResult> Edit(Guid id, Evolucion evolucion)
         {
             if (id != evolucion.Id)
             {
