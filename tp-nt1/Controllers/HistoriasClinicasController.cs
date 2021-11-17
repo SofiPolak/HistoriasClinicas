@@ -52,7 +52,7 @@ namespace tp_nt1a_4.Controllers
             return _context.HistoriasClinicas.Any(e => e.Id == id);
         }
 
-        // metodo que consigue la historia clinica del paciente loggeado
+  
         [Authorize(Roles = nameof(Rol.Paciente))]
         public IActionResult MiHistoriaClinica()
         {
@@ -61,12 +61,11 @@ namespace tp_nt1a_4.Controllers
             var historiaClinica = _context.HistoriasClinicas
                 .Include(historiaClinica => historiaClinica.Episodios)
                 .FirstOrDefault(historiaClinica => historiaClinica.PacienteId == pacienteId);
-                
 
             return View(historiaClinica);
         }
 
-        // metodo que consigue la historia clinica de un paciente
+
         [Authorize(Roles = "Empleado, Profesional")]
         public IActionResult UnaHistoriaClinica(Guid pacienteId)
         {
@@ -76,6 +75,7 @@ namespace tp_nt1a_4.Controllers
                 .FirstOrDefault(historiaClinica => historiaClinica.PacienteId == pacienteId);
 
             TempData["pacienteId"] = pacienteId;
+
             return View("MiHistoriaClinica", historiaClinica);
         }
 

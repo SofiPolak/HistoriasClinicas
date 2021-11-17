@@ -15,6 +15,7 @@ namespace tp_nt1.Models
         [MaxLength(100, ErrorMessage = "{0} admite un máximo de {1} caracteres")]
         [MinLength(2, ErrorMessage = "{0} debe tener un mínimo de {1} caracteres")]
         [RegularExpression(@"[a-zA-Z0-9]*", ErrorMessage = "El campo {0} sólo admite caracteres alfanuméricos")]
+        [Display(Name = "Nombre de usuario")]
         public string NombreUsuario { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
@@ -34,6 +35,8 @@ namespace tp_nt1.Models
         [EmailAddress(ErrorMessage = "El campo {0} debe ser un email válido")]
         public string Email { get; set; }
 
+        [Display(Name = "Fecha de alta")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaAlta { get; set; }
 
         [ScaffoldColumn(false)]

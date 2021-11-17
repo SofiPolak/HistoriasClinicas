@@ -5,15 +5,26 @@
 }
 
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
                 <h5>Evoluciones</h5>
-                @if (User.IsInRole(nameof(Rol.Profesional))&& Model.EstadoAbierto)
+                @if (User.IsInRole(nameof(Rol.Profesional)) && Model.EstadoAbierto)
                 {
                     <a class="btn btn-outline-info" asp-controller="Evoluciones" asp-action="Create" asp-route-episodioId="@Model.Id">+ Crear Evolucion</a>
                 }
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => evoluciones[0].DescripcionAtencion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => evoluciones[0].EstadoAbierto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => evoluciones[0].FechaYHoraCierre)
             </th>
             <th></th>
         </tr>
@@ -21,14 +32,21 @@
     <tbody>
         @foreach (var e in evoluciones)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelE => e.DescripcionAtencion)
-                </td>
-                <td>             
-                    <a class="btn btn-outline-info btn-sm" asp-controller="Evoluciones" asp-action="Details" asp-route-id="@e.Id">Ver evolucion</a>                    
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelE => e.DescripcionAtencion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelE => e.EstadoAbierto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelE => e.FechaYHoraCierre)
+            </td>
+            <td>
+            <td>
+                <a class="btn btn-outline-info btn-sm" asp-controller="Evoluciones" asp-action="Details" asp-route-id="@e.Id">Ver evolucion</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

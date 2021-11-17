@@ -2,7 +2,7 @@
 @{var episodios = Model.Episodios;
 }
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -12,23 +12,41 @@
                     <a class="btn btn-outline-info" asp-controller="Episodios" asp-action="Create" asp-route-hClinicaId="@Model.Id">+ Agregar Episodio</a>
                 }
             </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => episodios[0].Motivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => episodios[0].EstadoAbierto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => episodios[0].FechaYHoraCierre)
+            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var e in episodios)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelE => e.Descripcion)
-                </td>
-                <td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelE => e.Motivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelE => e.EstadoAbierto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelE => e.FechaYHoraCierre)
+            </td>
+            <td>
 
-                    <a class="btn btn-outline-info btn-sm" asp-controller="Episodios" asp-action="Details" asp-route-id="@e.Id">Ver episodio</a>
+                <a class="btn btn-outline-info btn-sm" asp-controller="Episodios" asp-action="Details" asp-route-id="@e.Id">Ver episodio</a>
 
-                </td>
+            </td>
 
-            </tr>
+        </tr>
         }
     </tbody>
 </table>
