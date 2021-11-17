@@ -180,39 +180,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ObraSocialId"] = new SelectList(_context.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
             return View(paciente);
         }
-        /*
-        // GET: Pacientes/Delete/5
-        [Authorize(Roles = "Empleado,Paciente")]
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var paciente = await _context.Pacientes
-                .Include(p => p.ObraSocial)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (paciente == null)
-            {
-                return NotFound();
-            }
-
-            return View(paciente);
-        }
-
-        // POST: Pacientes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Empleado,Paciente")]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var paciente = await _context.Pacientes.FindAsync(id);
-            _context.Pacientes.Remove(paciente);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        */
+  
         private bool PacienteExists(Guid id)
         {
             return _context.Pacientes.Any(e => e.Id == id);

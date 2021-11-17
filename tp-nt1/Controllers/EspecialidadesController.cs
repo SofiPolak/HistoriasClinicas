@@ -118,37 +118,7 @@ namespace tp_nt1a_4.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(especialidad);
-        }
-        /*
-        // GET: Especialidades/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var especialidad = await _context.Especialidades
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (especialidad == null)
-            {
-                return NotFound();
-            }
-
-            return View(especialidad);
-        }
-
-        // POST: Especialidades/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var especialidad = await _context.Especialidades.FindAsync(id);
-            _context.Especialidades.Remove(especialidad);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        */
+        }   
         private bool EspecialidadExists(Guid id)
         {
             return _context.Especialidades.Any(e => e.Id == id);

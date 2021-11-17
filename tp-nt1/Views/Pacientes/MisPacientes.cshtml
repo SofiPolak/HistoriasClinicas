@@ -4,11 +4,6 @@
     ViewData["Title"] = "Mis pacientes";
 }
 
-<!--
-<p>
-    @*<partial name="~/Views/Pacientes/FormBusqueda.cshtml" />*@
-</p>
-    -->
 <table class="table">
     <thead>
         <tr>
@@ -24,24 +19,6 @@
             <th>
                 Obra Social
             </th>
-            <!--
-            <th>
-                @Html.DisplayNameFor(model => model.NombreUsuario)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaAlta)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Telefono)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Direccion)
-            </th>
-            -->
             <th></th>
         </tr>
     </thead>
@@ -61,30 +38,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
                 </td>
-                <!--
                 <td>
-                    @Html.DisplayFor(modelItem => item.NombreUsuario)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaAlta)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefono)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Direccion)
-                </td>
-                -->
-                <td>
-                    @*<a asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
-                        <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>*@
-                    <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@item.Id">Ver Historia Clinica</a>                   
-                    @*<a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>*@
+                    <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@item.Id">Ver Historia Clinica</a>                              
                 </td>
             </tr>
         }

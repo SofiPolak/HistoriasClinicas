@@ -45,29 +45,10 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.EstadoAbierto)
         </dd>
-        <!--
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmpleadoRegistra)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmpleadoRegistra.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HistoriaClinica)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HistoriaClinica.Id)
-        </dd>
-            -->
     </dl>
 </div>
 <div>
-    <!--<a asp-controller="Evolucion" asp-action="Details" asp-route-id="@Model.Id">Agregar Epicrisis</a>-->
-    <!--agregar un condicional para poner en gris el boton de evoluciones -->
     <a class="btn btn-outline-info btn-sm" asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.Id">Ver Evoluciones</a>
-
-
-
     @if (User.IsInRole(nameof(Rol.Empleado)) || User.IsInRole(nameof(Rol.Profesional)))
     {
         <form asp-action="PreCerrarEpisodio">
@@ -76,13 +57,17 @@
                 @ViewBag.Error
             </div>
 
-            <button type="submit" class="btn btn-outline-info btn-sm">Cerrar episodio</button>
+            @if (Model.EstadoAbierto)
+            {
+                <button type="submit" class="btn btn-outline-info btn-sm">Cerrar episodio</button>
+            }
         </form>
     }
-    @if (!Model.EstadoAbierto)
-    {
-        <a class="btn btn-outline-info btn-sm" asp-controller="Epicrisis" asp-action="Details" asp-route-epicrisisId="@Model.Id">Ver epicrisis</a>
-    }
+    @* @if (!Model.EstadoAbierto)
+        {
+            <a class="btn btn-outline-info btn-sm" asp-controller="Diagnosticos" asp-action="Details" asp-route-id="@ViewBag.diagnostico">Ver Diagnostico</a>
+        }
+        *@
 
     <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@TempData["pacienteId"]">Volver</a>
 </div>

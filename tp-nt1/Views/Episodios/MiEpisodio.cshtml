@@ -25,15 +25,10 @@
                 <td>
                     @Html.DisplayFor(modelE => e.DescripcionAtencion)
                 </td>
-                <td>
-                    <!--
-            <a asp-action="Details" asp-route-id="@e.Id">Ver Evolucion</a>
-    -->
-                    <a class="btn btn-outline-info btn-sm" asp-controller="Evoluciones" asp-action="Details" asp-route-id="@e.Id">Ver evolucion</a>
-                    
+                <td>             
+                    <a class="btn btn-outline-info btn-sm" asp-controller="Evoluciones" asp-action="Details" asp-route-id="@e.Id">Ver evolucion</a>                    
                 </td>
             </tr>
-
         }
     </tbody>
 </table>

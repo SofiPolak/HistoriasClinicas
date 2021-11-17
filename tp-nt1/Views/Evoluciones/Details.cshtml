@@ -38,12 +38,6 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EstadoAbierto)
         </dd>
-        @* <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nota)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nota.Mensaje)
-        </dd> *@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Episodio)
         </dt>
@@ -64,7 +58,11 @@
     @if (User.IsInRole(nameof(Rol.Profesional)))
     {
         <a class="btn btn-outline-info btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
-        <a class="btn btn-outline-info btn-sm" asp-controller="Evoluciones" asp-action="CerrarEvolucion" asp-route-evolucionId="@Model.Id">Cerrar evolucion</a>
+        if (Model.EstadoAbierto)
+        {
+            <a class="btn btn-outline-info btn-sm" asp-controller="Evoluciones" asp-action="CerrarEvolucion" asp-route-evolucionId="@Model.Id">Cerrar evolucion</a>
+
+        }
     }
     <a class="btn btn-outline-info btn-sm" asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.EpisodioId">Volver</a>
 </div>

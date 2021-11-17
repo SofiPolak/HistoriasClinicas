@@ -33,14 +33,7 @@
                 <label asp-for="FechaYHoraAlta" class="control-label">Fecha y hora del alta</label>
                 <input asp-for="FechaYHoraAlta" class="form-control" />
                 <span asp-validation-for="FechaYHoraAlta" class="text-danger"></span>
-            </div>
-            <!--
-    <div class="form-group">
-        <label asp-for="FechaYHoraCierre" class="control-label"></label>
-        <input asp-for="FechaYHoraCierre" class="form-control" readonly/>
-        <span asp-validation-for="FechaYHoraCierre" class="text-danger"></span>
-    </div>
-        -->
+            </div>  
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="EstadoAbierto" />
@@ -48,18 +41,6 @@
 
                 </label>
             </div>
-            <!--
-    <div class="form-group">
-        <label asp-for="EmpleadoId" class="control-label"></label>
-        <select asp-for="EmpleadoId" class="form-control" asp-items="ViewBag.EmpleadoId"></select>
-        <span asp-validation-for="EmpleadoId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="HistoriaId" class="control-label"></label>
-        <select asp-for="HistoriaId" class="form-control" asp-items="ViewBag.HistoriaId"></select>
-        <span asp-validation-for="HistoriaId" class="text-danger"></span>
-    </div>
-        -->
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-outline-info btn-sm" />
             </div>

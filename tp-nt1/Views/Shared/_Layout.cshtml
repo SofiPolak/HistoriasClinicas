@@ -33,14 +33,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/alertifyjs/alertify.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <!--
-    @if (TempData["LoggedIn"] as bool? ?? false)
-    {
-        <script>
-                alertify.success('Bienvenido @User.FindFirstValue(ClaimTypes.GivenName)!');
-        </script>
-    }
-        -->
+  
     @RenderSection("Scripts", required: false)
 </body>
  </html>

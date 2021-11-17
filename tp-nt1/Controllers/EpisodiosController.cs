@@ -21,13 +21,6 @@ namespace tp_nt1a_4.Controllers
             _context = context;
         }
 
-        // GET: Episodios
-        public async Task<IActionResult> Index()
-        {
-            var historiaClinicaDbContext = _context.Episodios.Include(e => e.EmpleadoRegistra).Include(e => e.HistoriaClinica);
-            return View(await historiaClinicaDbContext.ToListAsync());
-        }
-
         // GET: Episodios/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
@@ -45,6 +38,7 @@ namespace tp_nt1a_4.Controllers
                 return NotFound();
             }
             TempData["pacienteId"] = _context.HistoriasClinicas.Find(episodio.HistoriaId).PacienteId;
+            
             return View(episodio);
         }
 
@@ -137,42 +131,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", episodio.EmpleadoId);
             ViewData["HistoriaId"] = new SelectList(_context.HistoriasClinicas, "Id", "Id", episodio.HistoriaId);
             return View(episodio);
-        }
-        /*
-        // GET: Episodios/Delete/5
-        [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var episodio = await _context.Episodios
-                .Include(e => e.EmpleadoRegistra)
-                .Include(e => e.HistoriaClinica)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (episodio == null)
-            {
-                return NotFound();
-            }
-
-            return View(episodio);
-        }
-
-        // POST: Episodios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var episodio = await _context.Episodios.FindAsync(id);
-            _context.Episodios.Remove(episodio);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        */
-
+        } 
         private bool EpisodioExists(Guid id)
         {
             return _context.Episodios.Any(e => e.Id == id);
@@ -188,48 +147,6 @@ namespace tp_nt1a_4.Controllers
                   .FirstOrDefaultAsync(m => m.Id == id);
             return View(episodio);
         }
-        /*
-        [HttpGet]
-        public async Task<IActionResult> CerrarEpisodio(Guid episodioId)
-        {
-            var episodio = await _context.Episodios.FindAsync(episodioId);
-            if (episodio == null)
-            {
-                return NotFound();
-            }
-
-            return View(episodio);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Empleado,Profesional")]
-        public async Task<IActionResult> CerrarEpisodio(Episodio episodio)
-        {
-            var episodioDb = _context.Episodios.Find(episodio.Id);
-            try
-            {
-                episodioDb.FechaYHoraAlta = episodio.FechaYHoraAlta;
-                episodioDb.EstadoAbierto = false;
-                episodioDb.FechaYHoraCierre = DateTime.Now;
-
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EpisodioExists(episodio.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction("MiHistoriaClinica", "HistoriasClinicas", new { id = episodioDb.HistoriaId });
-        }
-        */
-
 
         [HttpPost]
         [Authorize(Roles = "Empleado,Profesional")]

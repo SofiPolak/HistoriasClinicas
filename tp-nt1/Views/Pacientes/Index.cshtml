@@ -10,8 +10,6 @@
     {
         <a class="btn btn-outline-info" asp-action="Create">+ Nuevo paciente</a>
     }
-
-    <!-- esto es el from de busqueda pero lo tenemos que sacar <partial name="~/Views/Pacientes/FormBusqueda.cshtml" />-->
 </p>
 <table class="table table-hover">
     <thead>
@@ -27,26 +25,7 @@
             </th>
             <th>
                 Obra Social
-            </th>
-            <!--
-    <th>
-        @Html.DisplayNameFor(model => model.NombreUsuario)
-    </th>
-
-    <th>
-        @Html.DisplayNameFor(model => model.Email)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.FechaAlta)
-    </th>
-
-    <th>
-        @Html.DisplayNameFor(model => model.Telefono)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.Direccion)
-    </th>
-        -->
+            </th>          
             <th></th>
         </tr>
     </thead>
@@ -66,35 +45,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
         </td>
-        <!--
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreUsuario)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaAlta)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-    -->
+ 
     <td>
         <a class="btn btn-outline-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver info</a>
-        <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@item.Id">Ver Historia clinica</a>
-        <!--
-        @if (User.IsInRole(nameof(Rol.Empleado)))
-        {
-    <a class="btn btn-outline-info btn-sm btn-block" asp-action="Edit" asp-route-id="@item.Id">Actualizar</a>
-    <a class="btn btn-outline-dark btn-sm btn-block" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-        }
-         -->
+        <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@item.Id">Ver Historia clinica</a>       
     </td>
     </tr>
     }
