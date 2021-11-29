@@ -49,25 +49,28 @@
 </div>
 <div>
     <a class="btn btn-outline-info btn-sm" asp-controller="Episodios" asp-action="MiEpisodio" asp-route-id="@Model.Id">Ver Evoluciones</a>
-    @if (User.IsInRole(nameof(Rol.Empleado)) || User.IsInRole(nameof(Rol.Profesional)))
+    @if (User.IsInRole(nameof(Rol.Profesional)) && Model.EstadoAbierto && Model.RegistroEvoluciones != null)
     {
-        <form asp-action="PreCerrarEpisodio">
-            <input type="hidden" name="id" value="@Model.Id" />
-            <div class="text-danger">
-                @ViewBag.Error
-            </div>
+<form asp-action="PreCerrarEpisodio">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <div class="text-danger">
+        @ViewBag.Error
+    </div>
+    <button type="submit" class="btn btn-outline-info btn-sm">Cerrar episodio</button>
+</form>}
 
-            @if (Model.EstadoAbierto)
-            {
-                <button type="submit" class="btn btn-outline-info btn-sm">Cerrar episodio</button>
-            }
-        </form>
+    @if (User.IsInRole(nameof(Rol.Empleado)) && Model.EstadoAbierto && Model.RegistroEvoluciones == null)
+    {
+<form asp-action="PreCerrarEpisodioAdministrativo">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-outline-info btn-sm">Cerrar episodio</button>
+</form>
     }
-    @* @if (!Model.EstadoAbierto)
-        {
-            <a class="btn btn-outline-info btn-sm" asp-controller="Diagnosticos" asp-action="Details" asp-route-id="@ViewBag.diagnostico">Ver Diagnostico</a>
-        }
-        *@
+
+    @if (!Model.EstadoAbierto)
+    {
+        <a class="btn btn-outline-info btn-sm" asp-controller="Epicrisis" asp-action="Details" asp-route-id="@TempData["epicrisisId"]">Ver Epicrisis</a>
+    }
 
     <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@TempData["pacienteId"]">Volver</a>
 </div>

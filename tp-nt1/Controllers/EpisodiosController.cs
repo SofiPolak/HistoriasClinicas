@@ -32,13 +32,22 @@ namespace tp_nt1a_4.Controllers
             var episodio = await _context.Episodios
                 .Include(e => e.EmpleadoRegistra)
                 .Include(e => e.HistoriaClinica)
+                .Include(e => e.Epicrisis)
                 .FirstOrDefaultAsync(m => m.Id == id);
+     
             if (episodio == null)
             {
                 return NotFound();
             }
+
             TempData["pacienteId"] = _context.HistoriasClinicas.Find(episodio.HistoriaId).PacienteId;
-            
+
+            if (!episodio.EstadoAbierto)
+            {
+                var epicrisis = episodio.Epicrisis;
+                var epicrisisId = epicrisis.Id;
+                TempData["epicrisisId"] = epicrisisId;
+            }
             return View(episodio);
         }
 
@@ -149,7 +158,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Empleado,Profesional")]
+        [Authorize(Roles = "Profesional")]
         public IActionResult PreCerrarEpisodio(Guid id)
         {
             var episodioDb = _context.Episodios
@@ -167,7 +176,21 @@ namespace tp_nt1a_4.Controllers
                 return RedirectToAction("Create", "Diagnosticos");
             }
             return RedirectToAction("Details", new { id });
+        }
 
+        [HttpPost]
+        [Authorize(Roles = "Empleado")]
+        public IActionResult PreCerrarEpisodioAdministrativo(Guid id)
+        {
+            var episodioDb = _context.Episodios
+                .FirstOrDefault(episodio => episodio.Id == id);
+
+            if (episodioDb.EstadoAbierto && episodioDb.RegistroEvoluciones == null)
+            {
+                TempData["episodioId"] = id;
+                return RedirectToAction("Create", "Diagnosticos");
+            }
+            return RedirectToAction("Details", new { id });
         }
     }
 }

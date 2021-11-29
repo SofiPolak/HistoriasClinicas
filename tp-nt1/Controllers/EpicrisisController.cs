@@ -34,15 +34,17 @@ namespace tp_nt1a_4.Controllers
             var epicrisis = await _context.Epicrisis
                 .Include(e => e.Episodio)
                 .Include(e => e.Profesional)
+                .Include(e => e.Diagnostico)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (epicrisis == null)
             {
                 return NotFound();
             }
-
+            var diagnosticoId = epicrisis.Diagnostico.Id;
+            TempData["diagnosticoId"] = diagnosticoId;
             return View(epicrisis);
         }
-
+        /*
         // GET: Epicrisis/Create
         [Authorize(Roles = nameof(Rol.Profesional))]
         public IActionResult Create()
@@ -73,7 +75,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", epicrisis.ProfesionalId);
             return View(epicrisis);
         }
-      
+      */
         private bool EpicrisisExists(Guid id)
         {
             return _context.Epicrisis.Any(e => e.Id == id);

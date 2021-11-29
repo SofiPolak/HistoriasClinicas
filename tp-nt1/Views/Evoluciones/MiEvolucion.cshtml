@@ -10,7 +10,7 @@
         <tr>
             <th>
                 <h5>Notas</h5>
-                @if ((User.IsInRole(nameof(Rol.Profesional)) || User.IsInRole(nameof(Rol.Empleado))) && Model.EstadoAbierto)
+                @if ((User.IsInRole(nameof(Rol.Profesional)) || User.IsInRole(nameof(Rol.Empleado))) @*&& Model.EstadoAbierto*@)
                 {
                     <a class="btn btn-outline-info" asp-controller="Notas" asp-action="Create" asp-route-evolucionId="@Model.Id">+ Agregar nota</a>
                 }
