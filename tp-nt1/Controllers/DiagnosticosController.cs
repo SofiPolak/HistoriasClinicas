@@ -160,7 +160,8 @@ namespace tp_nt1a_4.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id });
             }
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
             return View(diagnostico);

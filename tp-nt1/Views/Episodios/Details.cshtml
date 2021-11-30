@@ -64,14 +64,19 @@
 <form asp-action="PreCerrarEpisodioAdministrativo">
     <input type="hidden" name="id" value="@Model.Id" />
     <button type="submit" class="btn btn-outline-info btn-sm">Cerrar episodio</button>
-</form>
-    }
+</form>}
 
     @if (!Model.EstadoAbierto)
     {
-        <a class="btn btn-outline-info btn-sm" asp-controller="Epicrisis" asp-action="Details" asp-route-id="@TempData["epicrisisId"]">Ver Epicrisis</a>
-    }
+<a class="btn btn-outline-info btn-sm" asp-controller="Epicrisis" asp-action="Details" asp-route-id="@TempData["epicrisisId"]">Ver Epicrisis</a>}
 
-    <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@TempData["pacienteId"]">Volver</a>
+    @if (User.IsInRole(nameof(Rol.Paciente)))
+    {
+        <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="MiHistoriaClinica" asp-route-pacienteId="@TempData["pacienteId"]">Volver</a>
+    }
+    else
+    {
+        <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="UnaHistoriaClinica" asp-route-pacienteId="@TempData["pacienteId"]">Volver</a>
+    }
 </div>
 
