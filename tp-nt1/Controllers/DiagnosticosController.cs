@@ -110,7 +110,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
             return View(diagnostico);
         }
-
+        /*
         // GET: Diagnosticos/Edit/5
         [Authorize(Roles = nameof(Rol.Profesional))]
         public async Task<IActionResult> Edit(Guid? id)
@@ -160,12 +160,12 @@ namespace tp_nt1a_4.Controllers
                         throw;
                     }
                 }
-                //return RedirectToAction(nameof(Index));
                 return RedirectToAction("Details", new { id });
             }
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
             return View(diagnostico);
         }
+        */
         private bool DiagnosticoExists(Guid id)
         {
             return _context.Diagnosticos.Any(e => e.Id == id);

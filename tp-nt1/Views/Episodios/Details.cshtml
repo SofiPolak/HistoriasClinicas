@@ -72,7 +72,7 @@
 
     @if (User.IsInRole(nameof(Rol.Paciente)))
     {
-        <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="MiHistoriaClinica" asp-route-pacienteId="@TempData["pacienteId"]">Volver</a>
+        <a class="btn btn-outline-info btn-sm" asp-controller="HistoriasClinicas" asp-action="MiHistoriaClinica">Volver</a>
     }
     else
     {

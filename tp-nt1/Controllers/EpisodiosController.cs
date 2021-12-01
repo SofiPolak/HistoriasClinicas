@@ -52,7 +52,7 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Episodios/Create
-        [Authorize(Roles = "Empleado,Profesional")]
+        [Authorize(Roles = "Empleado")]
         public IActionResult Create(Guid hClinicaId)
         {
             ViewBag.pacienteId = _context.HistoriasClinicas.Find(hClinicaId).PacienteId;
@@ -83,7 +83,7 @@ namespace tp_nt1a_4.Controllers
 
             return View(episodio);
         }
-
+        /*
         // GET: Episodios/Edit/5
         [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Edit(Guid? id)
@@ -140,7 +140,8 @@ namespace tp_nt1a_4.Controllers
             ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", episodio.EmpleadoId);
             ViewData["HistoriaId"] = new SelectList(_context.HistoriasClinicas, "Id", "Id", episodio.HistoriaId);
             return View(episodio);
-        } 
+        }
+        */
         private bool EpisodioExists(Guid id)
         {
             return _context.Episodios.Any(e => e.Id == id);

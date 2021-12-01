@@ -1,57 +1,58 @@
-@model tp_nt1.Models.Episodio
+@*@model tp_nt1.Models.Episodio
 
-@{
-    ViewData["Title"] = "Editar";
-}
+    @{
+        ViewData["Title"] = "Editar";
+    }
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Motivo" class="control-label"></label>
-                <textarea asp-for="Motivo" class="form-control" />
-                <span asp-validation-for="Motivo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <textarea asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Motivo" class="control-label"></label>
+                    <textarea asp-for="Motivo" class="form-control" />
+                    <span asp-validation-for="Motivo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Descripcion" class="control-label"></label>
+                    <textarea asp-for="Descripcion" class="form-control" />
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="FechaYHoraInicio" class="control-label">
-                    Fecha y hora de inicio
-                </label>
-                <input asp-for="FechaYHoraInicio" class="form-control" readonly />
-                <span asp-validation-for="FechaYHoraInicio" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="FechaYHoraInicio" class="control-label">
+                        Fecha y hora de inicio
+                    </label>
+                    <input asp-for="FechaYHoraInicio" class="form-control" readonly />
+                    <span asp-validation-for="FechaYHoraInicio" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="FechaYHoraAlta" class="control-label">Fecha y hora del alta</label>
-                <input asp-for="FechaYHoraAlta" class="form-control" />
-                <span asp-validation-for="FechaYHoraAlta" class="text-danger"></span>
-            </div>  
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EstadoAbierto" />
-                    Estado abierto
+                <div class="form-group">
+                    <label asp-for="FechaYHoraAlta" class="control-label">Fecha y hora del alta</label>
+                    <input asp-for="FechaYHoraAlta" class="form-control" />
+                    <span asp-validation-for="FechaYHoraAlta" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="EstadoAbierto" />
+                        Estado abierto
 
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-outline-info btn-sm" />
-            </div>
-        </form>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-outline-info btn-sm" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a class="btn btn-outline-info btn-sm"  asp-action="Index">Volver</a>
-</div>
+    <div>
+        <a class="btn btn-outline-info btn-sm"  asp-action="Index">Volver</a>
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+*@

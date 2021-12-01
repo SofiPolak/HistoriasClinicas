@@ -83,7 +83,7 @@ namespace tp_nt1a_4.Controllers
 
             return View(nota);
         }
-
+        /*
         // GET: Notas/Edit/5
         [Authorize(Roles = "Empleado,Profesional")]
         public async Task<IActionResult> Edit(Guid? id)
@@ -139,7 +139,8 @@ namespace tp_nt1a_4.Controllers
             ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Apellido", nota.EmpleadoId);
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", nota.ProfesionalId);
             return View(nota);
-        }     
+        }
+        */
         private bool NotaExists(Guid id)
         {
             return _context.Notas.Any(e => e.Id == id);

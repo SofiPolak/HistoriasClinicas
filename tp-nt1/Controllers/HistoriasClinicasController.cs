@@ -22,7 +22,7 @@ namespace tp_nt1a_4.Controllers
         {
             _context = context;
         }
-        
+        /*
         // GET: HistoriasClinicas/Create
         public IActionResult Create()
         {
@@ -47,6 +47,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["PacienteId"] = new SelectList(_context.Pacientes, "Id", "Apellido", historiaClinica.PacienteId);
             return View(historiaClinica);
         }
+        */
         private bool HistoriaClinicaExists(Guid id)
         {
             return _context.HistoriasClinicas.Any(e => e.Id == id);

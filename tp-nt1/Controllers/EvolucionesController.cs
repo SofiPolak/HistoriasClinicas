@@ -76,7 +76,7 @@ namespace tp_nt1a_4.Controllers
           
             return View(evolucion);
         }
-
+        /*
         // GET: Evoluciones/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
@@ -131,7 +131,7 @@ namespace tp_nt1a_4.Controllers
             ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
             return View(evolucion);
         }
-    
+    */
         private bool EvolucionExists(Guid id)
         {
             return _context.Evoluciones.Any(e => e.Id == id);
