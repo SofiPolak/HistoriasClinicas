@@ -45,7 +45,6 @@ namespace tp_nt1a_4.Controllers
         [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult Create()
         {
-            ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id");
             TempData["episodioId"] = TempData["episodioId"];
             if (User.IsInRole(nameof(Rol.Empleado)))
             {
@@ -81,7 +80,6 @@ namespace tp_nt1a_4.Controllers
                 await _context.SaveChangesAsync();         
                 return RedirectToAction("Details", "Epicrisis", new { id = epicrisis.Id });
             }
-            ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
             return View(diagnostico);
         }
 
