@@ -29,5 +29,6 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-outline-info btn-sm" asp-controller="Home" asp-action="Index">Volver</a>
+    <a class="btn btn-outline-info btn-sm" asp-controller="Diagnosticos" asp-action="Details" asp-route-id="@TempData["diagnosticoId"]">Ver Diagnostico</a>
+    <a class="btn btn-outline-info btn-sm" asp-controller="Episodios" asp-action="Details" asp-route-id="@Model.EpisodioId">Volver</a>
 </div>

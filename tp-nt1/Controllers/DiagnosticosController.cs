@@ -42,12 +42,14 @@ namespace tp_nt1a_4.Controllers
         }
 
         // GET: Diagnosticos/Create
-        [Authorize(Roles = nameof(Rol.Profesional))]
+        [Authorize(Roles = "Empleado,Profesional")]
         public IActionResult Create()
         {
-            ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id");
             TempData["episodioId"] = TempData["episodioId"];
-           
+            if (User.IsInRole(nameof(Rol.Empleado)))
+            {
+                return View("CreateEmpleado");
+            }
             return View();
         }
 
@@ -78,67 +80,33 @@ namespace tp_nt1a_4.Controllers
                 await _context.SaveChangesAsync();         
                 return RedirectToAction("Details", "Epicrisis", new { id = epicrisis.Id });
             }
-            ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
             return View(diagnostico);
         }
 
-        // GET: Diagnosticos/Edit/5
-        [Authorize(Roles = nameof(Rol.Profesional))]
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var diagnostico = await _context.Diagnosticos.FindAsync(id);
-            if (diagnostico == null)
-            {
-                return NotFound();
-            }
-            ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
-            return View(diagnostico);
-        }
-
-        // POST: Diagnosticos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = nameof(Rol.Profesional))]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Descripcion,Recomendacion,EpicrisisId")] Diagnostico diagnostico)
+        [Authorize(Roles = nameof(Rol.Empleado))]
+        public async Task<IActionResult> CreateEmpleado(Diagnostico diagnostico, Guid episodioId)
         {
-            if (id != diagnostico.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(diagnostico);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DiagnosticoExists(diagnostico.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                diagnostico.Id = Guid.NewGuid();
+
+                var epicrisis = new Epicrisis();
+                epicrisis.Id = Guid.NewGuid();
+                epicrisis.FechaYHora = DateTime.Now;
+                epicrisis.Diagnostico = diagnostico;
+                epicrisis.EpisodioId = episodioId;
+                diagnostico.Epicrisis = epicrisis;
+                _context.Add(diagnostico);
+                var episodio = _context.Episodios.Find(episodioId);
+                episodio.EstadoAbierto = false;
+                episodio.FechaYHoraCierre = DateTime.Now;
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", "Epicrisis", new { id = epicrisis.Id });
             }
             ViewData["EpicrisisId"] = new SelectList(_context.Epicrisis, "Id", "Id", diagnostico.EpicrisisId);
             return View(diagnostico);
-        }
-        private bool DiagnosticoExists(Guid id)
-        {
-            return _context.Diagnosticos.Any(e => e.Id == id);
         }
     }
 }

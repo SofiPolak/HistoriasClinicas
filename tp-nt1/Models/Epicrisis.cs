@@ -21,7 +21,7 @@ namespace tp_nt1.Models
         public Episodio Episodio { get; set; }
 
         [ForeignKey(nameof(Profesional))]
-        public Guid ProfesionalId { get; set; }
+        public Guid? ProfesionalId { get; set; }
         public Profesional Profesional{ get; set; }
     }
 }

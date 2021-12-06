@@ -22,37 +22,7 @@ namespace tp_nt1a_4.Controllers
         {
             _context = context;
         }
-        
-        // GET: HistoriasClinicas/Create
-        public IActionResult Create()
-        {
-            ViewData["PacienteId"] = new SelectList(_context.Pacientes, "Id", "Apellido");
-            return View();
-        }
 
-        // POST: HistoriasClinicas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PacienteId")] HistoriaClinica historiaClinica)
-        {
-            if (ModelState.IsValid)
-            {
-                historiaClinica.Id = Guid.NewGuid();
-                _context.Add(historiaClinica);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["PacienteId"] = new SelectList(_context.Pacientes, "Id", "Apellido", historiaClinica.PacienteId);
-            return View(historiaClinica);
-        }
-        private bool HistoriaClinicaExists(Guid id)
-        {
-            return _context.HistoriasClinicas.Any(e => e.Id == id);
-        }
-
-  
         [Authorize(Roles = nameof(Rol.Paciente))]
         public IActionResult MiHistoriaClinica()
         {
