@@ -44,41 +44,5 @@ namespace tp_nt1a_4.Controllers
             TempData["diagnosticoId"] = diagnosticoId;
             return View(epicrisis);
         }
-        /*
-        // GET: Epicrisis/Create
-        [Authorize(Roles = nameof(Rol.Profesional))]
-        public IActionResult Create()
-        {
-            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion");
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido");
-            return View();
-        }
-
-        // POST: Epicrisis/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = nameof(Rol.Profesional))]
-        public async Task<IActionResult> Create(Epicrisis epicrisis)
-        {
-            if (ModelState.IsValid)
-            {
-                epicrisis.Id = Guid.NewGuid();
-                epicrisis.FechaYHora = DateTime.Now;
-                epicrisis.ProfesionalId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                _context.Add(epicrisis);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", epicrisis.EpisodioId);
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", epicrisis.ProfesionalId);
-            return View(epicrisis);
-        }
-      */
-        private bool EpicrisisExists(Guid id)
-        {
-            return _context.Epicrisis.Any(e => e.Id == id);
-        }
     }
 }

@@ -23,9 +23,5 @@
     </dl>
 </div>
 <div>
-    @* @if (User.IsInRole(nameof(Rol.Profesional)))
-        {
-            <a class="btn btn-outline-info btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Actualizar</a>
-        }*@
     <a class="btn btn-outline-info btn-sm" asp-controller="Epicrisis" asp-action="Details" asp-route-id="@Model.EpicrisisId">Volver</a>
 </div>

@@ -76,67 +76,12 @@ namespace tp_nt1a_4.Controllers
           
             return View(evolucion);
         }
-        /*
-        // GET: Evoluciones/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var evolucion = await _context.Evoluciones.FindAsync(id);
-            if (evolucion == null)
-            {
-                return NotFound();
-            }
-            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
-            return View(evolucion);
-        }
-
-        // POST: Evoluciones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Evolucion evolucion)
-        {
-            if (id != evolucion.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(evolucion);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EvolucionExists(evolucion.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EpisodioId"] = new SelectList(_context.Episodios, "Id", "Descripcion", evolucion.EpisodioId);
-            ViewData["ProfesionalId"] = new SelectList(_context.Profesionales, "Id", "Apellido", evolucion.ProfesionalId);
-            return View(evolucion);
-        }
-    */
+ 
         private bool EvolucionExists(Guid id)
         {
             return _context.Evoluciones.Any(e => e.Id == id);
         }
-
+        
         public async Task<IActionResult> MiEvolucion(Guid evolucionId)
         {
             var evolucion = await _context.Evoluciones
